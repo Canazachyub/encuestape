@@ -22,7 +22,7 @@ export const CONFIG: AppConfig = {
   REFRESH_INTERVAL: 30000,
   DNI_LENGTH: 8,
   WHATSAPP_NUMBER: '51921647291',
-  DEMO_MODE: true,
+  DEMO_MODE: false,
 };
 
 export const REGIONES_PERU: Record<RegionCode, RegionInfo> = {
