@@ -72,6 +72,37 @@
     text-align: center;
   }
 
+  .results-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .results-controls {
+    flex-direction: column;
+  }
+
+  .results-controls select {
+    min-width: 0 !important;
+    width: 100%;
+  }
+
+  .results-hero-inner {
+    flex-direction: column !important;
+    text-align: center;
+    gap: var(--space-md);
+  }
+
+  .results-hero h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .results-categories {
+    flex-wrap: wrap;
+  }
+
+  .results-subitems {
+    flex-wrap: wrap;
+  }
+
   .result-bar-track {
     height: 28px;
   }
@@ -223,6 +254,15 @@
 
   td, th {
     padding: 8px 10px;
+  }
+
+  /* Results chart cards mobile */
+  .results-chart-card {
+    padding: var(--space-md) !important;
+  }
+
+  .info-card {
+    padding: var(--space-md) !important;
   }
 
   /* Result bars mobile */
