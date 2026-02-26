@@ -79,6 +79,7 @@ export default function VotarPage() {
         encuesta_id: encuesta.id,
         dni: dniVerified,
         opcion: selectedOption,
+        region: encuesta.region || 'NACIONAL',
       });
       if (result.exito) {
         const res = await api.getResultados(encuesta.id);

@@ -174,7 +174,20 @@ function registrarVoto(data) {
   const votos = votosSheet.getDataRange().getValues();
   const yaVoto = votos.some(v => v[0] === data.encuesta_id && v[1] === data.dni);
   if (yaVoto) return { exito: false, mensaje: 'Voto duplicado detectado.' };
-  votosSheet.appendRow([data.encuesta_id, data.dni, data.opcion, new Date().toISOString(), data.region || 'No especificada']);
+  // Determine region: use provided region, or look up from Encuestas sheet
+  var region = data.region || '';
+  if (!region || region === 'No especificada') {
+    var encSheet = ss.getSheetByName('Encuestas');
+    var encData = encSheet.getDataRange().getValues();
+    for (var i = 1; i < encData.length; i++) {
+      if (encData[i][0] === data.encuesta_id) {
+        region = encData[i][10] || 'NACIONAL';
+        break;
+      }
+    }
+    if (!region) region = 'NACIONAL';
+  }
+  votosSheet.appendRow([data.encuesta_id, data.dni, data.opcion, new Date().toISOString(), region]);
   return { exito: true, mensaje: 'Voto registrado exitosamente.' };
 }
 

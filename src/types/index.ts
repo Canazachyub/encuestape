@@ -122,6 +122,7 @@ export interface RegistrarVotoRequest {
   encuesta_id: string;
   opcion: string;
   dni: string;
+  region?: string;
 }
 
 export interface RegistrarVotoResponse {
