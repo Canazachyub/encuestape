@@ -338,20 +338,14 @@ export function createAPI(
     async fetchAllPublicData(): Promise<void> {
       if (CONFIG.DEMO_MODE) return;
       try {
-        const [encResp, notResp, denResp, foroResp, statsResp] = await Promise.all([
-          apiGet({ action: 'getEncuestas' }),
-          apiGet({ action: 'getNoticias' }),
-          apiGet({ action: 'getDenuncias' }),
-          apiGet({ action: 'getForo' }),
-          apiGet({ action: 'getEstadisticas' }),
-        ]);
+        const resp = await apiGet({ action: 'getAllPublicData' });
         updateDemoData(prev => ({
           ...prev,
-          encuestas: encResp.encuestas || prev.encuestas,
-          noticias: notResp.noticias || prev.noticias,
-          denuncias: denResp.denuncias || prev.denuncias,
-          foro: foroResp.foro || prev.foro,
-          estadisticas: statsResp.total_votos != null ? statsResp : prev.estadisticas,
+          encuestas: resp.encuestas || prev.encuestas,
+          noticias: resp.noticias || prev.noticias,
+          denuncias: resp.denuncias || prev.denuncias,
+          foro: resp.foro || prev.foro,
+          estadisticas: resp.estadisticas?.total_votos != null ? resp.estadisticas : prev.estadisticas,
         }));
       } catch (err) {
         console.error('Error loading data from API:', err);

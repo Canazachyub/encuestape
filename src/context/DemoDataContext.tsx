@@ -10,6 +10,7 @@ interface DemoDataContextValue {
   data: DemoData;
   updateData: (updater: (prev: DemoData) => DemoData) => void;
   api: APIType;
+  loading: boolean;
 }
 
 const DemoDataContext = createContext<DemoDataContextValue | null>(null);
@@ -72,6 +73,7 @@ function initializeData(): DemoData {
 
 export function DemoDataProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<DemoData>(initializeData);
+  const [loading, setLoading] = useState(!CONFIG.DEMO_MODE);
 
   const dataRef = useRef(data);
   dataRef.current = data;
@@ -95,12 +97,12 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
   // In production mode, fetch initial data from API
   useEffect(() => {
     if (!CONFIG.DEMO_MODE && apiRef.current) {
-      apiRef.current.fetchAllPublicData();
+      apiRef.current.fetchAllPublicData().finally(() => setLoading(false));
     }
   }, []);
 
   return (
-    <DemoDataContext.Provider value={{ data, updateData, api: apiRef.current }}>
+    <DemoDataContext.Provider value={{ data, updateData, api: apiRef.current, loading }}>
       {children}
     </DemoDataContext.Provider>
   );

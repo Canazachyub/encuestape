@@ -24,6 +24,8 @@ function doGet(e) {
     case 'getForo': result = getForo(); break;
     // Imagenes
     case 'getImagenes': result = getImagenes(); break;
+    // Bulk — single call for all public data
+    case 'getAllPublicData': result = getAllPublicData(); break;
     default: result = { error: 'Acción no válida' };
   }
   return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
@@ -646,6 +648,18 @@ function eliminarImagen(data) {
     }
   }
   return { exito: false, mensaje: 'Imagen no encontrada.' };
+}
+
+// ── Bulk Public Data (single call) ─────────────────
+
+function getAllPublicData() {
+  return {
+    encuestas: getEncuestas().encuestas,
+    noticias: getNoticias().noticias,
+    denuncias: getDenuncias().denuncias,
+    foro: getForo().foro,
+    estadisticas: getEstadisticas(),
+  };
 }
 
 // ── Newsletter ─────────────────────────────────────

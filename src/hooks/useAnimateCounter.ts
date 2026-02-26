@@ -7,11 +7,18 @@ export function useAnimateCounter(
   duration = 2000,
 ): string {
   const [display, setDisplay] = useState('0');
-  const animating = useRef(false);
+  const prevTarget = useRef(0);
+  const rafId = useRef(0);
 
   useEffect(() => {
-    if (!shouldAnimate || animating.current) return;
-    animating.current = true;
+    // Don't animate until visible and we have a real value
+    if (!shouldAnimate || target === prevTarget.current) return;
+
+    const from = prevTarget.current;
+    prevTarget.current = target;
+
+    // Cancel any running animation
+    if (rafId.current) cancelAnimationFrame(rafId.current);
 
     const isDecimal = String(target).includes('.');
     const startTime = performance.now();
@@ -20,7 +27,7 @@ export function useAnimateCounter(
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-      const current = target * eased;
+      const current = from + (target - from) * eased;
 
       if (isDecimal) {
         setDisplay(current.toFixed(1));
@@ -29,7 +36,7 @@ export function useAnimateCounter(
       }
 
       if (progress < 1) {
-        requestAnimationFrame(update);
+        rafId.current = requestAnimationFrame(update);
       } else {
         if (isDecimal) {
           setDisplay(target.toFixed(1));
@@ -39,7 +46,8 @@ export function useAnimateCounter(
       }
     }
 
-    requestAnimationFrame(update);
+    rafId.current = requestAnimationFrame(update);
+    return () => { if (rafId.current) cancelAnimationFrame(rafId.current); };
   }, [shouldAnimate, target, duration]);
 
   return display;

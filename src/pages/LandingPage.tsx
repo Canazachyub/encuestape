@@ -18,7 +18,7 @@ import NewsSection from '../components/landing/NewsSection';
 import NewsletterSection from '../components/landing/NewsletterSection';
 
 export default function LandingPage() {
-  const { api, data } = useDemoData();
+  const { api, data, loading } = useDemoData();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<RegionCode | null>(null);
   const [currentTipo, setCurrentTipo] = useState('TODOS');
@@ -54,7 +54,7 @@ export default function LandingPage() {
       <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
       <HeroSection activeEncuesta={activeEncuesta} />
-      <StatsSection stats={data.estadisticas} />
+      <StatsSection stats={data.estadisticas} loading={loading} />
       <NewsSection noticias={data.noticias} />
       <MapSection
         selectedRegion={selectedRegion}

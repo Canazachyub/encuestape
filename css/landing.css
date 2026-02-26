@@ -295,6 +295,16 @@
   margin-bottom: var(--space-sm);
 }
 
+.stat-loading {
+  animation: stat-pulse 1.2s ease-in-out infinite;
+  opacity: 0.4;
+}
+
+@keyframes stat-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
 .stat-label {
   color: var(--text-secondary);
   font-size: 0.9rem;
