@@ -20,9 +20,7 @@ export default function NewsSection({ noticias }: NewsSectionProps) {
     .filter(n => n.publicado)
     .sort((a, b) => new Date(b.fecha_publicacion).getTime() - new Date(a.fecha_publicacion).getTime());
 
-  if (published.length === 0) return null;
-
-  const mainNews = published[0];
+  const mainNews = published[0] || null;
   const sideNews = published.slice(1, 5);
   const destacadas = published.filter(n => n.destacado);
   const carouselNews = destacadas.length > 0 ? destacadas : published.slice(5, 12);
@@ -53,6 +51,8 @@ export default function NewsSection({ noticias }: NewsSectionProps) {
     }, 8000);
     return () => { if (autoPlayRef.current) clearInterval(autoPlayRef.current); };
   }, [hasSlide2]);
+
+  if (published.length === 0) return null;
 
   const resetAutoPlay = () => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
