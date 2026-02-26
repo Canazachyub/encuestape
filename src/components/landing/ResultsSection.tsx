@@ -24,27 +24,27 @@ const CATEGORY_ICONS: Record<string, string> = {
 
 export default function ResultsSection() {
   const { api, data } = useDemoData();
-  const [activeEncuestas, setActiveEncuestas] = useState<Encuesta[]>([]);
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [resultadosMap, setResultadosMap] = useState<Record<string, ResultadosData>>({});
   const [view, setView] = useState<ViewMode>('bars');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-  const loadResults = async () => {
-    const activas = data.encuestas.filter(e => e.estado === 'activa');
-    if (activas.length === 0) return;
-    setActiveEncuestas(activas);
+  const activeEncuestas = useMemo(
+    () => data.encuestas.filter(e => e.estado === 'activa'),
+    [data.encuestas],
+  );
 
-    const newMap: Record<string, ResultadosData> = {};
-    for (const enc of activas) {
-      const res = await api.getResultados(enc.id);
-      if (res) newMap[enc.id] = res;
-    }
-    setResultadosMap(newMap);
+  const currentId = activeEncuestas[selectedIdx]?.id;
+
+  // Fetch results only for the currently selected encuesta
+  const loadCurrentResult = async () => {
+    if (!currentId) return;
+    const res = await api.getResultados(currentId);
+    if (res) setResultadosMap(prev => ({ ...prev, [currentId]: res }));
   };
 
-  useEffect(() => { loadResults(); }, [data]);
-  useAutoRefresh(loadResults, CONFIG.REFRESH_INTERVAL);
+  useEffect(() => { loadCurrentResult(); }, [currentId]);
+  useAutoRefresh(loadCurrentResult, CONFIG.REFRESH_INTERVAL, !!currentId);
 
   // Group encuestas by tipo_eleccion
   const grouped = useMemo(() => {
