@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:commons.wikimedia.org)",
+      "WebFetch(domain:simplemaps.com)",
+      "WebFetch(domain:mapsvg.com)",
+      "Bash(python3:*)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(npm run build)"
+    ]
+  }
+}

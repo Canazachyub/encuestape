@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 200 50"
+   width="200"
+   height="50"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="5.3775"
+     inkscape:cx="75.406788"
+     inkscape:cy="17.759182"
+     inkscape:window-width="2400"
+     inkscape:window-height="1321"
+     inkscape:window-x="2391"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <!-- Icon: Map of Peru as bar chart -->
+  <g
+     transform="translate(5, 5)"
+     id="g4">
+    <rect
+       x="0"
+       y="20"
+       width="8"
+       height="20"
+       rx="2"
+       fill="#D4A012"
+       opacity="0.6"
+       id="rect1" />
+    <rect
+       x="11"
+       y="10"
+       width="8"
+       height="30"
+       rx="2"
+       fill="#D4A012"
+       opacity="0.8"
+       id="rect2" />
+    <rect
+       x="22"
+       y="5"
+       width="8"
+       height="35"
+       rx="2"
+       fill="#D4A012"
+       id="rect3" />
+    <rect
+       x="33"
+       y="15"
+       width="8"
+       height="25"
+       rx="2"
+       fill="#D4A012"
+       opacity="0.7"
+       id="rect4" />
+  </g>
+  <!-- Text -->
+  <text
+     x="47.863338"
+     y="43.497643"
+     font-family="Georgia, serif"
+     font-size="24.5636px"
+     font-weight="700"
+     fill="#0a1e3d"
+     id="text4"
+     style="stroke-width:0.87727">Encuesta</text>
+  <text
+     x="163.37192"
+     y="43.368202"
+     font-family="Georgia, serif"
+     font-size="28px"
+     font-weight="700"
+     fill="#d4a012"
+     id="text5">Pe</text>
+</svg>
