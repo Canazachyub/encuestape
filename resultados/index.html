@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EncuestaPe — Resultados de encuestas en tiempo real.">
+  <title>Resultados — EncuestaPe</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/landing.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+
+  <style>
+    .results-page { padding-top: var(--navbar-height); }
+    .results-hero {
+      background: var(--color-primary);
+      padding: var(--space-2xl) 0;
+      color: var(--text-white);
+    }
+    .results-hero-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .results-hero h1 {
+      font-size: 2rem;
+      color: var(--text-white);
+    }
+    .results-hero p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+    .results-controls {
+      padding: var(--space-lg) 0;
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .results-controls select {
+      padding: 10px 16px;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      background: var(--bg-white);
+      min-width: 250px;
+    }
+    .results-main {
+      padding: var(--space-xl) 0 var(--space-4xl);
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-xl);
+    }
+    .results-chart-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+    .results-chart-card h3 {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: var(--space-md);
+    }
+    .chart-box { position: relative; height: 350px; }
+    .info-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.9rem;
+    }
+    .info-row:last-child { border: none; }
+    .info-label { color: var(--text-secondary); }
+    .info-value { font-weight: 600; }
+    .actions-bar {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-top: var(--space-xl);
+    }
+    @media (max-width: 768px) {
+      .results-grid { grid-template-columns: 1fr; }
+      .results-hero-inner { flex-direction: column; gap: var(--space-md); text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="results-page">
+
+    <!-- Navbar -->
+    <nav class="navbar scrolled" style="background: rgba(10,30,61,0.95);">
+      <div class="container">
+        <a href="../" class="navbar-logo">
+          <img src="../assets/icon-white.svg" alt="" class="navbar-icon">
+          <span style="color: white; font-family: var(--font-display); font-size: 1.2rem;">Encuesta<span style="color: var(--color-accent);">Pe</span></span>
+        </a>
+        <div class="navbar-links">
+          <a href="../">Inicio</a>
+          <a href="../#encuestas">Encuestas</a>
+          <a href="./" class="active">Resultados</a>
+          <a href="../#contacto">Contacto</a>
+          <span class="badge badge-live navbar-live">EN VIVO</span>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="results-hero">
+      <div class="container">
+        <div class="results-hero-inner">
+          <div>
+            <h1>Centro de Resultados</h1>
+            <p>Datos actualizados en tiempo real</p>
+          </div>
+          <span class="badge badge-live" style="font-size: 0.85rem; padding: 6px 16px;">EN VIVO</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <div class="container">
+      <div class="results-controls">
+        <select id="regionFilter">
+          <option value="TODOS">Todas las regiones</option>
+        </select>
+        <select id="tipoFilter">
+          <option value="TODOS">Todos los tipos</option>
+        </select>
+        <select id="encuestaSelect"></select>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container results-main">
+      <div class="results-grid">
+        <div class="results-chart-card">
+          <h3 id="chartTitle">Distribución de votos</h3>
+          <div class="chart-box">
+            <canvas id="mainBarChart"></canvas>
+          </div>
+        </div>
+        <div>
+          <div class="results-chart-card" style="margin-bottom: var(--space-lg);">
+            <h3>Proporción</h3>
+            <div class="chart-box" style="height: 250px;">
+              <canvas id="mainDoughnut"></canvas>
+            </div>
+          </div>
+          <div class="info-card">
+            <h3 style="font-family: var(--font-body); font-weight: 600; margin-bottom: var(--space-md);">Información</h3>
+            <div class="info-row">
+              <span class="info-label">Total participantes</span>
+              <span class="info-value mono" id="infoTotal">0</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Meta</span>
+              <span class="info-value mono" id="infoMeta">0</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Progreso</span>
+              <span class="info-value mono" id="infoProgress">0%</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Inicio</span>
+              <span class="info-value" id="infoStart">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Cierre</span>
+              <span class="info-value" id="infoEnd">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Actualización</span>
+              <span class="info-value" id="infoUpdated">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="results-chart-card">
+        <h3>Tabla detallada</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Opción</th>
+                <th>Votos</th>
+                <th>Porcentaje</th>
+                <th>Barra</th>
+              </tr>
+            </thead>
+            <tbody id="resultsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="actions-bar">
+        <a href="#" class="btn btn-primary btn-sm" id="btnShare">Compartir</a>
+        <button class="btn btn-outline btn-sm" id="btnDownloadCSV" style="color: var(--text-secondary); border-color: var(--border-subtle);">Descargar CSV</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom" style="border-top: none;">
+          <span>&copy; 2026 EncuestaPe.com — Todos los derechos reservados</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/charts.js"></script>
+  <script>
+    let currentResultEncuestaId = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const requestedId = params.get('id');
+
+      // Populate region filter
+      const regionFilter = document.getElementById('regionFilter');
+      Object.entries(REGIONES_PERU).forEach(([key, data]) => {
+        if (key === 'NACIONAL') return; // already "Todas"
+        const opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent = data.nombre;
+        regionFilter.appendChild(opt);
+      });
+
+      // Populate tipo filter
+      const tipoFilter = document.getElementById('tipoFilter');
+      Object.entries(TIPOS_ELECCION).forEach(([key, data]) => {
+        const opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent = data.nombre;
+        tipoFilter.appendChild(opt);
+      });
+
+      // Load encuestas into selector
+      const data = await API.getEncuestas();
+      const select = document.getElementById('encuestaSelect');
+
+      function populateEncuestaSelect(encuestas) {
+        select.innerHTML = '';
+        encuestas.forEach(enc => {
+          const opt = document.createElement('option');
+          opt.value = enc.id;
+          const regionName = REGIONES_PERU[enc.region] ? REGIONES_PERU[enc.region].nombre : '';
+          opt.textContent = `${enc.titulo} (${enc.estado})${regionName && enc.region !== 'NACIONAL' ? ' — ' + regionName : ''}`;
+          select.appendChild(opt);
+        });
+      }
+
+      async function applyFilters() {
+        const region = regionFilter.value;
+        const tipo = tipoFilter.value;
+        const filtered = await API.getEncuestasByFilter(region, tipo);
+        populateEncuestaSelect(filtered.encuestas);
+        if (filtered.encuestas.length > 0) {
+          select.value = filtered.encuestas[0].id;
+          loadResults(filtered.encuestas[0].id);
+        }
+      }
+
+      regionFilter.addEventListener('change', applyFilters);
+      tipoFilter.addEventListener('change', applyFilters);
+
+      populateEncuestaSelect(data.encuestas);
+      select.addEventListener('change', () => loadResults(select.value));
+
+      // Auto-select
+      const startId = requestedId || (data.encuestas[0] && data.encuestas[0].id);
+      if (startId) {
+        select.value = startId;
+        loadResults(startId);
+      }
+
+      // Auto-refresh
+      setInterval(() => {
+        if (currentResultEncuestaId) loadResults(currentResultEncuestaId);
+      }, CONFIG.REFRESH_INTERVAL);
+
+      // CSV download
+      document.getElementById('btnDownloadCSV').addEventListener('click', downloadCSV);
+
+      // Share
+      document.getElementById('btnShare').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (navigator.share) {
+          navigator.share({ title: 'EncuestaPe — Resultados', url: window.location.href });
+        } else {
+          navigator.clipboard.writeText(window.location.href);
+          alert('Enlace copiado al portapapeles');
+        }
+      });
+    });
+
+    async function loadResults(encuestaId) {
+      currentResultEncuestaId = encuestaId;
+
+      const encData = await API.getEncuestas();
+      const enc = encData.encuestas.find(e => e.id === encuestaId);
+      const results = await API.getResultados(encuestaId);
+
+      document.getElementById('chartTitle').textContent = enc ? enc.titulo : 'Resultados';
+
+      // Charts
+      Charts.createBarChart('mainBarChart', results.resultados);
+      Charts.createDoughnutChart('mainDoughnut', results.resultados);
+
+      // Info
+      document.getElementById('infoTotal').textContent = formatNumber(results.total_votos);
+      document.getElementById('infoMeta').textContent = enc ? formatNumber(enc.meta_votos) : '—';
+      const progress = enc && enc.meta_votos > 0 ? ((results.total_votos / enc.meta_votos) * 100).toFixed(1) : '0';
+      document.getElementById('infoProgress').textContent = progress + '%';
+      document.getElementById('infoStart').textContent = enc ? formatDate(enc.fecha_inicio) : '—';
+      document.getElementById('infoEnd').textContent = enc && enc.fecha_fin ? formatDate(enc.fecha_fin) : '—';
+      document.getElementById('infoUpdated').textContent = timeAgo(results.ultima_actualizacion);
+
+      // Table
+      const tbody = document.getElementById('resultsTable');
+      tbody.innerHTML = '';
+      const colors = getChartColors(results.resultados.length);
+
+      results.resultados.forEach((r, i) => {
+        const candidate = enc ? findCandidateData(enc, r.opcion) : null;
+        let avatarHtml = '';
+        let hvLink = '';
+        if (candidate) {
+          avatarHtml = candidate.foto_url
+            ? `<img src="${candidate.foto_url}" alt="" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px;" onerror="this.style.display='none'">`
+            : `<span style="display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--color-primary);color:var(--color-accent);align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;vertical-align:middle;margin-right:8px;">${getInitials(r.opcion)}</span>`;
+          if (candidate.url_hoja_vida) {
+            hvLink = `<a href="${candidate.url_hoja_vida}" target="_blank" style="display:inline-flex;align-items:center;gap:3px;margin-left:6px;font-size:0.7rem;color:var(--color-secondary);text-decoration:none;opacity:0.7;" title="Hoja de vida">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>`;
+          }
+        }
+        tbody.innerHTML += `
+          <tr>
+            <td class="mono" style="font-weight: 700;">${i + 1}</td>
+            <td>${avatarHtml}${r.opcion}${hvLink}</td>
+            <td class="mono" style="font-weight: 700;">${formatNumber(r.cantidad)}</td>
+            <td class="mono">${r.porcentaje}%</td>
+            <td style="width: 150px;">
+              <div class="progress-bar" style="height: 12px;">
+                <div class="progress-bar-fill" style="width: ${r.porcentaje}%; background: ${colors[i]}"></div>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function downloadCSV() {
+      if (!currentResultEncuestaId) return;
+      const data = DEMO_DATA.resultados[currentResultEncuestaId];
+      if (!data) return;
+
+      let csv = 'Opción,Votos,Porcentaje\n';
+      data.resultados.forEach(r => {
+        csv += `"${r.opcion}",${r.cantidad},${r.porcentaje}%\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `resultados_${currentResultEncuestaId}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

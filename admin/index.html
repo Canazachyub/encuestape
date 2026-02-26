@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — EncuestaPe</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="admin-page">
+
+    <!-- LOGIN SCREEN -->
+    <div class="admin-login" id="loginScreen">
+      <div class="login-card">
+        <div class="login-logo">
+          <img src="../assets/logo.svg" alt="EncuestaPe">
+          <h2>Panel de Administración</h2>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="form-label">Usuario</label>
+            <input type="text" class="form-input" id="loginUser" placeholder="admin" autocomplete="username" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contraseña</label>
+            <input type="password" class="form-input" id="loginPass" placeholder="••••••••" autocomplete="current-password" required>
+          </div>
+          <div id="loginError" class="alert alert-error hidden">Credenciales inválidas.</div>
+          <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+        </form>
+        <p style="text-align: center; margin-top: var(--space-md); font-size: 0.8rem; color: var(--text-secondary);">Demo: admin / admin</p>
+      </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div class="admin-layout hidden" id="adminDashboard">
+
+      <!-- Sidebar -->
+      <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-logo">
+          <img src="../assets/icon-white.svg" alt="" class="navbar-icon">
+          <span>Encuesta<span class="pe">Pe</span></span>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="#" class="sidebar-link active" data-section="dashboard">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            Dashboard
+          </a>
+          <a href="#" class="sidebar-link" data-section="encuestas">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z"/></svg>
+            Encuestas
+          </a>
+          <a href="#" class="sidebar-link" data-section="resultados">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            Resultados
+          </a>
+          <a href="#" class="sidebar-link" data-section="config">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            Configuración
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="sidebar-logout" id="btnLogout">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            Cerrar sesión
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="admin-main">
+        <div class="admin-topbar">
+          <div class="flex" style="align-items: center; gap: var(--space-md);">
+            <button class="admin-toggle-sidebar" id="toggleSidebar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+            <h1 id="adminPageTitle">Dashboard</h1>
+          </div>
+          <a href="../" class="btn btn-outline btn-sm" style="color: var(--text-secondary); border-color: var(--border-subtle);">Ver sitio</a>
+        </div>
+
+        <!-- DASHBOARD Section -->
+        <section class="admin-section active" id="sectionDashboard">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">Total votos</div>
+              <div class="kpi-value" id="kpiVotos">0</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Total encuestas</div>
+              <div class="kpi-value" id="kpiEncuestas">0</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Encuestas activas</div>
+              <div class="kpi-value" id="kpiActivas">0</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Regiones</div>
+              <div class="kpi-value" id="kpiRegiones">0</div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3>Votos recientes</h3>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Encuesta</th>
+                    <th>Opción</th>
+                    <th>Tiempo</th>
+                    <th>Región</th>
+                  </tr>
+                </thead>
+                <tbody id="recentVotesTable">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3>Votos por hora (hoy)</h3>
+            <div class="chart-container">
+              <canvas id="chartVotesPerHour"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- ENCUESTAS Section -->
+        <section class="admin-section" id="sectionEncuestas">
+          <div class="admin-table-header">
+            <h2>Gestión de Encuestas</h2>
+            <button class="btn btn-primary btn-sm" id="btnNewEncuesta">+ Nueva encuesta</button>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Región</th>
+                  <th>Tipo</th>
+                  <th>Estado</th>
+                  <th>Votos</th>
+                  <th>Meta</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="encuestasTable">
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- RESULTADOS Section -->
+        <section class="admin-section" id="sectionResultados">
+          <div class="admin-table-header">
+            <h2>Resultados detallados</h2>
+            <select class="form-input" style="width: auto;" id="selectEncuesta">
+            </select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-lg);">
+            <div class="chart-card">
+              <h3>Distribución de votos</h3>
+              <div class="chart-container">
+                <canvas id="chartAdminBar"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>Proporción</h3>
+              <div class="chart-container">
+                <canvas id="chartAdminDoughnut"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="admin-table-header">
+              <h3>Tabla de resultados</h3>
+              <button class="btn btn-outline btn-sm" id="btnExportCSV">Exportar CSV</button>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Opción</th>
+                    <th>Votos</th>
+                    <th>Porcentaje</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsDetailTable">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONFIG Section -->
+        <section class="admin-section" id="sectionConfig">
+          <div class="chart-card">
+            <h3>Configuración del sitio</h3>
+            <p style="color: var(--text-secondary); margin-bottom: var(--space-lg); font-size: 0.9rem;">
+              Estos ajustes se guardan en la hoja "Config" del Google Sheet.
+            </p>
+            <div class="form-group">
+              <label class="form-label">Título del sitio</label>
+              <input type="text" class="form-input" value="EncuestaPe" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Eslogan</label>
+              <input type="text" class="form-input" value="La voz del Perú en datos" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp</label>
+              <input type="text" class="form-input" value="+51921647291" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email de contacto</label>
+              <input type="text" class="form-input" value="contacto@encuestape.com" disabled>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">
+              Para editar la configuración, modifica directamente la hoja "Config" en Google Sheets.
+            </p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Modal: New/Edit Encuesta -->
+    <div class="modal-overlay" id="encuestaModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalTitle">Nueva encuesta</h3>
+          <button class="modal-close" id="modalClose">&times;</button>
+        </div>
+        <form class="encuesta-form" id="encuestaForm">
+          <div class="form-group">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-input" id="formTitulo" placeholder="Dejar vacío para auto-generar (ej: Diputados por Puno)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-input" id="formDescripcion" rows="2" placeholder="Pregunta principal de la encuesta"></textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+            <div class="form-group">
+              <label class="form-label">Tipo de elección</label>
+              <select class="form-input" id="formTipoEleccion">
+                <option value="PRESIDENTE">Presidente</option>
+                <option value="DIPUTADOS">Diputados</option>
+                <option value="SENADORES">Senadores</option>
+                <option value="PARLAMENTO_ANDINO">Parlamento Andino</option>
+                <option value="MUNICIPAL">Municipal</option>
+                <option value="GENERAL">General</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Región</label>
+              <select class="form-input" id="formRegion">
+                <option value="NACIONAL">Nacional</option>
+                <option value="AMAZONAS">Amazonas</option>
+                <option value="ANCASH">Áncash</option>
+                <option value="APURIMAC">Apurímac</option>
+                <option value="AREQUIPA">Arequipa</option>
+                <option value="AYACUCHO">Ayacucho</option>
+                <option value="CAJAMARCA">Cajamarca</option>
+                <option value="CALLAO">Callao</option>
+                <option value="CUSCO">Cusco</option>
+                <option value="HUANCAVELICA">Huancavelica</option>
+                <option value="HUANUCO">Huánuco</option>
+                <option value="ICA">Ica</option>
+                <option value="JUNIN">Junín</option>
+                <option value="LA_LIBERTAD">La Libertad</option>
+                <option value="LAMBAYEQUE">Lambayeque</option>
+                <option value="LIMA">Lima</option>
+                <option value="LORETO">Loreto</option>
+                <option value="MADRE_DE_DIOS">Madre de Dios</option>
+                <option value="MOQUEGUA">Moquegua</option>
+                <option value="PASCO">Pasco</option>
+                <option value="PIURA">Piura</option>
+                <option value="PUNO">Puno</option>
+                <option value="SAN_MARTIN">San Martín</option>
+                <option value="TACNA">Tacna</option>
+                <option value="TUMBES">Tumbes</option>
+                <option value="UCAYALI">Ucayali</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Categoría</label>
+            <select class="form-input" id="formCategoria">
+              <option value="ELECCIONES">Elecciones</option>
+              <option value="MUNICIPAL">Municipal</option>
+              <option value="REGIONAL">Regional</option>
+              <option value="GENERAL">General</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Opciones de respuesta</label>
+            <div class="options-mode-tabs">
+              <button type="button" class="mode-tab active" data-mode="manual">Manual</button>
+              <button type="button" class="mode-tab" data-mode="json">Importar JSON</button>
+            </div>
+
+            <!-- Manual mode -->
+            <div id="manualMode">
+              <div class="options-list" id="optionsList">
+                <div class="option-row">
+                  <input type="text" class="form-input" placeholder="Opción 1" required>
+                  <button type="button" class="btn-remove" onclick="this.parentElement.remove()">&times;</button>
+                </div>
+                <div class="option-row">
+                  <input type="text" class="form-input" placeholder="Opción 2" required>
+                  <button type="button" class="btn-remove" onclick="this.parentElement.remove()">&times;</button>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" id="btnAddOption">+ Agregar opción</button>
+            </div>
+
+            <!-- JSON import mode -->
+            <div id="jsonMode" class="hidden">
+              <div class="json-upload-zone" id="jsonUploadZone">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--text-secondary);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                <p style="font-weight: 500; margin-top: 8px;">Arrastra tu archivo JSON aquí</p>
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">o haz clic para seleccionar</span>
+                <input type="file" id="jsonFileInput" accept=".json,application/json" class="hidden">
+              </div>
+
+              <div id="jsonPreview" class="hidden">
+                <div class="json-preview-header">
+                  <span id="jsonCandidateCount" style="font-weight: 600; font-size: 0.85rem;">0 candidatos</span>
+                  <button type="button" class="btn btn-outline btn-sm" id="btnClearJson" style="color:var(--text-secondary);border-color:var(--border-subtle);padding:4px 10px;font-size:0.75rem;">Limpiar</button>
+                </div>
+                <div class="json-preview-list" id="jsonPreviewList"></div>
+                <div class="json-extra-options">
+                  <label><input type="checkbox" id="addBlankVote" checked> Agregar "Voto en blanco"</label>
+                  <label><input type="checkbox" id="addUndecided" checked> Agregar "Aún no he decidido"</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Meta de votos</label>
+            <input type="number" class="form-input" id="formMeta" value="1000" min="10">
+          </div>
+          <div style="display: flex; gap: var(--space-sm); justify-content: flex-end;">
+            <button type="button" class="btn btn-outline btn-sm" onclick="closeModal()" style="color: var(--text-secondary); border-color: var(--border-subtle);">Cancelar</button>
+            <button type="submit" class="btn btn-primary btn-sm">Guardar encuesta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

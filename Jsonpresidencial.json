@@ -1,0 +1,499 @@
+{
+  "eleccion": "Elecciones Generales 2026",
+  "tipo": "Candidatos Presidenciales",
+  "fuente": "https://votoinformado.jne.gob.pe/presidente-vicepresidentes",
+  "fecha_scraping": "2026-02-23 17:08:31",
+  "total_candidatos": 36,
+  "candidatos": [
+    {
+      "nombre": "PABLO ALFONSO LOPEZ CHAU NAVA",
+      "partido": "AHORA NACION - AN",
+      "partido_id": "2980",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/ddfa74eb-cae3-401c-a34c-35543ae83c57.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2980",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2980",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "RONALD DARWIN ATENCIO SOTOMAYOR",
+      "partido": "ALIANZA ELECTORAL VENCEREMOS",
+      "partido_id": "3025",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/bac0288d-3b21-45ac-8849-39f9177fb020.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/3025",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/3025",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "CESAR ACUÑA PERALTA",
+      "partido": "ALIANZA PARA EL PROGRESO",
+      "partido_id": "1257",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/d6fe3cac-7061-474b-8551-0aa686a54bad.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/1257",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/1257",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nALIANZA PARA EL PROGRESO\nFórmula presidencial\n1\nCESAR ACUÑA PERALTA\nPRESIDENTE DE LA REPÚBLICA\n2\nJESSICA MILAGROS TUMI RIVAS\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nALEJANDRO SOTO REYES\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nALIANZA PARA EL PROGRESO\nFórmula presidencial\n1\nCESAR ACUÑA PERALTA\nPRESIDENTE DE LA REPÚBLICA\n2\nJESSICA MILAGROS TUMI RIVAS\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nALEJANDRO SOTO REYES\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "JOSE DANIEL WILLIAMS ZAPATA",
+      "partido": "AVANZA PAIS - PARTIDO DE INTEGRACION SOCIAL",
+      "partido_id": "2173",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/b60c471f-a6bb-4b42-a4b2-02ea38acbb0d.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2173",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2173",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nAVANZA PAIS - PARTIDO DE INTEGRACION SOCIAL\nFórmula presidencial\n1\nJOSE DANIEL WILLIAMS ZAPATA\nPRESIDENTE DE LA REPÚBLICA\n2\nFERNAN ROMANO ALTUVE-FEBRES LORES\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nADRIANA JOSEFINA TUDELA GUTIERREZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nAVANZA PAIS - PARTIDO DE INTEGRACION SOCIAL\nFórmula presidencial\n1\nJOSE DANIEL WILLIAMS ZAPATA\nPRESIDENTE DE LA REPÚBLICA\n2\nFERNAN ROMANO ALTUVE-FEBRES LORES\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nADRIANA JOSEFINA TUDELA GUTIERREZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "ALVARO GONZALO PAZ DE LA BARRA FREIGEIRO",
+      "partido": "FE EN EL PERU",
+      "partido_id": "2898",
+      "foto_url": "",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2898",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2898",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nFE EN EL PERU\nFórmula presidencial\n1\nALVARO GONZALO PAZ DE LA BARRA FREIGEIRO\nPRESIDENTE DE LA REPÚBLICA\n2\nYESSIKA ROXSANA ARTEAGA NARVAEZ\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nSHELLAH BELEN PALACIOS RODRIGUEZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nFE EN EL PERU\nFórmula presidencial\n1\nALVARO GONZALO PAZ DE LA BARRA FREIGEIRO\nPRESIDENTE DE LA REPÚBLICA\n2\nYESSIKA ROXSANA ARTEAGA NARVAEZ\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nSHELLAH BELEN PALACIOS RODRIGUEZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "KEIKO SOFIA FUJIMORI HIGUCHI",
+      "partido": "FUERZA POPULAR",
+      "partido_id": "1366",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/251cd1c0-acc7-4338-bd8a-439ccb9238d0.jpeg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/1366",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/1366",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nFUERZA POPULAR\nFórmula presidencial\n1\nKEIKO SOFIA FUJIMORI HIGUCHI\nPRESIDENTE DE LA REPÚBLICA\n2\nLUIS FERNANDO GALARRETA VELARDE\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMIGUEL ANGEL TORRES MORALES\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nFUERZA POPULAR\nFórmula presidencial\n1\nKEIKO SOFIA FUJIMORI HIGUCHI\nPRESIDENTE DE LA REPÚBLICA\n2\nLUIS FERNANDO GALARRETA VELARDE\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMIGUEL ANGEL TORRES MORALES\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "FIORELLA GIANNINA MOLINELLI ARISTONDO",
+      "partido": "FUERZA Y LIBERTAD",
+      "partido_id": "3024",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/1de656b5-7593-4c60-ab7a-83d618a3d80d.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/3024",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/3024",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nFUERZA Y LIBERTAD\nFórmula presidencial\n1\nFIORELLA GIANNINA MOLINELLI ARISTONDO\nPRESIDENTE DE LA REPÚBLICA\n2\nGILBERT FELIX VIOLETA LOPEZ\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMARIA LUZ PARIONA ORE\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nFUERZA Y LIBERTAD\nFórmula presidencial\n1\nFIORELLA GIANNINA MOLINELLI ARISTONDO\nPRESIDENTE DE LA REPÚBLICA\n2\nGILBERT FELIX VIOLETA LOPEZ\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMARIA LUZ PARIONA ORE\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "ROBERTO HELBERT SANCHEZ PALOMINO",
+      "partido": "JUNTOS POR EL PERU",
+      "partido_id": "1264",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/bb7c7465-9c6e-44eb-ac7d-e6cc7f872a1a.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/1264",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/1264",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nJUNTOS POR EL PERU\nFórmula presidencial\n1\nROBERTO HELBERT SANCHEZ PALOMINO\nPRESIDENTE DE LA REPÚBLICA\n2\nANALI MARQUEZ HUANCA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nBRIGIDA CURO BUSTINCIO\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nJUNTOS POR EL PERU\nFórmula presidencial\n1\nROBERTO HELBERT SANCHEZ PALOMINO\nPRESIDENTE DE LA REPÚBLICA\n2\nANALI MARQUEZ HUANCA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nBRIGIDA CURO BUSTINCIO\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "RAFAEL JORGE BELAUNDE LLOSA",
+      "partido": "LIBERTAD POPULAR",
+      "partido_id": "2933",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/3302e45b-55c8-4979-a60b-2b11097abf1d.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2933",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2933",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nLIBERTAD POPULAR\nFórmula presidencial\n1\nRAFAEL JORGE BELAUNDE LLOSA\nPRESIDENTE DE LA REPÚBLICA\n2\nPEDRO ALVARO CATERIANO BELLIDO\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nTANIA ULRIKA PORLES BAZALAR\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nLIBERTAD POPULAR\nFórmula presidencial\n1\nRAFAEL JORGE BELAUNDE LLOSA\nPRESIDENTE DE LA REPÚBLICA\n2\nPEDRO ALVARO CATERIANO BELLIDO\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nTANIA ULRIKA PORLES BAZALAR\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "PITTER ENRIQUE VALDERRAMA PEÑA",
+      "partido": "PARTIDO APRISTA PERUANO",
+      "partido_id": "2930",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/d72c4b29-e173-42b8-b40d-bdb6d01a526a.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2930",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2930",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO APRISTA PERUANO\nFórmula presidencial\n1\nPITTER ENRIQUE VALDERRAMA PEÑA\nPRESIDENTE DE LA REPÚBLICA\n2\nMARIA INES VALDIVIA ACUÑA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nLUCIO ANTONIO VASQUEZ SANCHEZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO APRISTA PERUANO\nFórmula presidencial\n1\nPITTER ENRIQUE VALDERRAMA PEÑA\nPRESIDENTE DE LA REPÚBLICA\n2\nMARIA INES VALDIVIA ACUÑA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nLUCIO ANTONIO VASQUEZ SANCHEZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "RICARDO PABLO BELMONT CASSINELLI",
+      "partido": "PARTIDO CIVICO OBRAS",
+      "partido_id": "2941",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/78647f15-d5d1-4ed6-8ac6-d599e83eeea3.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2941",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2941",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO CIVICO OBRAS\nFórmula presidencial\n1\nRICARDO PABLO BELMONT CASSINELLI\nPRESIDENTE DE LA REPÚBLICA\n2\nDANIEL HUGO BARRAGAN COLOMA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nDINA IRENE HANCCO HANCCO\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO CIVICO OBRAS\nFórmula presidencial\n1\nRICARDO PABLO BELMONT CASSINELLI\nPRESIDENTE DE LA REPÚBLICA\n2\nDANIEL HUGO BARRAGAN COLOMA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nDINA IRENE HANCCO HANCCO\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "NAPOLEON BECERRA GARCIA",
+      "partido": "PARTIDO DE LOS TRABAJADORES Y EMPRENDEDORES PTE - PERU",
+      "partido_id": "2939",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/bab206cb-b2d5-41ec-bde8-ef8cf3e0a2df.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2939",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2939",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO DE LOS TRABAJADORES Y EMPRENDEDORES PTE - PERU\nFórmula presidencial\n1\nNAPOLEON BECERRA GARCIA\nPRESIDENTE DE LA REPÚBLICA\n2\nWINSTON CLEMENTE HUAMAN HENRIQUEZ\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nNELIDA JULIANA CUAYLA CUAYLA\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO DE LOS TRABAJADORES Y EMPRENDEDORES PTE - PERU\nFórmula presidencial\n1\nNAPOLEON BECERRA GARCIA\nPRESIDENTE DE LA REPÚBLICA\n2\nWINSTON CLEMENTE HUAMAN HENRIQUEZ\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nNELIDA JULIANA CUAYLA CUAYLA\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "JORGE NIETO MONTESINOS",
+      "partido": "PARTIDO DEL BUEN GOBIERNO",
+      "partido_id": "2961",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/9ae56ed5-3d0f-49ff-8bb9-0390bad71816.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2961",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2961",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO DEL BUEN GOBIERNO\nFórmula presidencial\n1\nJORGE NIETO MONTESINOS\nPRESIDENTE DE LA REPÚBLICA\n2\nSUSANA FLOR DE MARIA MATUTE CHARUN\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nCARLOS DAVID CABALLERO LEON\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO DEL BUEN GOBIERNO\nFórmula presidencial\n1\nJORGE NIETO MONTESINOS\nPRESIDENTE DE LA REPÚBLICA\n2\nSUSANA FLOR DE MARIA MATUTE CHARUN\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nCARLOS DAVID CABALLERO LEON\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "CHARLIE CARRASCO SALAZAR",
+      "partido": "PARTIDO DEMOCRATA UNIDO PERU",
+      "partido_id": "2867",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/12fa17db-f28f-4330-9123-88549539b538.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2867",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2867",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO DEMOCRATA UNIDO PERU\nFórmula presidencial\n1\nCHARLIE CARRASCO SALAZAR\nPRESIDENTE DE LA REPÚBLICA\n2\nMARIA EDITH PAREDES VERDY\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nWILBERT GABINO SEGOVIA QUIN\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO DEMOCRATA UNIDO PERU\nFórmula presidencial\n1\nCHARLIE CARRASCO SALAZAR\nPRESIDENTE DE LA REPÚBLICA\n2\nMARIA EDITH PAREDES VERDY\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nWILBERT GABINO SEGOVIA QUIN\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "ALEX GONZALES CASTILLO",
+      "partido": "PARTIDO DEMOCRATA VERDE",
+      "partido_id": "2895",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/c0ae56bf-21c1-4810-890a-b25c8465bdd9.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2895",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2895",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO DEMOCRATA VERDE\nFórmula presidencial\n1\nALEX GONZALES CASTILLO\nPRESIDENTE DE LA REPÚBLICA\n2\nMARITZA DEL CARMEN ROSARIO MILAGROS SANCHEZ PERALES\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nFELIX MEDARDO MURAZZO CARRILLO\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO DEMOCRATA VERDE\nFórmula presidencial\n1\nALEX GONZALES CASTILLO\nPRESIDENTE DE LA REPÚBLICA\n2\nMARITZA DEL CARMEN ROSARIO MILAGROS SANCHEZ PERALES\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nFELIX MEDARDO MURAZZO CARRILLO\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "ARMANDO JOAQUIN MASSE FERNANDEZ",
+      "partido": "PARTIDO DEMOCRATICO FEDERAL",
+      "partido_id": "2986",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/cb1adeb7-7d2f-430c-ae87-519137d8edfa.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2986",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2986",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "GEORGE PATRICK FORSYTH SOMMER",
+      "partido": "PARTIDO DEMOCRATICO SOMOS PERU",
+      "partido_id": "14",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/b1d60238-c797-4cba-936e-f13de6a34cc7.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/14",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "LUIS FERNANDO OLIVERA VEGA",
+      "partido": "PARTIDO FRENTE DE LA ESPERANZA 2021",
+      "partido_id": "2857",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/3e2312e1-af79-4954-abfa-a36669c1a9e9.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2857",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2857",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO FRENTE DE LA ESPERANZA 2021\nFórmula presidencial\n1\nLUIS FERNANDO OLIVERA VEGA\nPRESIDENTE DE LA REPÚBLICA\n2\nELIZABETH MARIA DEL ROSARIO LEON CHINCHAY\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nCARLOS RICARDO CUARESMA SANCHEZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO FRENTE DE LA ESPERANZA 2021\nFórmula presidencial\n1\nLUIS FERNANDO OLIVERA VEGA\nPRESIDENTE DE LA REPÚBLICA\n2\nELIZABETH MARIA DEL ROSARIO LEON CHINCHAY\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nCARLOS RICARDO CUARESMA SANCHEZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "MESIAS ANTONIO GUEVARA AMASIFUEN",
+      "partido": "PARTIDO MORADO",
+      "partido_id": "2840",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/1b861ca7-3a5e-48b4-9024-08a92371e33b.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2840",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2840",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO MORADO\nFórmula presidencial\n1\nMESIAS ANTONIO GUEVARA AMASIFUEN\nPRESIDENTE DE LA REPÚBLICA\n2\nHEBER DIOMEDES CUEVA ESCOBEDO\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMARISOL YOLANDA LIÑAN SOLIS\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO MORADO\nFórmula presidencial\n1\nMESIAS ANTONIO GUEVARA AMASIFUEN\nPRESIDENTE DE LA REPÚBLICA\n2\nHEBER DIOMEDES CUEVA ESCOBEDO\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMARISOL YOLANDA LIÑAN SOLIS\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "CARLOS GONSALO ALVAREZ LOAYZA",
+      "partido": "PARTIDO PAIS PARA TODOS",
+      "partido_id": "2956",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/2bd18177-d665-413d-9694-747d729d3e39.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2956",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2956",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "HERBERT CALLER GUTIERREZ",
+      "partido": "PARTIDO PATRIOTICO DEL PERU",
+      "partido_id": "2869",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/6ad6c5ff-0411-4ddd-9cf7-b0623f373fcf.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2869",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2869",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "YONHY LESCANO ANCIETA",
+      "partido": "PARTIDO POLITICO COOPERACION POPULAR",
+      "partido_id": "2995",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/b9db2b5c-02ff-4265-ae51-db9b1001ad70.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2995",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2995",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "WOLFGANG MARIO GROZO COSTA",
+      "partido": "PARTIDO POLITICO INTEGRIDAD DEMOCRATICA",
+      "partido_id": "2985",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/064360d1-ce49-4abe-939c-f4de8b0130a2.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2985",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2985",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO INTEGRIDAD DEMOCRATICA\nFórmula presidencial\n1\nWOLFGANG MARIO GROZO COSTA\nPRESIDENTE DE LA REPÚBLICA\n2\nBERTHA CECILIA AZABACHE MIRANDA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nWELLINGTON PRADA CHIPAYO\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO INTEGRIDAD DEMOCRATICA\nFórmula presidencial\n1\nWOLFGANG MARIO GROZO COSTA\nPRESIDENTE DE LA REPÚBLICA\n2\nBERTHA CECILIA AZABACHE MIRANDA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nWELLINGTON PRADA CHIPAYO\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "VLADIMIR ROY CERRON ROJAS",
+      "partido": "PARTIDO POLITICO NACIONAL PERU LIBRE",
+      "partido_id": "2218",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/82ee0ff2-2336-4aba-9590-e576f7564315.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2218",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2218",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO NACIONAL PERU LIBRE\nFórmula presidencial\n1\nVLADIMIR ROY CERRON ROJAS\nPRESIDENTE DE LA REPÚBLICA\n2\nFLAVIO CRUZ MAMANI\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nBERTHA ROJAS LOPEZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO NACIONAL PERU LIBRE\nFórmula presidencial\n1\nVLADIMIR ROY CERRON ROJAS\nPRESIDENTE DE LA REPÚBLICA\n2\nFLAVIO CRUZ MAMANI\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nBERTHA ROJAS LOPEZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "FRANCISCO ERNESTO DIEZ-CANSECO TÁVARA",
+      "partido": "PARTIDO POLITICO PERU ACCION",
+      "partido_id": "2932",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/2d1bf7f2-6e88-4ea9-8ed2-975c1ae5fb92.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2932",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2932",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO PERU ACCION\nFórmula presidencial\n1\nFRANCISCO ERNESTO DIEZ-CANSECO TÁVARA\nPRESIDENTE DE LA REPÚBLICA\n2\nROBERTO DIEGO KOSTER JAUREGUI\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nCLARA AMELIA QUISPE TORRES\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO PERU ACCION\nFórmula presidencial\n1\nFRANCISCO ERNESTO DIEZ-CANSECO TÁVARA\nPRESIDENTE DE LA REPÚBLICA\n2\nROBERTO DIEGO KOSTER JAUREGUI\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nCLARA AMELIA QUISPE TORRES\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "MARIO ENRIQUE VIZCARRA CORNEJO",
+      "partido": "PARTIDO POLITICO PERU PRIMERO",
+      "partido_id": "2925",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/ee7a080e-bc81-4c81-9e5e-9fd95ff459ab.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2925",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2925",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO PERU PRIMERO\nFórmula presidencial\n1\nMARIO ENRIQUE VIZCARRA CORNEJO\nPRESIDENTE DE LA REPÚBLICA\n2\nCARLOS HERNAN ILLANES CALDERON\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nJUDITH CARLA MENDOZA DIAZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO PERU PRIMERO\nFórmula presidencial\n1\nMARIO ENRIQUE VIZCARRA CORNEJO\nPRESIDENTE DE LA REPÚBLICA\n2\nCARLOS HERNAN ILLANES CALDERON\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nJUDITH CARLA MENDOZA DIAZ\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "WALTER GILMER CHIRINOS PURIZAGA",
+      "partido": "PARTIDO POLITICO PRIN",
+      "partido_id": "2921",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/a2d0f631-fe47-4c41-92ba-7ed9f4095520.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2921",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2921",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO PRIN\nFórmula presidencial\n1\nWALTER GILMER CHIRINOS PURIZAGA\nPRESIDENTE DE LA REPÚBLICA\n2\nJULIO ALBERTO VEGA YBAÑEZ\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMAYRA LIZETH VARGAS GIL\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO POLITICO PRIN\nFórmula presidencial\n1\nWALTER GILMER CHIRINOS PURIZAGA\nPRESIDENTE DE LA REPÚBLICA\n2\nJULIO ALBERTO VEGA YBAÑEZ\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMAYRA LIZETH VARGAS GIL\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "ALFONSO CARLOS ESPA Y GARCES-ALVEAR",
+      "partido": "PARTIDO SICREO",
+      "partido_id": "2935",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/85935f77-6c46-4eab-8c7e-2494ffbcece0.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2935",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2935",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO SICREO\nFórmula presidencial\n1\nALFONSO CARLOS ESPA Y GARCES-ALVEAR\nPRESIDENTE DE LA REPÚBLICA\n2\nALEJANDRO AGUSTIN SANTA MARIA SILVA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMELITZA MELANIA YANZICH VILLAGARCIA\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPARTIDO SICREO\nFórmula presidencial\n1\nALFONSO CARLOS ESPA Y GARCES-ALVEAR\nPRESIDENTE DE LA REPÚBLICA\n2\nALEJANDRO AGUSTIN SANTA MARIA SILVA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nMELITZA MELANIA YANZICH VILLAGARCIA\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "CARLOS ERNESTO JAICO CARRANZA",
+      "partido": "PERU MODERNO",
+      "partido_id": "2924",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/7d91e14f-4417-4d61-89ba-3e686dafaa95.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2924",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2924",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "JOSE LEON LUNA GALVEZ",
+      "partido": "PODEMOS PERU",
+      "partido_id": "2731",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/a669a883-bf8a-417c-9296-c14b943c3943.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2731",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2731",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "MARIA SOLEDAD PEREZ TELLO DE RODRIGUEZ",
+      "partido": "PRIMERO LA GENTE - COMUNIDAD, ECOLOGIA, LIBERTAD Y PROGRESO",
+      "partido_id": "2931",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/073703ca-c427-44f0-94b1-a782223a5e10.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2931",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2931",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "PAUL DAVIS JAIMES BLANCO",
+      "partido": "PROGRESEMOS",
+      "partido_id": "2967",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/929e1a63-335d-4f3a-ba26-f3c7ff136213.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2967",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2967",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPROGRESEMOS\nFórmula presidencial\n1\nPAUL DAVIS JAIMES BLANCO\nPRESIDENTE DE LA REPÚBLICA\n2\nMONICA MARGOT GUILLEN TUANAMA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nJORGE LUIS CALOGGERO ENCINA\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA\nResumen de Plan de Gobierno - DIMENSIÓN\nRESUMEN DE PLAN DE GOBIERNO\nPLAN DE GOBIERNO\nDIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nPROGRESEMOS\nFórmula presidencial\n1\nPAUL DAVIS JAIMES BLANCO\nPRESIDENTE DE LA REPÚBLICA\n2\nMONICA MARGOT GUILLEN TUANAMA\nPRIMER VICEPRESIDENTE DE LA REPÚBLICA\n3\nJORGE LUIS CALOGGERO ENCINA\nSEGUNDO VICEPRESIDENTE DE LA REPÚBLICA",
+        "PLAN DE GOBIERNO": "DIMENSIÓN SOCIAL\nDIMENSIÓN ECONÓMICA\nDIMENSIÓN AMBIENTAL\nDIMENSIÓN INSTITUCIONAL\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "RAFAEL BERNARDO LOPEZ ALIAGA CAZORLA",
+      "partido": "RENOVACION POPULAR",
+      "partido_id": "22",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/b2e00ae2-1e50-4ad3-a103-71fc7e4e8255.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/22",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/22",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "ANTONIO ORTIZ VILLANO",
+      "partido": "SALVEMOS AL PERU",
+      "partido_id": "2927",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/8e6b9124-2883-4143-8768-105f2ce780eb.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2927",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2927",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "ROSARIO DEL PILAR FERNANDEZ BAZAN",
+      "partido": "UN CAMINO DIFERENTE",
+      "partido_id": "2998",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/ac0b0a59-ead5-4ef1-8ef8-8967e322d6ca.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2998",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/2998",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    },
+    {
+      "nombre": "ROBERTO ENRIQUE CHIABRA LEON",
+      "partido": "UNIDAD NACIONAL",
+      "partido_id": "3023",
+      "foto_url": "https://mpesije.jne.gob.pe/apidocs/5c703ce9-ba1e-4490-90bf-61006740166f.jpg",
+      "logo_partido_url": "https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/3023",
+      "url_detalle": "https://votoinformado.jne.gob.pe/formula-presidencial/3023",
+      "contenido_completo": "Nosotros\nAutoridades a elegir\nElecciones primarias\nOrganizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:",
+      "secciones": {
+        "general": "Nosotros\nAutoridades a elegir",
+        "Elecciones primarias": "Organizaciones Políticas Inscritas\nCronograma\nVoto informado con IA\nCANDIDATOS EG 2026\nCargando información...\nContáctanos: votoinformado@jne.gob.pe\n© JNE. Todos los Derechos Reservados 2026\nSíguenos en nuestras redes sociales:"
+      }
+    }
+  ]
+}

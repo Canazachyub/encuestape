@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Encuestape.com - Noticias</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* ======= ESTILOS BASE ======= */
+    :root {
+      --primary: #0b3c5d;      /* azul empresarial */
+      --primary-light: #145a8d;
+      --accent: #f2b632;       /* dorado/acento */
+      --bg: #f5f6fa;
+      --text: #222;
+      --muted: #777;
+      --border: #e0e0e0;
+      --card-bg: #ffffff;
+      --badge-bg: #e8f0fb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--primary-light);
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 16px 40px;
+    }
+
+    /* ======= CABECERA / NAVBAR ======= */
+    .topbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .topbar-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 6px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+    }
+
+    .topbar-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .topbar-links a {
+      color: var(--muted);
+    }
+
+    header.site-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      text-transform: uppercase;
+    }
+
+    .logo-sub {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+    }
+
+    .search-box {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .search-box input {
+      width: 100%;
+      max-width: 320px;
+      padding: 8px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    nav.main-nav {
+      background: var(--primary);
+    }
+
+    .main-nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .main-nav a {
+      color: #ffffff;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .main-nav a.active {
+      font-weight: 600;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 2px;
+    }
+
+    /* ======= SECCIÓN PRINCIPAL ======= */
+    .page-header {
+      padding: 24px 0 8px;
+    }
+
+    .breadcrumb {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ======= LISTA DE NOTICIAS ======= */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .news-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 650px) {
+      .news-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .news-thumb {
+      width: 100%;
+      height: 90px;
+      border-radius: 6px;
+      background: #d6deea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .news-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .badge-category {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--badge-bg);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .news-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .news-title a {
+      color: var(--text);
+    }
+
+    .news-excerpt {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .news-meta-bottom {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .news-meta-bottom span.dot::before {
+      content: "•";
+      margin: 0 4px;
+    }
+
+    .read-more {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ======= SIDEBAR ======= */
+    .sidebar-block {
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+      margin-bottom: 18px;
+    }
+
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+
+    .sidebar-list {
+      list-style: none;
+      font-size: 14px;
+    }
+
+    .sidebar-list li + li {
+      margin-top: 8px;
+    }
+
+    .sidebar-badge-date {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ======= FOOTER ======= */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 18px 16px 26px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 700px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-columns {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-title {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 16px 16px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div>Miércoles 25 de febrero de 2026 · Encuestape.com</div>
+      <div class="topbar-links">
+        <a href="#">Contacto</a>
+        <a href="#">Anuncia con nosotros</a>
+        <a href="#">Sobre Encuestape</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CABECERA -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo-text">ENCUESTAPE</div>
+        <div class="logo-sub">DATOS · NOTICIAS · ANÁLISIS</div>
+      </div>
+      <div class="search-box">
+        <input type="search" placeholder="Buscar noticias, encuestas, informes..." />
+      </div>
+    </div>
+    <nav class="main-nav">
+      <div class="main-nav-inner">
+        <a href="#" class="active">Inicio</a>
+        <a href="#">Región Puno</a>
+        <a href="#">Política</a>
+        <a href="#">Nacional</a>
+        <a href="#">Economía</a>
+        <a href="#">Sociedad</a>
+        <a href="#">Encuestas</a>
+        <a href="#">Opinión</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- ENCABEZADO DE SECCIÓN -->
+    <section class="page-header">
+      <div class="breadcrumb">
+        Inicio &gt; Región Puno
+      </div>
+      <h1 class="page-title">Región Puno</h1>
+    </section>
+
+    <section class="layout">
+      <!-- LISTA DE NOTICIAS -->
+      <div>
+        <div class="news-list">
+
+          <!-- NOTICIA 1 -->
+          <article class="news-card">
+            <div class="news-thumb">
+              Imagen / Portada
+            </div>
+            <div>
+              <div class="news-meta-top">
+                <span class="badge-category">Puno</span>
+                <span>hace 1 hora</span>
+              </div>
+              <h2 class="news-title">
+                <a href="#">Puno: Encuesta revela preocupación ciudadana por la calidad de los servicios públicos</a>
+              </h2>
+              <p class="news-excerpt">
+                Un estudio aplicado en las principales provincias de Puno muestra que la
+                mayoría de la población considera urgente mejorar la salud, educación
+                y transporte urbano.
+              </p>
+              <div class="news-meta-bottom">
+                <span>Por Redacción Encuestape</span>
+                <span class="dot">Puno</span>
+                <a class="read-more" href="#">Leer más</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- NOTICIA 2 -->
+          <article class="news-card">
+            <div class="news-thumb">
+              Imagen / Portada
+            </div>
+            <div>
+              <div class="news-meta-top">
+                <span class="badge-category">Elecciones 2026</span>
+                <span>hace 2 horas</span>
+              </div>
+              <h2 class="news-title">
+                <a href="#">San Román: simulacro de votación busca agilizar el proceso electoral</a>
+              </h2>
+              <p class="news-excerpt">
+                La oficina descentralizada de procesos electorales desarrolló una jornada
+                de capacitación masiva para miembros de mesa y personeros, con énfasis
+                en el conteo rápido de actas.
+              </p>
+              <div class="news-meta-bottom">
+                <span>Por Equipo Electoral Encuestape</span>
+                <span class="dot">San Román</span>
+                <a class="read-more" href="#">Leer más</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- NOTICIA 3 -->
+          <article class="news-card">
+            <div class="news-thumb">
+              Imagen / Portada
+            </div>
+            <div>
+              <div class="news-meta-top">
+                <span class="badge-category">Economía regional</span>
+                <span>hace 5 horas</span>
+              </div>
+              <h2 class="news-title">
+                <a href="#">Provincias altiplánicas apuestan por el gas natural y energías limpias</a>
+              </h2>
+              <p class="news-excerpt">
+                Autoridades locales y representantes del sector privado firmaron acuerdos
+                para acelerar la masificación del gas y diversificar la matriz energética
+                en la región altiplánica.
+              </p>
+              <div class="news-meta-bottom">
+                <span>Por Redacción Encuestape</span>
+                <span class="dot">Informe especial</span>
+                <a class="read-more" href="#">Leer más</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Más noticias (puedes duplicar el bloque article y cambiar datos) -->
+
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Noticias de última hora</h3>
+          <ul class="sidebar-list">
+            <li>
+              <a href="#">Arequipa: intensas lluvias afectan servicios básicos</a><br />
+              <span class="sidebar-badge-date">hace 20 minutos</span>
+            </li>
+            <li>
+              <a href="#">Gobierno declara emergencia en distritos del sur</a><br />
+              <span class="sidebar-badge-date">hace 1 hora</span>
+            </li>
+            <li>
+              <a href="#">Encuesta nacional: principales preocupaciones 2026</a><br />
+              <span class="sidebar-badge-date">hace 3 horas</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Artículos más leídos</h3>
+          <ul class="sidebar-list">
+            <li>
+              <a href="#">Puno: cambios en la ruta de pasacalles para fiestas 2026</a>
+            </li>
+            <li>
+              <a href="#">Análisis: ¿cómo cambió la opinión pública tras las últimas lluvias?</a>
+            </li>
+            <li>
+              <a href="#">Guía rápida para entender los resultados de encuestas electorales</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Edición digital</h3>
+          <p style="font-size:14px; color:var(--muted);">
+            Próximamente podrás explorar nuestras ediciones digitales interactivas
+            con gráficos y mapas comparativos por región.
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-columns">
+        <div class="footer-title">Encuestape.com</div>
+        <div>Medio digital de datos, encuestas y noticias regionales.</div>
+        <div>Correo editorial: contacto@encuestape.com</div>
+      </div>
+      <div class="footer-columns">
+        <div class="footer-title">Sedes y contacto</div>
+        <div>Puno · Juliaca · Arequipa</div>
+        <div>Central telefónica: +51 000 000 000</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Encuestape.com · Todos los derechos reservados
+    </div>
+  </footer>
+
+</body>
+</html>

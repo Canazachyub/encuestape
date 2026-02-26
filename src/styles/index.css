@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@import '../../css/variables.css';
+@import '../../css/base.css';
+@import '../../css/components.css';
+@import '../../css/landing.css';
+@import '../../css/mapa.css';
+@import '../../css/votar.css';
+@import '../../css/admin.css';
+@import '../../css/noticias.css';
+@import '../../css/responsive.css';
+@import './animations.css';

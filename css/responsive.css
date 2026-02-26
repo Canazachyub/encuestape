@@ -1,0 +1,293 @@
+/* ============================================
+   EncuestaPe — Responsive Styles
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tipografía */
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.75rem; }
+  .section { padding: var(--space-2xl) 0; }
+
+  /* Navbar */
+  .navbar-links { display: none; }
+  .hamburger { display: flex; }
+
+  /* Hero */
+  .hero {
+    min-height: 70vh;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .hero-highlight {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  /* Stats */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .stat-item:not(:last-child)::after {
+    display: none;
+  }
+
+  .stat-number {
+    font-size: 1.8rem;
+  }
+
+  /* Encuestas */
+  .encuestas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Results */
+  .results-header {
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .result-bar-track {
+    height: 28px;
+  }
+
+  /* How to */
+  .howto-steps {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .howto-step:not(:last-child)::after {
+    display: none;
+  }
+
+  /* Trust */
+  .trust-features {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .trust-quote {
+    padding: var(--space-lg);
+  }
+
+  /* Newsletter */
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  /* Votar */
+  .votar-card {
+    padding: var(--space-lg);
+  }
+
+  .votar-buttons {
+    flex-direction: column;
+  }
+
+  .votar-buttons .btn {
+    width: 100%;
+  }
+
+  .progress-steps {
+    gap: var(--space-sm);
+  }
+
+  .progress-step span:not(.step-num) {
+    display: none;
+  }
+
+  .share-buttons {
+    flex-direction: column;
+  }
+
+  /* Admin */
+  .admin-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .admin-sidebar.active {
+    transform: translateX(0);
+  }
+
+  .admin-main {
+    margin-left: 0;
+    padding: var(--space-md);
+  }
+
+  .admin-toggle-sidebar {
+    display: flex;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-topbar h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--space-sm);
+  }
+
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+
+  .hero {
+    min-height: auto;
+    padding: calc(var(--navbar-height) + var(--space-xl)) 0 var(--space-xl);
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-value {
+    font-size: 1.5rem;
+  }
+
+  .votar-card {
+    padding: var(--space-md);
+  }
+
+  .dni-input {
+    font-size: 1rem;
+  }
+
+  .table-wrapper {
+    font-size: 0.8rem;
+  }
+
+  td, th {
+    padding: 8px 10px;
+  }
+
+  /* Result bars mobile */
+  .result-bar-label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .result-bar-name {
+    font-size: 0.82rem;
+  }
+
+  .result-bar-value {
+    font-size: 0.8rem;
+  }
+
+  .result-bar-count {
+    font-size: 0.7rem;
+  }
+
+  .result-bar-avatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .result-bar-initials {
+    width: 24px;
+    height: 24px;
+    font-size: 0.55rem;
+  }
+
+  /* Cards mobile */
+  .card {
+    padding: var(--space-md);
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-desc {
+    font-size: 0.82rem;
+  }
+
+  /* Section spacing */
+  .section {
+    padding: var(--space-xl) 0;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: var(--space-xl) 0 var(--space-md);
+  }
+
+  .footer-brand p,
+  .footer-col a {
+    font-size: 0.82rem;
+  }
+}
