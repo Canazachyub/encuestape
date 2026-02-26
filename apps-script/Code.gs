@@ -35,7 +35,7 @@ function doPost(e) {
   let result;
   switch(action) {
     // Encuestas
-    case 'validarDNI': result = validarDNI(data.encuesta_id, data.dni_hash); break;
+    case 'validarDNI': result = validarDNI(data.encuesta_id, data.dni); break;
     case 'registrarVoto': result = registrarVoto(data); break;
     case 'loginAdmin': result = loginAdmin(data.user, data.pass_hash); break;
     case 'crearEncuesta': result = crearEncuesta(data); break;
@@ -159,10 +159,10 @@ function getEstadisticas() {
 
 // ── Votación ───────────────────────────────────────
 
-function validarDNI(encuestaId, dniHash) {
+function validarDNI(encuestaId, dni) {
   const votosSheet = ss.getSheetByName('Votos');
   const votos = votosSheet.getDataRange().getValues();
-  const yaVoto = votos.some(v => v[0] === encuestaId && v[1] === dniHash);
+  const yaVoto = votos.some(v => v[0] === encuestaId && v[1] === dni);
   return {
     permitido: !yaVoto,
     mensaje: yaVoto ? 'Este DNI ya registró su voto en esta encuesta.' : 'DNI verificado. Puedes proceder a votar.'
@@ -172,9 +172,9 @@ function validarDNI(encuestaId, dniHash) {
 function registrarVoto(data) {
   const votosSheet = ss.getSheetByName('Votos');
   const votos = votosSheet.getDataRange().getValues();
-  const yaVoto = votos.some(v => v[0] === data.encuesta_id && v[1] === data.dni_hash);
+  const yaVoto = votos.some(v => v[0] === data.encuesta_id && v[1] === data.dni);
   if (yaVoto) return { exito: false, mensaje: 'Voto duplicado detectado.' };
-  votosSheet.appendRow([data.encuesta_id, data.dni_hash, data.opcion, new Date().toISOString(), data.region || 'No especificada']);
+  votosSheet.appendRow([data.encuesta_id, data.dni, data.opcion, new Date().toISOString(), data.region || 'No especificada']);
   return { exito: true, mensaje: 'Voto registrado exitosamente.' };
 }
 
@@ -655,7 +655,7 @@ function suscribirEmail(email) {
  * │ Encuestas    │ id | titulo | descripcion | estado | opciones (JSON) |    │
  * │              │ meta_votos | fecha_inicio | fecha_fin | categoria | visible│
  * ├──────────────┼────────────────────────────────────────────────────────────┤
- * │ Votos        │ encuesta_id | dni_hash | opcion | timestamp | region      │
+ * │ Votos        │ encuesta_id | dni | opcion | timestamp | region             │
  * ├──────────────┼────────────────────────────────────────────────────────────┤
  * │ Config       │ clave | valor                                              │
  * ├──────────────┼────────────────────────────────────────────────────────────┤
@@ -692,7 +692,7 @@ function setupSheets() {
   // ── Votos ──
   sheet = getOrCreateSheet('Votos');
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['encuesta_id', 'dni_hash', 'opcion', 'timestamp', 'region']);
+    sheet.appendRow(['encuesta_id', 'dni', 'opcion', 'timestamp', 'region']);
     sheet.getRange(1, 1, 1, 5).setFontWeight('bold').setBackground(HEADER_BG).setFontColor(HEADER_FG);
     sheet.setColumnWidth(1, 80); sheet.setColumnWidth(2, 300); sheet.setColumnWidth(3, 300);
     sheet.setColumnWidth(4, 180); sheet.setColumnWidth(5, 120);
@@ -902,8 +902,8 @@ function generarVotosDemo() {
       const minuto = Math.floor(Math.random() * 60);
       const segundo = Math.floor(Math.random() * 60);
       const ts = new Date(dayBase + hora * 3600000 + minuto * 60000 + segundo * 1000);
-      const dniHash = Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '').substring(0, 32);
-      rows.push(['E01', dniHash, pool[votoIndex], ts.toISOString(), regiones[Math.floor(Math.random() * regiones.length)]]);
+      const dniFake = String(10000000 + Math.floor(Math.random() * 89999999));
+      rows.push(['E01', dniFake, pool[votoIndex], ts.toISOString(), regiones[Math.floor(Math.random() * regiones.length)]]);
       votoIndex++;
     }
   }

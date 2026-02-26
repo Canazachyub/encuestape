@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import type { Encuesta, EncuestaOption, ResultadosData } from '../types';
 import { useDemoData } from '../context/DemoDataContext';
 import { CONFIG } from '../config/constants';
-import { hashSHA256 } from '../utils/hash';
 import { validateDNI } from '../utils/validators';
 import { formatNumber } from '../utils/format';
 import { getOptionName, findCandidateData, getInitials, getChartColors } from '../utils/helpers';
@@ -15,7 +14,7 @@ export default function VotarPage() {
 
   const [encuesta, setEncuesta] = useState<Encuesta | null>(null);
   const [step, setStep] = useState(1);
-  const [dniHash, setDniHash] = useState<string | null>(null);
+  const [dniVerified, setDniVerified] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [dniValue, setDniValue] = useState('');
   const [dniStatus, setDniStatus] = useState<'idle' | 'valid' | 'error' | 'already'>('idle');
@@ -57,9 +56,8 @@ export default function VotarPage() {
     if (!validateDNI(dniValue) || !encuesta) return;
     setVerifying(true);
     try {
-      const hash = await hashSHA256(dniValue);
-      setDniHash(hash);
-      const result = await api.validarDNI(encuesta.id, hash);
+      setDniVerified(dniValue);
+      const result = await api.validarDNI(encuesta.id, dniValue);
       if (result.permitido) {
         setStep(2);
       } else {
@@ -74,12 +72,12 @@ export default function VotarPage() {
   };
 
   const confirmVote = async () => {
-    if (!encuesta || !selectedOption || !dniHash) return;
+    if (!encuesta || !selectedOption || !dniVerified) return;
     setConfirming(true);
     try {
       const result = await api.registrarVoto({
         encuesta_id: encuesta.id,
-        dni_hash: dniHash,
+        dni: dniVerified,
         opcion: selectedOption,
       });
       if (result.exito) {
@@ -175,7 +173,7 @@ export default function VotarPage() {
             ) : (
               <>
                 <h2 className="votar-card-title">Verifica tu identidad</h2>
-                <p className="votar-card-desc">Ingresa tu DNI para participar en esta encuesta. Tu documento será verificado y encriptado. No almacenamos tu DNI en texto plano.</p>
+                <p className="votar-card-desc">Ingresa tu DNI para participar en esta encuesta. Se verifica que no votes más de una vez.</p>
                 <div className="form-group">
                   <label className="form-label">Número de DNI</label>
                   <div className="dni-input-wrapper">
@@ -214,7 +212,7 @@ export default function VotarPage() {
                 </div>
                 <div className="security-note">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  Tu DNI se encripta antes de enviarse. Privacidad garantizada.
+                  Tu DNI se usa solo para verificar que no votes más de una vez.
                 </div>
               </>
             )}

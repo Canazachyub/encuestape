@@ -121,7 +121,7 @@ export interface ValidarDNIResponse {
 export interface RegistrarVotoRequest {
   encuesta_id: string;
   opcion: string;
-  dni_hash: string;
+  dni: string;
 }
 
 export interface RegistrarVotoResponse {

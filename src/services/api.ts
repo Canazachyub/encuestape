@@ -1,5 +1,4 @@
 import { CONFIG } from '../config/constants';
-import { hashSHA256 } from '../utils/hash';
 import { getAdminToken, setAdminToken } from './storage';
 import type {
   AdminDataResponse,
@@ -98,10 +97,10 @@ export function createAPI(
 
     // ========== VOTING ==========
 
-    async validarDNI(encuestaId: string, dniHash: string): Promise<ValidarDNIResponse> {
+    async validarDNI(encuestaId: string, dni: string): Promise<ValidarDNIResponse> {
       if (CONFIG.DEMO_MODE) {
         const votes = getDemoData().votosRegistrados[encuestaId] || [];
-        const yaVoto = votes.includes(dniHash);
+        const yaVoto = votes.includes(dni);
         return {
           permitido: !yaVoto,
           mensaje: yaVoto
@@ -109,7 +108,7 @@ export function createAPI(
             : 'DNI verificado. Puedes proceder a votar.',
         };
       }
-      return apiPost({ action: 'validarDNI', encuesta_id: encuestaId, dni_hash: dniHash });
+      return apiPost({ action: 'validarDNI', encuesta_id: encuestaId, dni });
     },
 
     async registrarVoto(data: RegistrarVotoRequest): Promise<RegistrarVotoResponse> {
@@ -119,7 +118,7 @@ export function createAPI(
           if (!next.votosRegistrados[data.encuesta_id]) {
             next.votosRegistrados[data.encuesta_id] = [];
           }
-          next.votosRegistrados[data.encuesta_id].push(data.dni_hash);
+          next.votosRegistrados[data.encuesta_id].push(data.dni);
           const encuesta = next.encuestas.find(e => e.id === data.encuesta_id);
           if (encuesta) encuesta.total_votos++;
           const resultados = next.resultados[data.encuesta_id];
@@ -144,8 +143,7 @@ export function createAPI(
 
     async loginAdmin(user: string, passHash: string): Promise<LoginResponse> {
       if (CONFIG.DEMO_MODE) {
-        const demoPassHash = await hashSHA256('admin');
-        if (user === 'admin' && passHash === demoPassHash) {
+        if (user === 'admin' && passHash === '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918') {
           const token = 'demo-token-' + Date.now();
           setAdminToken(token);
           return { exito: true, token };
