@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { AdminDataResponse, CandidateOption, DenunciaCiudadana, Encuesta, EncuestaOption, ForoPregunta, ImageItem, NewsArticle, ResultadosData } from '../types';
-import { REGIONES_PERU, TIPOS_ELECCION, NEWS_CATEGORIES, DENUNCIA_CATEGORIES, FORO_CATEGORIES } from '../config/constants';
+import { CONFIG, REGIONES_PERU, TIPOS_ELECCION, NEWS_CATEGORIES, DENUNCIA_CATEGORIES, FORO_CATEGORIES } from '../config/constants';
 import { useDemoData } from '../context/DemoDataContext';
 import { useAuth } from '../context/AuthContext';
 import { hashSHA256 } from '../utils/hash';
@@ -79,6 +79,7 @@ export default function AdminPage() {
       if (enc) enc.estado = 'cerrada';
       return next;
     });
+    if (!CONFIG.DEMO_MODE) api.cerrarEncuesta(id).catch(console.error);
     loadAdminData();
   };
 
@@ -348,6 +349,7 @@ export default function AdminPage() {
                                 next.noticias = next.noticias.filter((n: NewsArticle) => n.id !== article.id);
                                 return next;
                               });
+                              if (!CONFIG.DEMO_MODE) api.eliminarNoticia(article.id).catch(console.error);
                             }}>Borrar</button>
                           </div>
                         </td>
@@ -393,6 +395,7 @@ export default function AdminPage() {
                                   x.id === d.id ? { ...x, estado: newEstado } : x
                                 ),
                               }));
+                              if (!CONFIG.DEMO_MODE) api.editarDenuncia(d.id, { estado: newEstado }).catch(console.error);
                             }}
                             style={{ padding: '4px 8px', fontSize: '0.78rem', borderRadius: 4, border: '1px solid var(--border-subtle)' }}
                           >
@@ -409,6 +412,7 @@ export default function AdminPage() {
                               ...prev,
                               denuncias: prev.denuncias.filter((x: DenunciaCiudadana) => x.id !== d.id),
                             }));
+                            if (!CONFIG.DEMO_MODE) api.eliminarDenuncia(d.id).catch(console.error);
                           }}>Borrar</button>
                         </td>
                       </tr>
@@ -424,12 +428,12 @@ export default function AdminPage() {
 
           {/* Foro */}
           {section === 'foro' && (
-            <ForoAdmin data={data} updateData={updateData} />
+            <ForoAdmin data={data} updateData={updateData} api={api} />
           )}
 
           {/* Imagenes */}
           {section === 'imagenes' && (
-            <ImagenesAdmin imagenes={data.imagenes || []} updateData={updateData} />
+            <ImagenesAdmin imagenes={data.imagenes || []} updateData={updateData} api={api} />
           )}
 
           {/* Config */}
@@ -459,6 +463,7 @@ export default function AdminPage() {
           onClose={() => { setModalOpen(false); loadAdminData(); }}
           updateData={updateData}
           encuestas={data.encuestas}
+          api={api}
         />
       )}
 
@@ -470,6 +475,7 @@ export default function AdminPage() {
           updateData={updateData}
           existingIds={data.noticias.map(n => n.id)}
           imagenes={data.imagenes || []}
+          api={api}
         />
       )}
     </div>
@@ -499,10 +505,11 @@ function SidebarIcon({ section }: { section: Section }) {
 }
 
 // Encuesta creation modal
-function EncuestaModal({ onClose, updateData, encuestas }: {
+function EncuestaModal({ onClose, updateData, encuestas, api }: {
   onClose: () => void;
   updateData: (updater: (prev: any) => any) => void;
   encuestas: Encuesta[];
+  api: any;
 }) {
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -627,6 +634,10 @@ function EncuestaModal({ onClose, updateData, encuestas }: {
       next.estadisticas.total_encuestas++;
       return next;
     });
+
+    if (!CONFIG.DEMO_MODE) {
+      api.crearEncuesta({ titulo: finalTitulo, descripcion, opciones: options, meta_votos: parseInt(meta) || 1000, tipo_eleccion: tipoEleccion, region, categoria }).catch(console.error);
+    }
 
     onClose();
   };
@@ -756,12 +767,13 @@ function EncuestaModal({ onClose, updateData, encuestas }: {
 // NEWS_CATEGORIES imported from config/constants
 const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB
 
-function NewsModal({ article, onClose, updateData, existingIds, imagenes }: {
+function NewsModal({ article, onClose, updateData, existingIds, imagenes, api }: {
   article: NewsArticle | null;
   onClose: () => void;
   updateData: (updater: (prev: any) => any) => void;
   existingIds: string[];
   imagenes: ImageItem[];
+  api: any;
 }) {
   const isEditing = !!article;
   const [titulo, setTitulo] = useState(article?.titulo || '');
@@ -862,6 +874,16 @@ function NewsModal({ article, onClose, updateData, existingIds, imagenes }: {
       }
       return next;
     });
+
+    if (!CONFIG.DEMO_MODE) {
+      const noticiaData = {
+        titulo: titulo.trim(), extracto: extracto.trim(), contenido: contenido.trim(),
+        categoria, imagen_url: imagenUrl, autor: autor.trim() || 'Redacción Encuestape',
+        publicado, destacado,
+      };
+      if (isEditing) api.editarNoticia(article!.id, noticiaData).catch(console.error);
+      else api.crearNoticia(noticiaData).catch(console.error);
+    }
 
     onClose();
   };
@@ -1010,7 +1032,7 @@ function NewsModal({ article, onClose, updateData, existingIds, imagenes }: {
 // Image Gallery Manager
 const IMG_MAX_SIZE = 2 * 1024 * 1024;
 
-function ImagenesAdmin({ imagenes, updateData }: { imagenes: ImageItem[]; updateData: (fn: (prev: any) => any) => void }) {
+function ImagenesAdmin({ imagenes, updateData, api }: { imagenes: ImageItem[]; updateData: (fn: (prev: any) => any) => void; api: any }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleUpload = (files: FileList) => {
@@ -1036,6 +1058,7 @@ function ImagenesAdmin({ imagenes, updateData }: { imagenes: ImageItem[]; update
   const deleteImage = (id: string) => {
     if (!confirm('¿Eliminar esta imagen?')) return;
     updateData(prev => ({ ...prev, imagenes: (prev.imagenes || []).filter((img: ImageItem) => img.id !== id) }));
+    if (!CONFIG.DEMO_MODE) api.eliminarImagen(id).catch(console.error);
   };
 
   // Group by day
@@ -1104,7 +1127,7 @@ function ImagenesAdmin({ imagenes, updateData }: { imagenes: ImageItem[]; update
 }
 
 // Foro Admin Section
-function ForoAdmin({ data, updateData }: { data: any; updateData: (fn: (prev: any) => any) => void }) {
+function ForoAdmin({ data, updateData, api }: { data: any; updateData: (fn: (prev: any) => any) => void; api: any }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<ForoPregunta | null>(null);
 
@@ -1139,6 +1162,7 @@ function ForoAdmin({ data, updateData }: { data: any; updateData: (fn: (prev: an
                           activa: x.id === p.id ? !x.activa : (x.id === p.id ? x.activa : (p.activa ? x.activa : false)),
                         })),
                       }));
+                      if (!CONFIG.DEMO_MODE) api.editarForoPregunta(p.id, { activa: !p.activa }).catch(console.error);
                     }}
                   >
                     {p.activa ? 'Activa' : 'Inactiva'}
@@ -1154,6 +1178,7 @@ function ForoAdmin({ data, updateData }: { data: any; updateData: (fn: (prev: an
                         ...prev,
                         foro: prev.foro.filter((x: ForoPregunta) => x.id !== p.id),
                       }));
+                      if (!CONFIG.DEMO_MODE) api.eliminarForoPregunta(p.id).catch(console.error);
                     }}>Borrar</button>
                   </div>
                 </td>
@@ -1172,17 +1197,19 @@ function ForoAdmin({ data, updateData }: { data: any; updateData: (fn: (prev: an
           onClose={() => setModalOpen(false)}
           updateData={updateData}
           foro={data.foro}
+          api={api}
         />
       )}
     </section>
   );
 }
 
-function ForoModal({ pregunta, onClose, updateData, foro }: {
+function ForoModal({ pregunta, onClose, updateData, foro, api }: {
   pregunta: ForoPregunta | null;
   onClose: () => void;
   updateData: (fn: (prev: any) => any) => void;
   foro: ForoPregunta[];
+  api: any;
 }) {
   const isEditing = !!pregunta;
   const [texto, setTexto] = useState(pregunta?.pregunta || '');
@@ -1211,6 +1238,7 @@ function ForoModal({ pregunta, onClose, updateData, foro }: {
             : (activa ? { ...p, activa: false } : p)
         ),
       }));
+      if (!CONFIG.DEMO_MODE) api.editarForoPregunta(pregunta.id, { pregunta: texto.trim(), descripcion: descripcion.trim(), categoria, activa, opciones: cleanOpciones.map(t => t.trim()) }).catch(console.error);
     } else {
       const newId = 'F' + String(foro.length + 1).padStart(2, '0');
       const nueva: ForoPregunta = {
@@ -1229,6 +1257,7 @@ function ForoModal({ pregunta, onClose, updateData, foro }: {
           ? [...prev.foro.map((p: ForoPregunta) => ({ ...p, activa: false })), nueva]
           : [...prev.foro, nueva],
       }));
+      if (!CONFIG.DEMO_MODE) api.crearForoPregunta({ pregunta: texto.trim(), descripcion: descripcion.trim(), opciones: cleanOpciones.map(t => t.trim()), activa, categoria }).catch(console.error);
     }
     onClose();
   };

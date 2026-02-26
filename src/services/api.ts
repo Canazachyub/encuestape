@@ -4,8 +4,12 @@ import { getAdminToken, setAdminToken } from './storage';
 import type {
   AdminDataResponse,
   DemoData,
+  DenunciaCiudadana,
   EncuestasResponse,
+  ForoPregunta,
+  ImageItem,
   LoginResponse,
+  NewsArticle,
   RegistrarVotoRequest,
   RegistrarVotoResponse,
   ResultadosData,
@@ -15,19 +19,37 @@ import type {
   VotoReciente,
 } from '../types';
 
-// The API object receives demoData and updater from the context
-// so it can mutate state through React's state management
+// ── Helpers for Google Apps Script API ──
+
+async function apiGet(params: Record<string, string>): Promise<any> {
+  const url = `${CONFIG.API_URL}?${new URLSearchParams(params)}`;
+  const res = await fetch(url);
+  return res.json();
+}
+
+async function apiPost(data: Record<string, any>): Promise<any> {
+  // Use text/plain to avoid CORS preflight with Apps Script
+  const res = await fetch(CONFIG.API_URL, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+// ── API Factory ──
+
 export function createAPI(
   getDemoData: () => DemoData,
   updateDemoData: (updater: (prev: DemoData) => DemoData) => void,
 ) {
   return {
+    // ========== ENCUESTAS (PUBLIC) ==========
+
     async getEncuestas(): Promise<EncuestasResponse> {
       if (CONFIG.DEMO_MODE) {
         return { encuestas: getDemoData().encuestas };
       }
-      const res = await fetch(`${CONFIG.API_URL}?action=getEncuestas`);
-      return res.json();
+      return apiGet({ action: 'getEncuestas' });
     },
 
     async getEncuestasByFilter(region?: string, tipoEleccion?: string): Promise<EncuestasResponse> {
@@ -41,11 +63,10 @@ export function createAPI(
         }
         return { encuestas: filtered };
       }
-      const params = new URLSearchParams({ action: 'getEncuestas' });
-      if (region) params.set('region', region);
-      if (tipoEleccion) params.set('tipo', tipoEleccion);
-      const res = await fetch(`${CONFIG.API_URL}?${params}`);
-      return res.json();
+      const params: Record<string, string> = { action: 'getEncuestas' };
+      if (region) params.region = region;
+      if (tipoEleccion) params.tipo = tipoEleccion;
+      return apiGet(params);
     },
 
     getRegionStats(): Record<string, number> {
@@ -60,19 +81,22 @@ export function createAPI(
 
     async getResultados(encuestaId: string): Promise<ResultadosData> {
       if (CONFIG.DEMO_MODE) {
-        return getDemoData().resultados[encuestaId] || { encuesta_id: encuestaId, resultados: [], total_votos: 0, ultima_actualizacion: new Date().toISOString() };
+        return getDemoData().resultados[encuestaId] || {
+          encuesta_id: encuestaId, resultados: [], total_votos: 0,
+          ultima_actualizacion: new Date().toISOString(),
+        };
       }
-      const res = await fetch(`${CONFIG.API_URL}?action=getResultados&id=${encuestaId}`);
-      return res.json();
+      return apiGet({ action: 'getResultados', id: encuestaId });
     },
 
     async getEstadisticas(): Promise<Estadisticas> {
       if (CONFIG.DEMO_MODE) {
         return getDemoData().estadisticas;
       }
-      const res = await fetch(`${CONFIG.API_URL}?action=getEstadisticas`);
-      return res.json();
+      return apiGet({ action: 'getEstadisticas' });
     },
+
+    // ========== VOTING ==========
 
     async validarDNI(encuestaId: string, dniHash: string): Promise<ValidarDNIResponse> {
       if (CONFIG.DEMO_MODE) {
@@ -85,27 +109,19 @@ export function createAPI(
             : 'DNI verificado. Puedes proceder a votar.',
         };
       }
-      const res = await fetch(CONFIG.API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'validarDNI', encuesta_id: encuestaId, dni_hash: dniHash }),
-      });
-      return res.json();
+      return apiPost({ action: 'validarDNI', encuesta_id: encuestaId, dni_hash: dniHash });
     },
 
     async registrarVoto(data: RegistrarVotoRequest): Promise<RegistrarVotoResponse> {
       if (CONFIG.DEMO_MODE) {
         updateDemoData(prev => {
           const next = JSON.parse(JSON.stringify(prev)) as DemoData;
-
           if (!next.votosRegistrados[data.encuesta_id]) {
             next.votosRegistrados[data.encuesta_id] = [];
           }
           next.votosRegistrados[data.encuesta_id].push(data.dni_hash);
-
           const encuesta = next.encuestas.find(e => e.id === data.encuesta_id);
           if (encuesta) encuesta.total_votos++;
-
           const resultados = next.resultados[data.encuesta_id];
           if (resultados) {
             resultados.total_votos++;
@@ -117,18 +133,14 @@ export function createAPI(
               });
             }
           }
-
           return next;
         });
         return { exito: true, mensaje: 'Voto registrado exitosamente.' };
       }
-      const res = await fetch(CONFIG.API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'registrarVoto', ...data }),
-      });
-      return res.json();
+      return apiPost({ action: 'registrarVoto', ...data });
     },
+
+    // ========== AUTH ==========
 
     async loginAdmin(user: string, passHash: string): Promise<LoginResponse> {
       if (CONFIG.DEMO_MODE) {
@@ -140,13 +152,14 @@ export function createAPI(
         }
         return { exito: false, mensaje: 'Credenciales inválidas.' };
       }
-      const res = await fetch(CONFIG.API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'loginAdmin', user, pass_hash: passHash }),
-      });
-      return res.json();
+      const result = await apiPost({ action: 'loginAdmin', user, pass_hash: passHash });
+      if (result.exito && result.token) {
+        setAdminToken(result.token);
+      }
+      return result;
     },
+
+    // ========== ADMIN ==========
 
     async getAdminData(): Promise<AdminDataResponse> {
       if (CONFIG.DEMO_MODE) {
@@ -167,20 +180,182 @@ export function createAPI(
         };
       }
       const token = getAdminToken();
-      const res = await fetch(`${CONFIG.API_URL}?action=getAdminData&token=${token}`);
-      return res.json();
+      const result = await apiGet({ action: 'getAdminData', token: token || '' });
+      // Sync portal data to context
+      updateDemoData(prev => ({
+        ...prev,
+        encuestas: result.encuestas || prev.encuestas,
+        noticias: result.noticias || prev.noticias,
+        denuncias: result.denuncias || prev.denuncias,
+        foro: result.foro || prev.foro,
+        imagenes: (result.imagenes || []).map((img: any) => ({
+          id: img.id,
+          nombre: img.nombre,
+          data_url: img.url || '',
+          fecha: img.fecha,
+          size: 0,
+        })),
+      }));
+      return result;
     },
+
+    // ========== NOTICIAS ==========
+
+    async getNoticias(): Promise<NewsArticle[]> {
+      if (CONFIG.DEMO_MODE) return getDemoData().noticias;
+      const data = await apiGet({ action: 'getNoticias' });
+      return data.noticias || [];
+    },
+
+    async crearNoticia(noticia: Partial<NewsArticle>): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'crearNoticia', token, ...noticia });
+    },
+
+    async editarNoticia(id: string, campos: Partial<NewsArticle>): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'editarNoticia', token, id, ...campos });
+    },
+
+    async eliminarNoticia(id: string): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'eliminarNoticia', token, id });
+    },
+
+    // ========== DENUNCIAS ==========
+
+    async getDenuncias(): Promise<DenunciaCiudadana[]> {
+      if (CONFIG.DEMO_MODE) return getDemoData().denuncias;
+      const data = await apiGet({ action: 'getDenuncias' });
+      return data.denuncias || [];
+    },
+
+    async crearDenuncia(denuncia: Partial<DenunciaCiudadana>): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      return apiPost({ action: 'crearDenuncia', ...denuncia });
+    },
+
+    async editarDenuncia(id: string, campos: Record<string, any>): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'editarDenuncia', token, id, ...campos });
+    },
+
+    async eliminarDenuncia(id: string): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'eliminarDenuncia', token, id });
+    },
+
+    async apoyarDenuncia(id: string): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      return apiPost({ action: 'apoyarDenuncia', id });
+    },
+
+    // ========== FORO ==========
+
+    async getForo(): Promise<ForoPregunta[]> {
+      if (CONFIG.DEMO_MODE) return getDemoData().foro;
+      const data = await apiGet({ action: 'getForo' });
+      return data.foro || [];
+    },
+
+    async crearForoPregunta(pregunta: Record<string, any>): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'crearForoPregunta', token, ...pregunta });
+    },
+
+    async editarForoPregunta(id: string, campos: Record<string, any>): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'editarForoPregunta', token, id, ...campos });
+    },
+
+    async eliminarForoPregunta(id: string): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'eliminarForoPregunta', token, id });
+    },
+
+    async votarForo(preguntaId: string, opcionIndex: number): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      return apiPost({ action: 'votarForo', pregunta_id: preguntaId, opcion_index: opcionIndex });
+    },
+
+    // ========== IMAGENES ==========
+
+    async getImagenes(): Promise<ImageItem[]> {
+      if (CONFIG.DEMO_MODE) return getDemoData().imagenes;
+      const data = await apiGet({ action: 'getImagenes' });
+      return (data.imagenes || []).map((img: any) => ({
+        id: img.id,
+        nombre: img.nombre,
+        data_url: img.url || '',
+        fecha: img.fecha,
+        size: 0,
+      }));
+    },
+
+    async guardarImagen(imagen: { nombre: string; url: string }): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'guardarImagen', token, ...imagen });
+    },
+
+    async eliminarImagen(id: string): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'eliminarImagen', token, id });
+    },
+
+    // ========== NEWSLETTER ==========
 
     async suscribir(email: string): Promise<SuscribirResponse> {
       if (CONFIG.DEMO_MODE) {
         return { exito: true };
       }
-      const res = await fetch(CONFIG.API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'suscribir', email }),
-      });
-      return res.json();
+      return apiPost({ action: 'suscribir', email });
+    },
+
+    // ========== ENCUESTAS ADMIN ==========
+
+    async crearEncuesta(encuesta: Record<string, any>): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'crearEncuesta', token, ...encuesta });
+    },
+
+    async cerrarEncuesta(id: string): Promise<any> {
+      if (CONFIG.DEMO_MODE) return;
+      const token = getAdminToken();
+      return apiPost({ action: 'cerrarEncuesta', token, id });
+    },
+
+    // ========== DATA SYNC ==========
+
+    async fetchAllPublicData(): Promise<void> {
+      if (CONFIG.DEMO_MODE) return;
+      try {
+        const [encResp, notResp, denResp, foroResp] = await Promise.all([
+          apiGet({ action: 'getEncuestas' }),
+          apiGet({ action: 'getNoticias' }),
+          apiGet({ action: 'getDenuncias' }),
+          apiGet({ action: 'getForo' }),
+        ]);
+        updateDemoData(prev => ({
+          ...prev,
+          encuestas: encResp.encuestas || prev.encuestas,
+          noticias: notResp.noticias || prev.noticias,
+          denuncias: denResp.denuncias || prev.denuncias,
+          foro: foroResp.foro || prev.foro,
+        }));
+      } catch (err) {
+        console.error('Error loading data from API:', err);
+      }
     },
   };
 }

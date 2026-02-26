@@ -139,6 +139,10 @@ export interface AdminDataResponse {
   encuestas: Encuesta[];
   estadisticas: Estadisticas;
   votos_recientes: VotoReciente[];
+  noticias?: NewsArticle[];
+  denuncias?: DenunciaCiudadana[];
+  foro?: ForoPregunta[];
+  imagenes?: any[];
 }
 
 export interface SuscribirResponse {

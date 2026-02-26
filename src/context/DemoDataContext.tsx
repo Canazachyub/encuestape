@@ -1,6 +1,7 @@
-import { createContext, useCallback, useContext, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { DemoData } from '../types';
+import { CONFIG } from '../config/constants';
 import { DEFAULT_DEMO_DATA } from '../config/demo-data';
 import { loadDemoData, saveDemoData as persistDemoData } from '../services/storage';
 import { createAPI, type APIType } from '../services/api';
@@ -13,7 +14,21 @@ interface DemoDataContextValue {
 
 const DemoDataContext = createContext<DemoDataContextValue | null>(null);
 
+const EMPTY_DATA: DemoData = {
+  encuestas: [],
+  resultados: {},
+  estadisticas: { total_votos: 0, total_encuestas: 0, regiones: 0, precision: 0 },
+  votosRegistrados: {},
+  noticias: [],
+  denuncias: [],
+  foro: [],
+  imagenes: [],
+};
+
 function initializeData(): DemoData {
+  // Production mode: start empty, data will be fetched from API
+  if (!CONFIG.DEMO_MODE) return EMPTY_DATA;
+
   const saved = loadDemoData();
   if (saved) {
     saved.votosRegistrados = saved.votosRegistrados || {};
@@ -64,7 +79,7 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
   const updateData = useCallback((updater: (prev: DemoData) => DemoData) => {
     setData(prev => {
       const next = updater(prev);
-      persistDemoData(next);
+      if (CONFIG.DEMO_MODE) persistDemoData(next);
       return next;
     });
   }, []);
@@ -76,6 +91,13 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
       updateData,
     );
   }
+
+  // In production mode, fetch initial data from API
+  useEffect(() => {
+    if (!CONFIG.DEMO_MODE && apiRef.current) {
+      apiRef.current.fetchAllPublicData();
+    }
+  }, []);
 
   return (
     <DemoDataContext.Provider value={{ data, updateData, api: apiRef.current }}>

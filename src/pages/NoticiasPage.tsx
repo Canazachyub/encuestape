@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import type { NewsArticle, DenunciaCiudadana, ForoPregunta } from '../types';
 import { useDemoData } from '../context/DemoDataContext';
-import { NEWS_CATEGORIES, DENUNCIA_CATEGORIES, REGIONES_PERU } from '../config/constants';
+import { CONFIG, NEWS_CATEGORIES, DENUNCIA_CATEGORIES, REGIONES_PERU } from '../config/constants';
 import { timeAgo, formatNumber } from '../utils/format';
 import { resolveImageUrl } from '../utils/googleDrive';
 import Navbar from '../components/layout/Navbar';
@@ -48,7 +48,7 @@ const SECTION_TO_CATEGORY: Record<string, string> = {
 };
 
 export default function NoticiasPage() {
-  const { data, updateData } = useDemoData();
+  const { data, updateData, api } = useDemoData();
   const [section, setSection] = useState<PortalSection>('todas');
 
   const published = useMemo(() =>
@@ -141,6 +141,7 @@ export default function NoticiasPage() {
             <DenunciaSection
               denuncias={data.denuncias}
               updateData={updateData}
+              api={api}
             />
           )}
 
@@ -148,6 +149,7 @@ export default function NoticiasPage() {
             <ForoSection
               preguntas={data.foro}
               updateData={updateData}
+              api={api}
             />
           )}
 
@@ -223,9 +225,10 @@ function NewsCard({ article }: { article: NewsArticle }) {
 }
 
 /* ========== Denuncia Ciudadana ========== */
-function DenunciaSection({ denuncias, updateData }: {
+function DenunciaSection({ denuncias, updateData, api }: {
   denuncias: DenunciaCiudadana[];
   updateData: (fn: (prev: any) => any) => void;
+  api: any;
 }) {
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -258,6 +261,7 @@ function DenunciaSection({ denuncias, updateData }: {
       votos_apoyo: 0,
     };
     updateData(prev => ({ ...prev, denuncias: [...prev.denuncias, nueva] }));
+    if (!CONFIG.DEMO_MODE) api.crearDenuncia({ titulo: nueva.titulo, descripcion: nueva.descripcion, categoria: nueva.categoria, region: nueva.region }).catch(console.error);
     setTitulo('');
     setDescripcion('');
     setSubmitted(true);
@@ -272,6 +276,7 @@ function DenunciaSection({ denuncias, updateData }: {
         d.id === id ? { ...d, votos_apoyo: d.votos_apoyo + 1 } : d
       ),
     }));
+    if (!CONFIG.DEMO_MODE) api.apoyarDenuncia(id).catch(console.error);
     const next = new Set(apoyados).add(id);
     setApoyados(next);
     localStorage.setItem('ep_apoyos', JSON.stringify([...next]));
@@ -388,9 +393,10 @@ function DenunciaSection({ denuncias, updateData }: {
 }
 
 /* ========== Foro Diario ========== */
-function ForoSection({ preguntas, updateData }: {
+function ForoSection({ preguntas, updateData, api }: {
   preguntas: ForoPregunta[];
   updateData: (fn: (prev: any) => any) => void;
+  api: any;
 }) {
   const [showHistory, setShowHistory] = useState(false);
 
@@ -418,6 +424,7 @@ function ForoSection({ preguntas, updateData }: {
         return { ...p, opciones, total_votos: p.total_votos + 1 };
       }),
     }));
+    if (!CONFIG.DEMO_MODE) api.votarForo(preguntaId, opcionIdx).catch(console.error);
     const next = { ...votedForoIds, [preguntaId]: opcionIdx };
     setVotedForoIds(next);
     localStorage.setItem('ep_foro_votes', JSON.stringify(next));
