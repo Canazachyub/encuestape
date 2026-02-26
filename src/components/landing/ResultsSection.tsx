@@ -171,7 +171,7 @@ export default function ResultsSection() {
         {/* === DASHBOARD VIEW === */}
         {view === 'dashboard' && (
           <>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--space-xl)', marginBottom: 'var(--space-xl)' }} className="results-grid">
+            <div className="results-grid">
               <div style={{ background: 'var(--bg-white)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)' }}>
                 <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '1rem', marginBottom: 'var(--space-md)' }}>
                   Distribución de votos

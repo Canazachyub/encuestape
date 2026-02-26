@@ -423,6 +423,37 @@
   margin-bottom: 0;
 }
 
+/* === Results grid (dashboard layout) === */
+.results-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+/* === Results page controls === */
+.results-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.results-controls {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  padding: var(--space-lg) 0;
+}
+
+.results-select {
+  padding: 10px 16px;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  background: var(--bg-white);
+  min-width: 250px;
+}
+
 /* === Results filter categories === */
 .results-categories {
   display: flex;

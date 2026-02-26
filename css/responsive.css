@@ -73,26 +73,26 @@
   }
 
   .results-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .results-controls {
     flex-direction: column;
   }
 
-  .results-controls select {
-    min-width: 0 !important;
+  .results-select {
+    min-width: 0;
     width: 100%;
   }
 
   .results-hero-inner {
-    flex-direction: column !important;
+    flex-direction: column;
     text-align: center;
     gap: var(--space-md);
   }
 
   .results-hero h1 {
-    font-size: 1.5rem !important;
+    font-size: 1.5rem;
   }
 
   .results-categories {
@@ -101,6 +101,11 @@
 
   .results-subitems {
     flex-wrap: wrap;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .result-bar-track {

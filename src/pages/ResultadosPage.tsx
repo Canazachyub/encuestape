@@ -87,7 +87,7 @@ export default function ResultadosPage() {
       {/* Hero */}
       <section className="results-hero" style={{ background: 'var(--color-primary)', padding: 'var(--space-2xl) 0', color: 'var(--text-white)' }}>
         <div className="container">
-          <div className="results-hero-inner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div className="results-hero-inner">
             <div>
               <h1 style={{ fontSize: '2rem', color: 'var(--text-white)' }}>Centro de Resultados</h1>
               <p style={{ color: 'var(--text-light)', fontSize: '0.95rem' }}>Datos actualizados en tiempo real</p>
@@ -99,23 +99,20 @@ export default function ResultadosPage() {
 
       {/* Controls */}
       <div className="container">
-        <div className="results-controls" style={{ padding: 'var(--space-lg) 0', display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-          <select value={regionFilter} onChange={e => setRegionFilter(e.target.value)}
-            style={{ padding: '10px 16px', border: '1.5px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', fontSize: '0.9rem', background: 'var(--bg-white)', minWidth: 250 }}>
+        <div className="results-controls">
+          <select className="results-select" value={regionFilter} onChange={e => setRegionFilter(e.target.value)}>
             <option value="TODOS">Todas las regiones</option>
             {(Object.entries(REGIONES_PERU) as [RegionCode, { nombre: string }][])
               .filter(([k]) => k !== 'NACIONAL')
               .map(([k, d]) => <option key={k} value={k}>{d.nombre}</option>)}
           </select>
-          <select value={tipoFilter} onChange={e => setTipoFilter(e.target.value)}
-            style={{ padding: '10px 16px', border: '1.5px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', fontSize: '0.9rem', background: 'var(--bg-white)', minWidth: 250 }}>
+          <select className="results-select" value={tipoFilter} onChange={e => setTipoFilter(e.target.value)}>
             <option value="TODOS">Todos los tipos</option>
             {(Object.entries(TIPOS_ELECCION) as [TipoEleccionCode, { nombre: string }][]).map(([k, d]) => (
               <option key={k} value={k}>{d.nombre}</option>
             ))}
           </select>
-          <select value={selectedId} onChange={e => setSelectedId(e.target.value)}
-            style={{ padding: '10px 16px', border: '1.5px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', fontSize: '0.9rem', background: 'var(--bg-white)', minWidth: 250 }}>
+          <select className="results-select" value={selectedId} onChange={e => setSelectedId(e.target.value)}>
             {encuestasList.map(enc => {
               const regionName = REGIONES_PERU[enc.region]?.nombre || '';
               return (
@@ -132,7 +129,7 @@ export default function ResultadosPage() {
       <div className="container" style={{ padding: 'var(--space-xl) 0 var(--space-4xl)' }}>
         {resultados && (
           <>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--space-xl)', marginBottom: 'var(--space-xl)' }} className="results-grid">
+            <div className="results-grid">
               <div className="results-chart-card" style={{ background: 'var(--bg-white)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)' }}>
                 <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '1rem', marginBottom: 'var(--space-md)' }}>
                   {encuesta?.titulo || 'Distribución de votos'}
