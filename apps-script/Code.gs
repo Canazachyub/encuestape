@@ -84,17 +84,48 @@ function getOrCreateSheet(name) {
 function getEncuestas() {
   const sheet = ss.getSheetByName('Encuestas');
   const data = sheet.getDataRange().getValues();
+  const votosSheet = ss.getSheetByName('Votos');
+  const votos = votosSheet.getDataRange().getValues();
+  const candidatosSheet = ss.getSheetByName('Candidatos');
+  let candidatosData = null;
   const encuestas = [];
   for (let i = 1; i < data.length; i++) {
     const row = data[i];
     if (row[9] === true || row[9] === 'TRUE') {
-      const votosSheet = ss.getSheetByName('Votos');
-      const votos = votosSheet.getDataRange().getValues();
       const totalVotos = votos.filter(v => v[0] === row[0]).length;
+      let opciones;
+      if (row[4] === '@CANDIDATOS') {
+        // Load candidates from Candidatos sheet
+        if (!candidatosData && candidatosSheet) {
+          candidatosData = candidatosSheet.getDataRange().getValues();
+        }
+        opciones = [];
+        if (candidatosData) {
+          for (let c = 1; c < candidatosData.length; c++) {
+            if (candidatosData[c][0] === row[0]) {
+              const nombre = candidatosData[c][1];
+              const partido = candidatosData[c][2];
+              if (partido) {
+                opciones.push({
+                  nombre: nombre, partido: partido,
+                  foto_url: candidatosData[c][3] || '',
+                  url_hoja_vida: candidatosData[c][4] || '',
+                  numero: candidatosData[c][5] || 0
+                });
+              } else {
+                opciones.push(nombre);
+              }
+            }
+          }
+        }
+      } else {
+        opciones = JSON.parse(row[4]);
+      }
       encuestas.push({
         id: row[0], titulo: row[1], descripcion: row[2], estado: row[3],
-        opciones: JSON.parse(row[4]), meta_votos: row[5], fecha_inicio: row[6],
-        fecha_fin: row[7], categoria: row[8], total_votos: totalVotos
+        opciones: opciones, meta_votos: row[5], fecha_inicio: row[6],
+        fecha_fin: row[7], categoria: row[8], total_votos: totalVotos,
+        region: row[10] || 'NACIONAL', tipo_eleccion: row[11] || 'GENERAL'
       });
     }
   }
@@ -193,7 +224,8 @@ function crearEncuesta(data) {
   sheet.appendRow([
     newId, data.titulo, data.descripcion, data.estado || 'activa',
     JSON.stringify(data.opciones), data.meta_votos || 1000,
-    new Date().toISOString(), data.fecha_fin || '', data.categoria || 'GENERAL', true
+    new Date().toISOString(), data.fecha_fin || '', data.categoria || 'GENERAL', true,
+    data.region || 'NACIONAL', data.tipo_eleccion || 'GENERAL'
   ]);
   return { exito: true, id: newId };
 }
@@ -207,6 +239,8 @@ function editarEncuesta(data) {
       if (data.descripcion) sheet.getRange(i+1, 3).setValue(data.descripcion);
       if (data.estado) sheet.getRange(i+1, 4).setValue(data.estado);
       if (data.opciones) sheet.getRange(i+1, 5).setValue(JSON.stringify(data.opciones));
+      if (data.region) sheet.getRange(i+1, 11).setValue(data.region);
+      if (data.tipo_eleccion) sheet.getRange(i+1, 12).setValue(data.tipo_eleccion);
       return { exito: true };
     }
   }
@@ -647,11 +681,12 @@ function setupSheets() {
   // ── Encuestas ──
   let sheet = getOrCreateSheet('Encuestas');
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['id', 'titulo', 'descripcion', 'estado', 'opciones', 'meta_votos', 'fecha_inicio', 'fecha_fin', 'categoria', 'visible']);
-    sheet.getRange(1, 1, 1, 10).setFontWeight('bold').setBackground(HEADER_BG).setFontColor(HEADER_FG);
-    sheet.setColumnWidth(1, 60); sheet.setColumnWidth(2, 300); sheet.setColumnWidth(3, 300);
+    sheet.appendRow(['id', 'titulo', 'descripcion', 'estado', 'opciones', 'meta_votos', 'fecha_inicio', 'fecha_fin', 'categoria', 'visible', 'region', 'tipo_eleccion']);
+    sheet.getRange(1, 1, 1, 12).setFontWeight('bold').setBackground(HEADER_BG).setFontColor(HEADER_FG);
+    sheet.setColumnWidth(1, 80); sheet.setColumnWidth(2, 300); sheet.setColumnWidth(3, 300);
     sheet.setColumnWidth(4, 80); sheet.setColumnWidth(5, 400); sheet.setColumnWidth(6, 100);
     sheet.setColumnWidth(7, 120); sheet.setColumnWidth(8, 120); sheet.setColumnWidth(9, 100); sheet.setColumnWidth(10, 70);
+    sheet.setColumnWidth(11, 120); sheet.setColumnWidth(12, 140);
   }
 
   // ── Votos ──
@@ -724,6 +759,15 @@ function setupSheets() {
     sheet.setColumnWidth(4, 180); sheet.setColumnWidth(5, 120);
   }
 
+  // ── Candidatos (opciones de encuestas grandes) ──
+  sheet = getOrCreateSheet('Candidatos');
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['encuesta_id', 'nombre', 'partido', 'foto_url', 'url_hoja_vida', 'numero']);
+    sheet.getRange(1, 1, 1, 6).setFontWeight('bold').setBackground(HEADER_BG).setFontColor(HEADER_FG);
+    sheet.setColumnWidth(1, 120); sheet.setColumnWidth(2, 280); sheet.setColumnWidth(3, 200);
+    sheet.setColumnWidth(4, 350); sheet.setColumnWidth(5, 350); sheet.setColumnWidth(6, 70);
+  }
+
   Logger.log('✅ Todas las hojas creadas correctamente.');
   Logger.log('Ejecuta: poblarEncuestaE01() para datos de encuestas.');
   Logger.log('Ejecuta: poblarTodoPortalNoticias() para noticias + denuncias + foro.');
@@ -786,7 +830,8 @@ function poblarEncuestaE01() {
     'E01', 'Intención de voto — Elecciones Generales 2026',
     '¿Por quién votaría si las elecciones presidenciales fueran hoy?',
     'activa', JSON.stringify(opciones), 5000,
-    '2026-02-09', '2026-03-09', 'ELECCIONES', true
+    '2026-02-09', '2026-03-09', 'ELECCIONES', true,
+    'NACIONAL', 'PRESIDENTE'
   ]);
   Logger.log('✅ Encuesta E01 creada. Ejecuta: generarVotosDemo()');
 }
@@ -995,4 +1040,187 @@ function limpiarForo() {
   const lastRow = sheet.getLastRow();
   if (lastRow > 1) sheet.deleteRows(2, lastRow - 1);
   Logger.log('✅ Foro limpiado.');
+}
+
+function limpiarEncuestas() {
+  const sheet = ss.getSheetByName('Encuestas');
+  const lastRow = sheet.getLastRow();
+  if (lastRow > 1) sheet.deleteRows(2, lastRow - 1);
+  Logger.log('✅ Encuestas eliminadas.');
+}
+
+function limpiarCandidatos() {
+  const sheet = ss.getSheetByName('Candidatos');
+  if (!sheet) return;
+  const lastRow = sheet.getLastRow();
+  if (lastRow > 1) sheet.deleteRows(2, lastRow - 1);
+  Logger.log('✅ Candidatos eliminados.');
+}
+
+function limpiarVotos() {
+  const sheet = ss.getSheetByName('Votos');
+  const lastRow = sheet.getLastRow();
+  if (lastRow > 1) sheet.deleteRows(2, lastRow - 1);
+  Logger.log('✅ Todos los votos eliminados.');
+}
+
+// ════════════════════════════════════════════════════
+// ACTUALIZAR ESQUEMA — Agregar columnas region y tipo_eleccion
+// ════════════════════════════════════════════════════
+
+/**
+ * Ejecutar UNA VEZ si ya tenías la hoja Encuestas sin las columnas region/tipo_eleccion.
+ * Agrega las columnas 11 y 12 y actualiza E01 si existe.
+ */
+function actualizarEsquemaEncuestas() {
+  const sheet = ss.getSheetByName('Encuestas');
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+  if (headers.indexOf('region') === -1) {
+    const col = headers.length + 1;
+    sheet.getRange(1, col).setValue('region').setFontWeight('bold').setBackground('#0A1E3D').setFontColor('#FFFFFF');
+    sheet.setColumnWidth(col, 120);
+  }
+
+  if (headers.indexOf('tipo_eleccion') === -1) {
+    const col = headers.length + (headers.indexOf('region') === -1 ? 2 : 1);
+    sheet.getRange(1, col).setValue('tipo_eleccion').setFontWeight('bold').setBackground('#0A1E3D').setFontColor('#FFFFFF');
+    sheet.setColumnWidth(col, 140);
+  }
+
+  // Update E01 if it exists and doesn't have region set
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0] === 'E01' && !data[i][10]) {
+      sheet.getRange(i + 1, 11).setValue('NACIONAL');
+      sheet.getRange(i + 1, 12).setValue('PRESIDENTE');
+    }
+  }
+
+  // Create Candidatos sheet if not exists
+  getOrCreateSheet('Candidatos');
+  const candSheet = ss.getSheetByName('Candidatos');
+  if (candSheet.getLastRow() === 0) {
+    candSheet.appendRow(['encuesta_id', 'nombre', 'partido', 'foto_url', 'url_hoja_vida', 'numero']);
+    candSheet.getRange(1, 1, 1, 6).setFontWeight('bold').setBackground('#0A1E3D').setFontColor('#FFFFFF');
+    candSheet.setColumnWidth(1, 120); candSheet.setColumnWidth(2, 280); candSheet.setColumnWidth(3, 200);
+    candSheet.setColumnWidth(4, 350); candSheet.setColumnWidth(5, 350); candSheet.setColumnWidth(6, 70);
+  }
+
+  Logger.log('✅ Esquema actualizado: columnas region, tipo_eleccion + hoja Candidatos.');
+}
+
+// ════════════════════════════════════════════════════
+// IMPORTAR TODAS LAS ENCUESTAS DESDE GITHUB
+// ════════════════════════════════════════════════════
+
+/**
+ * Descarga las 59 encuestas del archivo JSON en GitHub y las importa.
+ * Incluye encuestas de: Presidente, Municipal, Senadores, Diputados, Parlamento Andino.
+ *
+ * PASOS:
+ * 1. Ejecutar actualizarEsquemaEncuestas() primero (si ya tenías hojas creadas)
+ * 2. Ejecutar importarTodasLasEncuestas()
+ * 3. Ejecutar generarVotosDemo() para votos de E01
+ * 4. Ejecutar poblarTodoPortalNoticias() para noticias, denuncias, foro
+ */
+function importarTodasLasEncuestas() {
+  const GITHUB_URL = 'https://raw.githubusercontent.com/Canazachyub/encuestape/main/apps-script/demo-encuestas.json';
+
+  Logger.log('⏳ Descargando datos de GitHub...');
+  const response = UrlFetchApp.fetch(GITHUB_URL);
+  const jsonData = JSON.parse(response.getContentText());
+
+  const encuestas = jsonData.encuestas;
+  const candidatos = jsonData.candidatos;
+
+  Logger.log('📊 ' + encuestas.length + ' encuestas, ' + candidatos.length + ' candidatos');
+
+  // ── Importar encuestas ──
+  const encSheet = ss.getSheetByName('Encuestas');
+  const existingData = encSheet.getDataRange().getValues();
+  const existingIds = new Set();
+  for (let i = 1; i < existingData.length; i++) {
+    existingIds.add(existingData[i][0]);
+  }
+
+  const newRows = [];
+  for (const e of encuestas) {
+    if (existingIds.has(e.id)) {
+      Logger.log('⏭️ ' + e.id + ' ya existe, omitiendo.');
+      continue;
+    }
+    const opciones = e.opciones === '@CANDIDATOS' ? '@CANDIDATOS' : JSON.stringify(e.opciones);
+    newRows.push([
+      e.id, e.titulo, e.descripcion, e.estado,
+      opciones, e.meta_votos,
+      e.fecha_inicio, e.fecha_fin, e.categoria, true,
+      e.region || 'NACIONAL', e.tipo_eleccion || 'GENERAL'
+    ]);
+  }
+
+  if (newRows.length > 0) {
+    encSheet.getRange(encSheet.getLastRow() + 1, 1, newRows.length, 12).setValues(newRows);
+    Logger.log('✅ ' + newRows.length + ' encuestas importadas.');
+  } else {
+    Logger.log('ℹ️ No hay encuestas nuevas para importar.');
+  }
+
+  // ── Importar candidatos ──
+  if (candidatos && candidatos.length > 0) {
+    const candSheet = getOrCreateSheet('Candidatos');
+    if (candSheet.getLastRow() === 0) {
+      candSheet.appendRow(['encuesta_id', 'nombre', 'partido', 'foto_url', 'url_hoja_vida', 'numero']);
+      candSheet.getRange(1, 1, 1, 6).setFontWeight('bold').setBackground('#0A1E3D').setFontColor('#FFFFFF');
+    }
+
+    // Check which encuesta_ids already have candidates
+    const existingCands = candSheet.getDataRange().getValues();
+    const existingCandIds = new Set();
+    for (let i = 1; i < existingCands.length; i++) {
+      existingCandIds.add(existingCands[i][0]);
+    }
+
+    const newCandRows = [];
+    for (const c of candidatos) {
+      if (existingCandIds.has(c.encuesta_id)) continue;
+      newCandRows.push([
+        c.encuesta_id, c.nombre, c.partido || '',
+        c.foto_url || '', c.url_hoja_vida || '', c.numero || 0
+      ]);
+    }
+
+    if (newCandRows.length > 0) {
+      // Write in batches of 5000 to avoid memory issues
+      const BATCH_SIZE = 5000;
+      for (let i = 0; i < newCandRows.length; i += BATCH_SIZE) {
+        const batch = newCandRows.slice(i, i + BATCH_SIZE);
+        candSheet.getRange(candSheet.getLastRow() + 1, 1, batch.length, 6).setValues(batch);
+      }
+      Logger.log('✅ ' + newCandRows.length + ' candidatos importados.');
+    } else {
+      Logger.log('ℹ️ No hay candidatos nuevos para importar.');
+    }
+  }
+
+  Logger.log('🎉 Importación completa. Total encuestas en hoja: ' + (encSheet.getLastRow() - 1));
+}
+
+// ════════════════════════════════════════════════════
+// POBLAR TODO — Ejecutar TODAS las funciones de población
+// ════════════════════════════════════════════════════
+
+/**
+ * Ejecutar todo de golpe:
+ * 1. Actualiza esquema (agrega columnas faltantes)
+ * 2. Importa las 59 encuestas desde GitHub
+ * 3. Genera votos demo para E01
+ * 4. Pobla noticias, denuncias, foro
+ */
+function poblarTodo() {
+  actualizarEsquemaEncuestas();
+  importarTodasLasEncuestas();
+  generarVotosDemo();
+  poblarTodoPortalNoticias();
+  Logger.log('🎉 ¡Todo poblado! La web ahora mostrará todos los datos desde Google Sheets.');
 }
