@@ -106,6 +106,7 @@ export interface AppConfig {
   DNI_LENGTH: number;
   WHATSAPP_NUMBER: string;
   DEMO_MODE: boolean;
+  RECAPTCHA_SITE_KEY: string;
 }
 
 // API response types

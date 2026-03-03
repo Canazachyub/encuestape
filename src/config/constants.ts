@@ -23,6 +23,7 @@ export const CONFIG: AppConfig = {
   DNI_LENGTH: 8,
   WHATSAPP_NUMBER: '51921647291',
   DEMO_MODE: false,
+  RECAPTCHA_SITE_KEY: '6LeanH4sAAAAAAt2t6Qb8BoTII3eAchnu4FdJjhH',
 };
 
 export const REGIONES_PERU: Record<RegionCode, RegionInfo> = {

@@ -27,7 +27,10 @@ export default function VotarPage() {
   const [notFound, setNotFound] = useState(false);
   const [closed, setClosed] = useState(false);
   const [captchaPassed, setCaptchaPassed] = useState(false);
-  const needsCaptcha = getDeviceVoteCount() >= 5;
+  const deviceVotes = getDeviceVoteCount();
+  const needsMathCaptcha = deviceVotes >= 5 && deviceVotes < 7;
+  const needsRecaptcha = deviceVotes >= 7;
+  const needsCaptcha = needsMathCaptcha || needsRecaptcha;
 
   useEffect(() => {
     const loadEncuesta = async () => {
@@ -292,8 +295,11 @@ export default function VotarPage() {
                 <span>Esta acción no se puede deshacer. Una vez confirmado, no podrás cambiar tu voto.</span>
               </div>
             </div>
-            {needsCaptcha && (
+            {needsMathCaptcha && (
               <CaptchaChallenge onPass={() => setCaptchaPassed(true)} passed={captchaPassed} />
+            )}
+            {needsRecaptcha && (
+              <ReCaptchaChallenge onPass={() => setCaptchaPassed(true)} passed={captchaPassed} />
             )}
             <div className="votar-buttons">
               <button className="btn btn-outline" onClick={() => goToStep(2)} style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' }}>← Cambiar voto</button>
@@ -555,6 +561,57 @@ function CaptchaChallenge({ onPass, passed }: { onPass: () => void; passed: bool
         <button className="btn btn-sm btn-primary" onClick={handleCheck}>Verificar</button>
       </div>
       {error && <p className="captcha-error-msg">Respuesta incorrecta, intenta de nuevo.</p>}
+    </div>
+  );
+}
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      render: (container: HTMLElement, params: { sitekey: string; callback: (token: string) => void; theme?: string }) => number;
+      reset: (widgetId: number) => void;
+    };
+  }
+}
+
+function ReCaptchaChallenge({ onPass, passed }: { onPass: () => void; passed: boolean }) {
+  const containerRef = useCallback((node: HTMLDivElement | null) => {
+    if (!node || passed) return;
+    const tryRender = () => {
+      if (window.grecaptcha && window.grecaptcha.render) {
+        try {
+          window.grecaptcha.render(node, {
+            sitekey: CONFIG.RECAPTCHA_SITE_KEY,
+            callback: () => onPass(),
+            theme: 'light',
+          });
+        } catch {
+          // already rendered
+        }
+      } else {
+        setTimeout(tryRender, 300);
+      }
+    };
+    tryRender();
+  }, [onPass, passed]);
+
+  if (passed) {
+    return (
+      <div className="captcha-box captcha-passed">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6 9 17l-5-5"/></svg>
+        Verificación completada
+      </div>
+    );
+  }
+
+  return (
+    <div className="captcha-box">
+      <div className="captcha-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Verificación de seguridad</span>
+      </div>
+      <p className="captcha-desc">Confirma que no eres un robot:</p>
+      <div ref={containerRef}></div>
     </div>
   );
 }
