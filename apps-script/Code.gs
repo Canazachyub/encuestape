@@ -190,6 +190,27 @@ function registrarVoto(data) {
     if (!region) region = 'NACIONAL';
   }
   votosSheet.appendRow([data.encuesta_id, data.dni, data.opcion, new Date().toISOString(), region]);
+
+  // Auto-increase meta_votos when reached
+  var encSheet2 = ss.getSheetByName('Encuestas');
+  var encData2 = encSheet2.getDataRange().getValues();
+  for (var j = 1; j < encData2.length; j++) {
+    if (encData2[j][0] === data.encuesta_id) {
+      var metaActual = Number(encData2[j][5]) || 5000;
+      // Count total votes for this encuesta
+      var totalVotos = 0;
+      var allVotos = votosSheet.getDataRange().getValues();
+      for (var k = 1; k < allVotos.length; k++) {
+        if (allVotos[k][0] === data.encuesta_id) totalVotos++;
+      }
+      if (totalVotos >= metaActual) {
+        var nuevaMeta = metaActual * 2;
+        encSheet2.getRange(j + 1, 6).setValue(nuevaMeta);
+      }
+      break;
+    }
+  }
+
   return { exito: true, mensaje: 'Voto registrado exitosamente.' };
 }
 

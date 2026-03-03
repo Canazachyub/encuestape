@@ -120,7 +120,12 @@ export function createAPI(
           }
           next.votosRegistrados[data.encuesta_id].push(data.dni);
           const encuesta = next.encuestas.find(e => e.id === data.encuesta_id);
-          if (encuesta) encuesta.total_votos++;
+          if (encuesta) {
+            encuesta.total_votos++;
+            if (encuesta.total_votos >= encuesta.meta_votos) {
+              encuesta.meta_votos = encuesta.meta_votos * 2;
+            }
+          }
           const resultados = next.resultados[data.encuesta_id];
           if (resultados) {
             resultados.total_votos++;
