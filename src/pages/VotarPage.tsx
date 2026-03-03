@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import type { Encuesta, EncuestaOption, ResultadosData } from '../types';
 import { useDemoData } from '../context/DemoDataContext';
@@ -7,6 +7,7 @@ import { validateDNI } from '../utils/validators';
 import { formatNumber } from '../utils/format';
 import { getOptionName, findCandidateData, getInitials, getChartColors } from '../utils/helpers';
 import { debounce } from '../utils/helpers';
+import { getDeviceVoteCount, incrementDeviceVoteCount } from '../services/storage';
 
 export default function VotarPage() {
   const { id } = useParams<{ id: string }>();
@@ -25,6 +26,8 @@ export default function VotarPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [notFound, setNotFound] = useState(false);
   const [closed, setClosed] = useState(false);
+  const [captchaPassed, setCaptchaPassed] = useState(false);
+  const needsCaptcha = getDeviceVoteCount() >= 5;
 
   useEffect(() => {
     const loadEncuesta = async () => {
@@ -73,6 +76,7 @@ export default function VotarPage() {
 
   const confirmVote = async () => {
     if (!encuesta || !selectedOption || !dniVerified) return;
+    if (needsCaptcha && !captchaPassed) return;
     setConfirming(true);
     try {
       const result = await api.registrarVoto({
@@ -82,6 +86,7 @@ export default function VotarPage() {
         region: encuesta.region || 'NACIONAL',
       });
       if (result.exito) {
+        incrementDeviceVoteCount();
         const res = await api.getResultados(encuesta.id);
         setResultados(res);
         setStep(4);
@@ -287,9 +292,12 @@ export default function VotarPage() {
                 <span>Esta acción no se puede deshacer. Una vez confirmado, no podrás cambiar tu voto.</span>
               </div>
             </div>
+            {needsCaptcha && (
+              <CaptchaChallenge onPass={() => setCaptchaPassed(true)} passed={captchaPassed} />
+            )}
             <div className="votar-buttons">
               <button className="btn btn-outline" onClick={() => goToStep(2)} style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' }}>← Cambiar voto</button>
-              <button className="btn btn-primary" onClick={confirmVote} disabled={confirming}>
+              <button className="btn btn-primary" onClick={confirmVote} disabled={confirming || (needsCaptcha && !captchaPassed)}>
                 {confirming ? 'Registrando...' : '✓ Confirmar voto'}
               </button>
             </div>
@@ -486,6 +494,67 @@ function ShareSection({ encuesta }: { encuesta: Encuesta }) {
           )}
         </button>
       </div>
+    </div>
+  );
+}
+
+function CaptchaChallenge({ onPass, passed }: { onPass: () => void; passed: boolean }) {
+  const [answer, setAnswer] = useState('');
+  const [error, setError] = useState(false);
+
+  const challenge = useMemo(() => {
+    const a = Math.floor(Math.random() * 20) + 1;
+    const b = Math.floor(Math.random() * 20) + 1;
+    const ops = [
+      { symbol: '+', result: a + b },
+      { symbol: '-', result: Math.max(a, b) - Math.min(a, b) },
+    ];
+    const op = ops[Math.floor(Math.random() * ops.length)];
+    const left = op.symbol === '-' ? Math.max(a, b) : a;
+    const right = op.symbol === '-' ? Math.min(a, b) : b;
+    return { left, right, symbol: op.symbol, result: op.result };
+  }, []);
+
+  const handleCheck = () => {
+    if (parseInt(answer, 10) === challenge.result) {
+      setError(false);
+      onPass();
+    } else {
+      setError(true);
+    }
+  };
+
+  if (passed) {
+    return (
+      <div className="captcha-box captcha-passed">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6 9 17l-5-5"/></svg>
+        Verificación completada
+      </div>
+    );
+  }
+
+  return (
+    <div className="captcha-box">
+      <div className="captcha-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Verificación de seguridad</span>
+      </div>
+      <p className="captcha-desc">Resuelve la operación para continuar:</p>
+      <div className="captcha-challenge">
+        <span className="captcha-question mono">{challenge.left} {challenge.symbol} {challenge.right} = ?</span>
+        <input
+          type="text"
+          className={`captcha-input${error ? ' captcha-error' : ''}`}
+          inputMode="numeric"
+          maxLength={4}
+          placeholder="?"
+          value={answer}
+          onChange={e => { setAnswer(e.target.value.replace(/\D/g, '')); setError(false); }}
+          onKeyDown={e => { if (e.key === 'Enter') handleCheck(); }}
+        />
+        <button className="btn btn-sm btn-primary" onClick={handleCheck}>Verificar</button>
+      </div>
+      {error && <p className="captcha-error-msg">Respuesta incorrecta, intenta de nuevo.</p>}
     </div>
   );
 }

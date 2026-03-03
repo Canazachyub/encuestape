@@ -35,3 +35,22 @@ export function setAdminToken(token: string): void {
 export function clearAdminToken(): void {
   sessionStorage.removeItem('admin_token');
 }
+
+const VOTE_COUNT_KEY = 'encuestape_device_votes';
+
+export function getDeviceVoteCount(): number {
+  try {
+    return parseInt(localStorage.getItem(VOTE_COUNT_KEY) || '0', 10);
+  } catch {
+    return 0;
+  }
+}
+
+export function incrementDeviceVoteCount(): void {
+  try {
+    const count = getDeviceVoteCount() + 1;
+    localStorage.setItem(VOTE_COUNT_KEY, String(count));
+  } catch {
+    // ignore
+  }
+}
