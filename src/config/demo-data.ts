@@ -9271,7 +9271,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
         'Voto en blanco',
         'Aún no he decidido',
       ],
-      meta_votos: 5000,
+      meta_votos: 10000,
       fecha_inicio: '2026-02-20',
       fecha_fin: '2026-04-13',
       categoria: 'ELECCIONES',
