@@ -15,8 +15,7 @@ export const FORO_CATEGORIES = [
 ];
 
 export const CONFIG: AppConfig = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbxunahYUGHoDybOALZopQYyfvKnhRO06wsimsbxtWWomkAXjMf2IGcDFkRQni7V66Y24A/exec',
-  SPREADSHEET_ID: '1Mje93_WZ6gMh8cnTrdnznwY-AEzSE-DBIRmgz50xKDQ',
+  API_URL: 'https://script.google.com/macros/s/AKfycbzy35ty3fcpSCNhYKsM-QaTFtl8lWTqLFTNunoLZ6TUfjZfHUtWrQCjFbb-QA076wix5w/exec',
   SITE_NAME: 'EncuestaPe',
   SITE_SLOGAN: 'La voz del Perú en datos',
   REFRESH_INTERVAL: 30000,

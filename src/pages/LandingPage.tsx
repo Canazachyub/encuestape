@@ -36,6 +36,12 @@ export default function LandingPage() {
 
   const handleRegionChange = useCallback((region: RegionCode | null) => {
     setSelectedRegion(region);
+    // Auto-scroll to encuestas section when a region is selected
+    if (region) {
+      setTimeout(() => {
+        document.getElementById('encuestas')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
   }, []);
 
   const handleClearFilter = useCallback(() => {
@@ -62,6 +68,7 @@ export default function LandingPage() {
         onRegionChange={handleRegionChange}
         onTipoChange={setCurrentTipo}
       />
+      <HowToSection />
 
       <section className="section encuestas-section" id="encuestas">
         <div className="container">
@@ -76,8 +83,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <ResultsSection />
-      <HowToSection />
+      <ResultsSection selectedRegion={selectedRegion} />
       <TrustSection />
       <NewsletterSection />
       <Footer />

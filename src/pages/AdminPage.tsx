@@ -32,11 +32,17 @@ export default function AdminPage() {
 
   const loadAdminData = useCallback(async () => {
     const d = await api.getAdminData();
-    setAdminData(d);
-    if (d.encuestas.length > 0 && !selectedEncuesta) {
-      setSelectedEncuesta(d.encuestas[0].id);
+    if (d.error) {
+      if (d.error === 'No autorizado') {
+        logout();
+      } else {
+        console.error('Admin API error:', d.error);
+      }
+      return;
     }
-  }, [api, selectedEncuesta]);
+    setAdminData(d);
+    setSelectedEncuesta(prev => prev || (d.encuestas?.length > 0 ? d.encuestas[0].id : ''));
+  }, [api, logout]);
 
   useEffect(() => {
     if (isAuthenticated) loadAdminData();
@@ -128,7 +134,7 @@ export default function AdminPage() {
   }
 
   const sectionTitle = section.charAt(0).toUpperCase() + section.slice(1);
-  const currentEnc = adminData?.encuestas.find(e => e.id === selectedEncuesta);
+  const currentEnc = adminData?.encuestas?.find(e => e.id === selectedEncuesta);
 
   // Demo votes per hour data
   const hours = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, '0')}:00`);
@@ -788,6 +794,8 @@ function NewsModal({ article, onClose, updateData, existingIds, imagenes, api }:
   const [urlInput, setUrlInput] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [uploading, setUploading] = useState(false);
+
   const handleImageFile = (file: File) => {
     if (file.size > MAX_IMAGE_SIZE) {
       alert('La imagen es muy grande. Máximo 2MB.');
@@ -798,9 +806,39 @@ function NewsModal({ article, onClose, updateData, existingIds, imagenes, api }:
       return;
     }
     const reader = new FileReader();
-    reader.onload = (ev) => {
+    reader.onload = async (ev) => {
       const dataUrl = ev.target?.result as string;
-      // Save to image library
+
+      if (!CONFIG.DEMO_MODE) {
+        // Upload to Google Drive
+        setUploading(true);
+        try {
+          const result = await api.subirImagenDrive(file.name, dataUrl);
+          if (result.exito && result.url) {
+            setImagenUrl(result.url);
+            const newImg: ImageItem = {
+              id: result.id,
+              nombre: file.name,
+              data_url: result.url,
+              fecha: new Date().toISOString(),
+              size: file.size,
+            };
+            updateData(prev => ({
+              ...prev,
+              imagenes: [...(prev.imagenes || []), newImg],
+            }));
+          } else {
+            alert('Error al subir imagen a Drive: ' + (result.error || JSON.stringify(result)));
+          }
+        } catch (err: any) {
+          alert('Error al subir imagen: ' + (err?.message || 'Verifica tu conexión.'));
+        } finally {
+          setUploading(false);
+        }
+        return;
+      }
+
+      // Demo mode: store base64 locally
       const imgId = 'IMG' + Date.now();
       const newImg: ImageItem = {
         id: imgId,
@@ -935,8 +973,12 @@ function NewsModal({ article, onClose, updateData, existingIds, imagenes, api }:
                   <circle cx="8.5" cy="8.5" r="1.5" />
                   <polyline points="21 15 16 10 5 21" />
                 </svg>
-                <p style={{ fontWeight: 500, marginTop: 6, fontSize: '0.85rem' }}>Arrastra imagen o haz clic para subir</p>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>JPG, PNG — máximo 2MB. Se guarda en tu galería.</span>
+                <p style={{ fontWeight: 500, marginTop: 6, fontSize: '0.85rem' }}>
+                  {uploading ? 'Subiendo a Google Drive...' : 'Arrastra imagen o haz clic para subir'}
+                </p>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                  {uploading ? 'Espera un momento' : 'JPG, PNG — máximo 2MB. Se sube a Google Drive.'}
+                </span>
                 <input type="file" ref={fileInputRef} accept="image/*" className="hidden"
                   onChange={e => { if (e.target.files?.[0]) handleImageFile(e.target.files[0]); }} />
               </div>
@@ -959,7 +1001,22 @@ function NewsModal({ article, onClose, updateData, existingIds, imagenes, api }:
                             className={`img-gallery-thumb${imagenUrl === img.data_url ? ' selected' : ''}`}
                             onClick={() => setImagenUrl(img.data_url)}
                           >
-                            <img src={img.data_url} alt={img.nombre} />
+                            <img
+                              src={img.data_url}
+                              alt={img.nombre}
+                              referrerPolicy="no-referrer"
+                              loading="lazy"
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                if (!target.dataset.fallback) {
+                                  target.dataset.fallback = '1';
+                                  target.src = `https://lh3.googleusercontent.com/d/${img.id}=w400`;
+                                } else if (target.dataset.fallback === '1') {
+                                  target.dataset.fallback = '2';
+                                  target.src = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80"><rect fill="%23e2e8f0" width="120" height="80"/><text x="60" y="44" text-anchor="middle" fill="%2394a3b8" font-size="11" font-family="sans-serif">Sin vista previa</text></svg>')}`;
+                                }
+                              }}
+                            />
                             {imagenUrl === img.data_url && (
                               <div className="img-gallery-check">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1034,14 +1091,40 @@ const IMG_MAX_SIZE = 2 * 1024 * 1024;
 
 function ImagenesAdmin({ imagenes, updateData, api }: { imagenes: ImageItem[]; updateData: (fn: (prev: any) => any) => void; api: any }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingCount, setUploadingCount] = useState(0);
 
   const handleUpload = (files: FileList) => {
     Array.from(files).forEach(file => {
       if (file.size > IMG_MAX_SIZE) { alert(`${file.name} excede 2MB.`); return; }
       if (!file.type.startsWith('image/')) return;
       const reader = new FileReader();
-      reader.onload = (ev) => {
+      reader.onload = async (ev) => {
         const dataUrl = ev.target?.result as string;
+
+        if (!CONFIG.DEMO_MODE) {
+          setUploadingCount(c => c + 1);
+          try {
+            const result = await api.subirImagenDrive(file.name, dataUrl);
+            if (result.exito && result.url) {
+              const newImg: ImageItem = {
+                id: result.id,
+                nombre: file.name,
+                data_url: result.url,
+                fecha: new Date().toISOString(),
+                size: file.size,
+              };
+              updateData(prev => ({ ...prev, imagenes: [...(prev.imagenes || []), newImg] }));
+            } else {
+              alert(`Error al subir ${file.name}: ${result.error || JSON.stringify(result)}`);
+            }
+          } catch (err: any) {
+            alert(`Error al subir ${file.name}: ${err?.message || 'Error de conexión'}`);
+          } finally {
+            setUploadingCount(c => c - 1);
+          }
+          return;
+        }
+
         const newImg: ImageItem = {
           id: 'IMG' + Date.now() + Math.random().toString(36).slice(2, 6),
           nombre: file.name,
@@ -1093,8 +1176,12 @@ function ImagenesAdmin({ imagenes, updateData, api }: { imagenes: ImageItem[]; u
           <circle cx="8.5" cy="8.5" r="1.5" />
           <polyline points="21 15 16 10 5 21" />
         </svg>
-        <p style={{ fontWeight: 500, marginTop: 8, fontSize: '0.9rem' }}>Arrastra imágenes aquí o haz clic para subir</p>
-        <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>JPG, PNG — máximo 2MB por imagen. Se pueden subir varias a la vez.</span>
+        <p style={{ fontWeight: 500, marginTop: 8, fontSize: '0.9rem' }}>
+          {uploadingCount > 0 ? `Subiendo ${uploadingCount} imagen(es) a Google Drive...` : 'Arrastra imágenes aquí o haz clic para subir'}
+        </p>
+        <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+          {uploadingCount > 0 ? 'Espera un momento' : 'JPG, PNG — máximo 2MB por imagen. Se suben a Google Drive.'}
+        </span>
       </div>
 
       {imagenes.length === 0 ? (
@@ -1108,7 +1195,22 @@ function ImagenesAdmin({ imagenes, updateData, api }: { imagenes: ImageItem[]; u
             <div className="img-manager-grid">
               {imgs.map(img => (
                 <div key={img.id} className="img-manager-card">
-                  <img src={img.data_url} alt={img.nombre} />
+                  <img
+                            src={img.data_url}
+                            alt={img.nombre}
+                            referrerPolicy="no-referrer"
+                            loading="lazy"
+                            onError={(e) => {
+                              const target = e.currentTarget;
+                              if (!target.dataset.fallback) {
+                                target.dataset.fallback = '1';
+                                target.src = `https://lh3.googleusercontent.com/d/${img.id}=w400`;
+                              } else if (target.dataset.fallback === '1') {
+                                target.dataset.fallback = '2';
+                                target.src = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80"><rect fill="%23e2e8f0" width="120" height="80"/><text x="60" y="44" text-anchor="middle" fill="%2394a3b8" font-size="11" font-family="sans-serif">Sin vista previa</text></svg>')}`;
+                              }
+                            }}
+                          />
                   <div className="img-manager-info">
                     <span className="img-name" title={img.nombre}>{img.nombre}</span>
                     <span style={{ fontSize: '0.65rem', opacity: 0.6 }}>{formatSize(img.size)}</span>

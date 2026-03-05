@@ -99,7 +99,6 @@ export interface TipoEleccionInfo {
 
 export interface AppConfig {
   API_URL: string;
-  SPREADSHEET_ID: string;
   SITE_NAME: string;
   SITE_SLOGAN: string;
   REFRESH_INTERVAL: number;
@@ -124,6 +123,7 @@ export interface RegistrarVotoRequest {
   opcion: string;
   dni: string;
   region?: string;
+  recaptcha_token?: string;
 }
 
 export interface RegistrarVotoResponse {
@@ -145,6 +145,7 @@ export interface AdminDataResponse {
   denuncias?: DenunciaCiudadana[];
   foro?: ForoPregunta[];
   imagenes?: any[];
+  error?: string;
 }
 
 export interface SuscribirResponse {

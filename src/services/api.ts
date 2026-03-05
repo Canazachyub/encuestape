@@ -22,17 +22,51 @@ import type {
 
 async function apiGet(params: Record<string, string>): Promise<any> {
   const url = `${CONFIG.API_URL}?${new URLSearchParams(params)}`;
-  const res = await fetch(url);
-  return res.json();
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      const res = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (!res.ok) throw new Error(`Error del servidor: ${res.status}`);
+      return await res.json();
+    } catch (err: any) {
+      if (attempt === 1 || err?.message?.includes('Error del servidor')) throw err;
+    }
+  }
 }
 
-async function apiPost(data: Record<string, any>): Promise<any> {
+async function apiPost(data: Record<string, any>, timeoutMs = 15000): Promise<any> {
   // Use text/plain to avoid CORS preflight with Apps Script
-  const res = await fetch(CONFIG.API_URL, {
-    method: 'POST',
-    body: JSON.stringify(data),
-  });
-  return res.json();
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+      const res = await fetch(CONFIG.API_URL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      if (!res.ok) throw new Error(`Error del servidor: ${res.status}`);
+      return await res.json();
+    } catch (err: any) {
+      if (attempt === 1 || err?.message?.includes('Error del servidor')) throw err;
+    }
+  }
+}
+
+// ── Simple in-memory cache for GET requests ──
+const apiCache: Record<string, { data: any; time: number }> = {};
+const CACHE_TTL = 30000; // 30 seconds
+
+async function apiGetCached(params: Record<string, string>): Promise<any> {
+  const key = new URLSearchParams(params).toString();
+  const cached = apiCache[key];
+  if (cached && Date.now() - cached.time < CACHE_TTL) return cached.data;
+  const data = await apiGet(params);
+  apiCache[key] = { data, time: Date.now() };
+  return data;
 }
 
 // ── API Factory ──
@@ -52,20 +86,18 @@ export function createAPI(
     },
 
     async getEncuestasByFilter(region?: string, tipoEleccion?: string): Promise<EncuestasResponse> {
-      if (CONFIG.DEMO_MODE) {
-        let filtered = getDemoData().encuestas;
-        if (region && region !== 'TODOS') {
-          filtered = filtered.filter(e => (e.region || 'NACIONAL') === region);
-        }
-        if (tipoEleccion && tipoEleccion !== 'TODOS') {
-          filtered = filtered.filter(e => (e.tipo_eleccion || 'GENERAL') === tipoEleccion);
-        }
-        return { encuestas: filtered };
+      // Get all encuestas (backend doesn't support server-side filtering)
+      const source = CONFIG.DEMO_MODE
+        ? getDemoData().encuestas
+        : (await apiGetCached({ action: 'getEncuestas' })).encuestas || [];
+      let filtered = [...source];
+      if (region && region !== 'TODOS') {
+        filtered = filtered.filter(e => (e.region || 'NACIONAL') === region);
       }
-      const params: Record<string, string> = { action: 'getEncuestas' };
-      if (region) params.region = region;
-      if (tipoEleccion) params.tipo = tipoEleccion;
-      return apiGet(params);
+      if (tipoEleccion && tipoEleccion !== 'TODOS') {
+        filtered = filtered.filter(e => (e.tipo_eleccion || 'GENERAL') === tipoEleccion);
+      }
+      return { encuestas: filtered };
     },
 
     getRegionStats(): Record<string, number> {
@@ -79,13 +111,12 @@ export function createAPI(
     },
 
     async getResultados(encuestaId: string): Promise<ResultadosData> {
+      const empty = { encuesta_id: encuestaId, resultados: [], total_votos: 0, ultima_actualizacion: new Date().toISOString() };
       if (CONFIG.DEMO_MODE) {
-        return getDemoData().resultados[encuestaId] || {
-          encuesta_id: encuestaId, resultados: [], total_votos: 0,
-          ultima_actualizacion: new Date().toISOString(),
-        };
+        const contextResults = getDemoData().resultados[encuestaId];
+        return contextResults || empty;
       }
-      return apiGet({ action: 'getResultados', id: encuestaId });
+      return apiGetCached({ action: 'getResultados', id: encuestaId });
     },
 
     async getEstadisticas(): Promise<Estadisticas> {
@@ -303,6 +334,12 @@ export function createAPI(
       }));
     },
 
+    async subirImagenDrive(nombre: string, imagenBase64: string): Promise<{ exito: boolean; url: string; id: string }> {
+      if (CONFIG.DEMO_MODE) return { exito: false, url: '', id: '' };
+      const token = getAdminToken();
+      return apiPost({ action: 'subirImagenDrive', token, nombre, imagen_base64: imagenBase64 }, 60000);
+    },
+
     async guardarImagen(imagen: { nombre: string; url: string }): Promise<any> {
       if (CONFIG.DEMO_MODE) return;
       const token = getAdminToken();
@@ -347,11 +384,23 @@ export function createAPI(
         updateDemoData(prev => ({
           ...prev,
           encuestas: resp.encuestas || prev.encuestas,
+          resultados: resp.resultados || prev.resultados,
           noticias: resp.noticias || prev.noticias,
           denuncias: resp.denuncias || prev.denuncias,
           foro: resp.foro || prev.foro,
           estadisticas: resp.estadisticas?.total_votos != null ? resp.estadisticas : prev.estadisticas,
         }));
+        // Pre-seed cache with encuestas and results
+        if (resp.encuestas) {
+          const key = new URLSearchParams({ action: 'getEncuestas' }).toString();
+          apiCache[key] = { data: { encuestas: resp.encuestas }, time: Date.now() };
+        }
+        if (resp.resultados) {
+          for (const [id, res] of Object.entries(resp.resultados)) {
+            const key = new URLSearchParams({ action: 'getResultados', id }).toString();
+            apiCache[key] = { data: res, time: Date.now() };
+          }
+        }
       } catch (err) {
         console.error('Error loading data from API:', err);
       }

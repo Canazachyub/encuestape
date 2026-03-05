@@ -22,17 +22,23 @@ const CATEGORY_ICONS: Record<string, string> = {
   GENERAL: '📊',
 };
 
-export default function ResultsSection() {
+interface ResultsSectionProps {
+  selectedRegion?: import('../../types').RegionCode | null;
+}
+
+export default function ResultsSection({ selectedRegion }: ResultsSectionProps) {
   const { api, data } = useDemoData();
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [resultadosMap, setResultadosMap] = useState<Record<string, ResultadosData>>({});
   const [view, setView] = useState<ViewMode>('bars');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-  const activeEncuestas = useMemo(
-    () => data.encuestas.filter(e => e.estado === 'activa'),
-    [data.encuestas],
-  );
+  // Filter by selected region: show Nacional + selected region
+  const activeEncuestas = useMemo(() => {
+    const active = data.encuestas.filter(e => e.estado === 'activa');
+    if (!selectedRegion) return active;
+    return active.filter(e => e.region === selectedRegion || e.region === 'NACIONAL');
+  }, [data.encuestas, selectedRegion]);
 
   const currentId = activeEncuestas[selectedIdx]?.id;
 
@@ -61,12 +67,16 @@ export default function ResultsSection() {
 
   const categories = Object.keys(grouped);
 
-  // Auto-select first category
+  // Auto-select first category (or reset when region/categories change)
   useEffect(() => {
-    if (categories.length > 0 && !activeCategory) {
-      setActiveCategory(categories[0]);
+    if (categories.length > 0) {
+      if (!activeCategory || !categories.includes(activeCategory)) {
+        setActiveCategory(categories[0]);
+        const first = grouped[categories[0]]?.items[0];
+        if (first) setSelectedIdx(first.globalIdx);
+      }
     }
-  }, [categories, activeCategory]);
+  }, [categories, activeCategory, selectedRegion]);
 
   if (activeEncuestas.length === 0) return null;
 
@@ -74,10 +84,10 @@ export default function ResultsSection() {
   const encuesta = activeEncuestas[idx];
   const resultados = resultadosMap[encuesta.id];
 
-  if (!resultados) return null;
+  const isLoading = !resultados;
 
-  const colors = getChartColors(resultados.resultados.length);
-  const progress = encuesta.meta_votos > 0
+  const colors = resultados ? getChartColors(resultados.resultados.length) : [];
+  const progress = resultados && encuesta.meta_votos > 0
     ? ((resultados.total_votos / encuesta.meta_votos) * 100).toFixed(1)
     : '0';
 
@@ -97,6 +107,9 @@ export default function ResultsSection() {
           <h2 className="section-title">Resultados en tiempo real</h2>
           <span className="badge badge-live">EN VIVO</span>
         </div>
+        <p className="results-disclaimer">
+          Encuesta de opinión ciudadana realizada por EncuestaPe.com. No es una encuesta oficial. Los resultados no tienen validez electoral ni estadística.
+        </p>
 
         {/* Category tabs */}
         <div className="results-categories">
@@ -139,6 +152,22 @@ export default function ResultsSection() {
           </span>
         </div>
 
+        {/* Loading skeleton */}
+        {isLoading && (
+          <div style={{ padding: 'var(--space-2xl) 0' }}>
+            {[1, 2, 3, 4, 5].map(i => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', animation: 'pulse 1.5s ease-in-out infinite' }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ height: 14, background: 'rgba(255,255,255,0.08)', borderRadius: 6, width: `${70 - i * 10}%`, animation: 'pulse 1.5s ease-in-out infinite' }} />
+                </div>
+                <div style={{ width: 50, height: 14, background: 'rgba(255,255,255,0.08)', borderRadius: 6, animation: 'pulse 1.5s ease-in-out infinite' }} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {!isLoading && <>
         {/* View toggle */}
         <div style={{ display: 'flex', gap: 'var(--space-sm)', marginBottom: 'var(--space-xl)' }}>
           <button
@@ -273,6 +302,7 @@ export default function ResultsSection() {
         <div style={{ textAlign: 'center', marginTop: 'var(--space-xl)' }}>
           <Link to="/resultados" className="btn btn-primary">Ver más detallado</Link>
         </div>
+        </>}
       </div>
     </section>
   );

@@ -348,7 +348,7 @@ function DenunciaSection({ denuncias, updateData, api }: {
           </button>
           {submitted && (
             <span style={{ color: '#16a34a', fontSize: '0.85rem', fontWeight: 600, alignSelf: 'center' }}>
-              Denuncia enviada correctamente
+              Tu denuncia fue enviada y será revisada por nuestro equipo antes de publicarse
             </span>
           )}
         </div>
@@ -433,9 +433,10 @@ function ForoSection({ preguntas, updateData, api }: {
   return (
     <div className="foro-section">
       <div className="noticias-main-header">
-        <h1 className="noticias-main-title">Foro del Día</h1>
+        <h1 className="noticias-main-title">Foro del Día <span style={{ fontSize: '0.6em', background: '#ff9800', color: '#fff', padding: '2px 8px', borderRadius: '4px', verticalAlign: 'middle' }}>FORO DE OPINIÓN</span></h1>
         <p className="noticias-main-subtitle">Preguntas diarias que generan debate</p>
       </div>
+      <div className="foro-disclaimer">Este foro es informal y no requiere verificación de identidad. Las respuestas no tienen valor estadístico.</div>
 
       {activa ? (
         <ForoQuestionCard

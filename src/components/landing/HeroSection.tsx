@@ -14,7 +14,8 @@ export default function HeroSection({ activeEncuesta }: HeroSectionProps) {
     <section className="hero" id="inicio" ref={ref}>
       <div className="hero-bg">
         <img
-          src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=75"
+          loading="lazy"
           alt=""
           style={{
             position: 'absolute',
@@ -39,10 +40,27 @@ export default function HeroSection({ activeEncuesta }: HeroSectionProps) {
             <Link to="/votar/E01" className="btn btn-primary btn-lg">Participar ahora</Link>
             <a href="#resultados" className="btn btn-secondary btn-lg">Ver resultados</a>
           </div>
-          <div className={`hero-highlight animate-on-scroll${isVisible ? ' visible' : ''}`} style={{ transitionDelay: '0.45s' }}>
+          <Link to="/votar/E01" className={`hero-highlight animate-on-scroll${isVisible ? ' visible' : ''}`} style={{ transitionDelay: '0.45s', textDecoration: 'none' }}>
             <span className="hero-highlight-badge">EN VIVO</span>
             <span className="hero-highlight-count">{activeEncuesta ? formatNumber(activeEncuesta.total_votos) : '0'}</span>
-            <span>votos registrados en {activeEncuesta?.titulo || 'Elecciones 2026'}</span>
+            <span>votos en Elección Presidencial 2026 — Elige a tu candidato</span>
+          </Link>
+          <div className={`hero-how-to-vote animate-on-scroll${isVisible ? ' visible' : ''}`} style={{ transitionDelay: '0.55s' }}>
+            <h3 className="how-to-vote-title">¿Cómo votar?</h3>
+            <div className="how-to-vote-steps">
+              <a href="#encuestas" className="how-to-vote-step">
+                <span className="step-number">1</span>
+                <span>Elige tu encuesta</span>
+              </a>
+              <div className="how-to-vote-step">
+                <span className="step-number">2</span>
+                <span>Selecciona tu candidato</span>
+              </div>
+              <div className="how-to-vote-step">
+                <span className="step-number">3</span>
+                <span>Confirma tu voto</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

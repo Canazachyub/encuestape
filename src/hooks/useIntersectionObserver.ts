@@ -1,25 +1,44 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useIntersectionObserver(
   options: IntersectionObserverInit = { threshold: 0.2 },
-): [React.RefObject<HTMLDivElement>, boolean] {
-  const ref = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+): [React.RefCallback<HTMLElement>, boolean] {
   const [isVisible, setIsVisible] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const optionsRef = useRef(options);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    return () => {
+      if (observerRef.current) observerRef.current.disconnect();
+    };
+  }, []);
+
+  const ref = useCallback((node: HTMLElement | null) => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
+
+    if (!node || isVisible) return;
+
+    // Check immediately if already in viewport (avoids flash on SPA navigation)
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setIsVisible(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setIsVisible(true);
-        observer.unobserve(el);
+        observer.unobserve(entry.target);
       }
-    }, options);
+    }, optionsRef.current);
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    observer.observe(node);
+    observerRef.current = observer;
+  }, [isVisible]);
 
   return [ref, isVisible];
 }

@@ -19,9 +19,18 @@
   .navbar-links { display: none; }
   .hamburger { display: flex; }
 
-  /* Hero */
+  /* Hero — mobile optimized */
   .hero {
-    min-height: 70vh;
+    min-height: auto;
+    padding: calc(var(--navbar-height) + var(--space-xl)) 0 var(--space-2xl);
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero-title {
@@ -30,23 +39,45 @@
 
   .hero-subtitle {
     font-size: 1rem;
+    max-width: 400px;
   }
 
   .hero-buttons {
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: 10px;
+    width: 100%;
+    max-width: 340px;
   }
 
   .hero-buttons .btn {
     width: 100%;
+    padding: 16px 32px;
+    font-size: 0.9rem;
   }
 
   .hero-highlight {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
   }
 
-  /* Stats */
+  /* How to vote steps — stack vertically on tablet */
+  .how-to-vote-steps {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-how-to-vote {
+    max-width: 400px;
+    width: 100%;
+  }
+
+  /* Stats — compact 2x2 */
+  .stats-section {
+    padding: var(--space-xl) 0;
+  }
+
   .stats-grid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-md);
@@ -112,15 +143,53 @@
     height: 28px;
   }
 
-  /* How to */
+  /* How to — horizontal scroll on mobile */
   .howto-steps {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xl);
+    flex-direction: row;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: var(--space-sm);
+  }
+
+  .howto-steps::-webkit-scrollbar { display: none; }
+
+  .howto-step {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    max-width: none;
+    padding: var(--space-lg);
+    background: var(--bg-light);
+    border-radius: var(--radius-lg);
+    margin: 0 6px;
   }
 
   .howto-step:not(:last-child)::after {
     display: none;
+  }
+
+  .howto-number {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+
+  .howto-step h3 {
+    font-size: 1rem;
+  }
+
+  .howto-step p {
+    font-size: 0.85rem;
+  }
+
+  /* Results disclaimer */
+  .results-disclaimer {
+    text-align: center;
+    border-left: none;
+    padding-left: 0;
+    font-size: 0.7rem;
   }
 
   /* Trust */
@@ -205,23 +274,46 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 var(--space-sm);
+    padding: 0 var(--space-md);
   }
 
   h1 { font-size: 1.8rem; }
   h2 { font-size: 1.5rem; }
 
   .hero {
-    min-height: auto;
-    padding: calc(var(--navbar-height) + var(--space-xl)) 0 var(--space-xl);
+    padding: calc(var(--navbar-height) + var(--space-lg)) 0 var(--space-xl);
   }
 
   .hero-title {
-    font-size: 1.6rem;
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
   }
 
   .hero-subtitle {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
+  }
+
+  .hero-buttons {
+    max-width: 100%;
+  }
+
+  .hero-buttons .btn {
+    padding: 15px 24px;
+    font-size: 0.85rem;
+  }
+
+  .hero-highlight {
+    font-size: 0.75rem;
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .hero-highlight-count {
+    font-size: 0.95rem;
+  }
+
+  .hero-buttons .btn-lg {
+    margin-bottom: 0;
   }
 
   .stats-grid {
@@ -229,12 +321,22 @@
     gap: var(--space-sm);
   }
 
+  .stat-item {
+    padding: var(--space-sm);
+  }
+
   .stat-number {
     font-size: 1.5rem;
   }
 
   .stat-label {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
+  }
+
+  /* HowTo cards smaller on tiny screens */
+  .howto-step {
+    flex: 0 0 80%;
+    padding: var(--space-md);
   }
 
   .kpi-grid {
@@ -324,6 +426,22 @@
 
   .section-subtitle {
     font-size: 0.85rem;
+  }
+
+  /* Encuesta cards — full width, touch friendly */
+  .encuesta-card .card-footer {
+    justify-content: stretch;
+  }
+
+  .encuesta-card .card-footer .btn {
+    flex: 1;
+    text-align: center;
+    padding: 12px 16px;
+  }
+
+  /* Map section compact */
+  .map-section .section-title {
+    font-size: 1.2rem;
   }
 
   /* Footer */

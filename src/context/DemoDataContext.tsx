@@ -11,6 +11,8 @@ interface DemoDataContextValue {
   updateData: (updater: (prev: DemoData) => DemoData) => void;
   api: APIType;
   loading: boolean;
+  error: string | null;
+  retry: () => void;
 }
 
 const DemoDataContext = createContext<DemoDataContextValue | null>(null);
@@ -74,6 +76,7 @@ function initializeData(): DemoData {
 export function DemoDataProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<DemoData>(initializeData);
   const [loading, setLoading] = useState(!CONFIG.DEMO_MODE);
+  const [error, setError] = useState<string | null>(null);
 
   const dataRef = useRef(data);
   dataRef.current = data;
@@ -94,15 +97,21 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
     );
   }
 
-  // In production mode, fetch initial data from API
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     if (!CONFIG.DEMO_MODE && apiRef.current) {
-      apiRef.current.fetchAllPublicData().finally(() => setLoading(false));
+      setLoading(true);
+      setError(null);
+      apiRef.current.fetchAllPublicData()
+        .catch(() => setError('No se pudieron cargar los datos. Verifica tu conexión.'))
+        .finally(() => setLoading(false));
     }
   }, []);
 
+  // In production mode, fetch initial data from API
+  useEffect(() => { fetchData(); }, [fetchData]);
+
   return (
-    <DemoDataContext.Provider value={{ data, updateData, api: apiRef.current, loading }}>
+    <DemoDataContext.Provider value={{ data, updateData, api: apiRef.current, loading, error, retry: fetchData }}>
       {children}
     </DemoDataContext.Provider>
   );

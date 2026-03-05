@@ -27,6 +27,8 @@ export default function VotarPage() {
   const [notFound, setNotFound] = useState(false);
   const [closed, setClosed] = useState(false);
   const [captchaPassed, setCaptchaPassed] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const deviceVotes = getDeviceVoteCount();
   const needsMathCaptcha = deviceVotes >= 5 && deviceVotes < 7;
   const needsRecaptcha = deviceVotes >= 7;
@@ -61,6 +63,7 @@ export default function VotarPage() {
   const verifyDNI = async () => {
     if (!validateDNI(dniValue) || !encuesta) return;
     setVerifying(true);
+    setErrorMsg(null);
     try {
       setDniVerified(dniValue);
       const result = await api.validarDNI(encuesta.id, dniValue);
@@ -81,12 +84,14 @@ export default function VotarPage() {
     if (!encuesta || !selectedOption || !dniVerified) return;
     if (needsCaptcha && !captchaPassed) return;
     setConfirming(true);
+    setErrorMsg(null);
     try {
       const result = await api.registrarVoto({
         encuesta_id: encuesta.id,
         dni: dniVerified,
         opcion: selectedOption,
         region: encuesta.region || 'NACIONAL',
+        recaptcha_token: recaptchaToken || undefined,
       });
       if (result.exito) {
         incrementDeviceVoteCount();
@@ -94,10 +99,10 @@ export default function VotarPage() {
         setResultados(res);
         setStep(4);
       } else {
-        alert(result.mensaje || 'Error al registrar el voto.');
+        setErrorMsg(result.mensaje || 'Error al registrar el voto.');
       }
     } catch {
-      alert('Error de conexión. Intenta de nuevo.');
+      setErrorMsg('Error de conexión. Intenta de nuevo.');
     } finally {
       setConfirming(false);
     }
@@ -232,6 +237,7 @@ export default function VotarPage() {
         {step === 2 && encuesta && (
           <div className="votar-card">
             <h2 className="votar-card-title">{encuesta.titulo}</h2>
+            <p className="encuesta-disclaimer">Esta es una encuesta de opinión ciudadana, no una encuesta oficial del JNE.</p>
             <p className="votar-card-desc">{encuesta.descripcion}</p>
 
             {encuesta.opciones.length > 8 && (
@@ -281,6 +287,11 @@ export default function VotarPage() {
         {step === 3 && encuesta && (
           <div className="votar-card">
             <h2 className="votar-card-title">Confirma tu voto</h2>
+            {errorMsg && (
+              <div className="vote-error-banner" style={{ background: '#fef2f2', border: '1px solid #fca5a5', color: '#991b1b', padding: '10px 14px', borderRadius: '8px', marginBottom: '12px', fontSize: '0.9rem' }}>
+                {errorMsg}
+              </div>
+            )}
             <div className="confirm-box">
               <div className="confirm-row">
                 <span className="confirm-label">Encuesta:</span>
@@ -299,7 +310,7 @@ export default function VotarPage() {
               <CaptchaChallenge onPass={() => setCaptchaPassed(true)} passed={captchaPassed} />
             )}
             {needsRecaptcha && (
-              <ReCaptchaChallenge onPass={() => setCaptchaPassed(true)} passed={captchaPassed} />
+              <ReCaptchaChallenge onPass={(token) => { setCaptchaPassed(true); setRecaptchaToken(token); }} passed={captchaPassed} />
             )}
             <div className="votar-buttons">
               <button className="btn btn-outline" onClick={() => goToStep(2)} style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' }}>← Cambiar voto</button>
@@ -574,7 +585,7 @@ declare global {
   }
 }
 
-function ReCaptchaChallenge({ onPass, passed }: { onPass: () => void; passed: boolean }) {
+function ReCaptchaChallenge({ onPass, passed }: { onPass: (token: string) => void; passed: boolean }) {
   const containerRef = useCallback((node: HTMLDivElement | null) => {
     if (!node || passed) return;
     const tryRender = () => {
@@ -582,7 +593,7 @@ function ReCaptchaChallenge({ onPass, passed }: { onPass: () => void; passed: bo
         try {
           window.grecaptcha.render(node, {
             sitekey: CONFIG.RECAPTCHA_SITE_KEY,
-            callback: () => onPass(),
+            callback: (token: string) => onPass(token),
             theme: 'light',
           });
         } catch {

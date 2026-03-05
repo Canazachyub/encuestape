@@ -52,8 +52,6 @@ export default function NewsSection({ noticias }: NewsSectionProps) {
     return () => { if (autoPlayRef.current) clearInterval(autoPlayRef.current); };
   }, [hasSlide2]);
 
-  if (published.length === 0) return null;
-
   const resetAutoPlay = () => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     if (hasSlide2) {
@@ -80,6 +78,8 @@ export default function NewsSection({ noticias }: NewsSectionProps) {
       <div className={placeholderClass} />
     );
   };
+
+  if (published.length === 0) return null;
 
   return (
     <section className="section news-section" id="noticias" ref={ref}>

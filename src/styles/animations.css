@@ -1,8 +1,8 @@
 /* Replaces AOS library */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(16px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .animate-on-scroll.visible {

@@ -60,6 +60,9 @@ export default function EncuestaGrid({ encuestas, regionName }: EncuestaGridProp
 
   return (
     <div>
+      <div className="disclaimer-legal">
+        <p>Encuesta de opinión ciudadana realizada por EncuestaPe.com. No es una encuesta oficial. Los resultados no tienen validez electoral ni estadística.</p>
+      </div>
       {/* Tipo de elección filter */}
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: 'var(--space-md)', padding: '10px 14px', background: 'var(--color-primary)', borderRadius: 'var(--radius-lg)' }}>
         <button
