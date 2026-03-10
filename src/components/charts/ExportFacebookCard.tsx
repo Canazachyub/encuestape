@@ -45,49 +45,27 @@ function formatCandName(name: string): string {
 }
 
 /**
- * CORS proxy URLs to bypass cross-origin restrictions for image fetching.
- * Tries multiple proxies as fallback in case one is down.
- */
-const CORS_PROXIES = [
-  (url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-  (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-];
-
-async function fetchAsBlob(fetchUrl: string): Promise<string> {
-  const resp = await fetch(fetchUrl);
-  if (!resp.ok) throw new Error('fetch failed');
-  const blob = await resp.blob();
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result as string);
-    reader.onerror = () => reject(new Error('read failed'));
-    reader.readAsDataURL(blob);
-  });
-}
-
-/**
- * Convert an image URL to base64 data URL.
- * Tries direct fetch first, then CORS proxies as fallback.
+ * Convert an image URL to base64 via weserv.nl image proxy (reliable CORS support).
  */
 async function toBase64(url: string): Promise<string> {
   if (!url) return '';
   if (url.startsWith('data:')) return url;
 
-  // Method 1: Direct fetch (works for Wikipedia, some others)
+  const proxyUrl = `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=400&output=jpg&q=85`;
+
   try {
-    const b64 = await fetchAsBlob(url);
-    if (b64) return b64;
-  } catch { /* CORS blocked */ }
-
-  // Method 2: Try CORS proxies
-  for (const proxyFn of CORS_PROXIES) {
-    try {
-      const b64 = await fetchAsBlob(proxyFn(url));
-      if (b64) return b64;
-    } catch { /* proxy failed, try next */ }
+    const resp = await fetch(proxyUrl);
+    if (!resp.ok) throw new Error('fetch failed');
+    const blob = await resp.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = () => reject(new Error('read failed'));
+      reader.readAsDataURL(blob);
+    });
+  } catch {
+    return '';
   }
-
-  return '';
 }
 
 // Cache to avoid re-fetching
