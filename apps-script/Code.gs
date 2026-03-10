@@ -1040,8 +1040,8 @@ function setupSheets() {
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(['clave', 'valor']);
     sheet.getRange(1, 1, 1, 2).setFontWeight('bold').setBackground(HEADER_BG).setFontColor(HEADER_FG);
-    sheet.appendRow(['admin_user', 'admin']);
-    sheet.appendRow(['admin_pass_hash', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918']);
+    sheet.appendRow(['admin_user', 'ENCUESTAPE2026']);
+    sheet.appendRow(['admin_pass_hash', '54b46e1820dae2966e9da6c6d0f83238cc287aa38579daab2e0ba1ba86f0bfd8']);
     sheet.appendRow(['site_title', 'EncuestaPe']);
     sheet.appendRow(['site_slogan', 'La voz del Peru en datos']);
     sheet.appendRow(['whatsapp', '+51921647291']);

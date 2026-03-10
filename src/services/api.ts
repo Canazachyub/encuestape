@@ -179,7 +179,7 @@ export function createAPI(
 
     async loginAdmin(user: string, passHash: string): Promise<LoginResponse> {
       if (CONFIG.DEMO_MODE) {
-        if (user === 'admin' && passHash === '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918') {
+        if (user === 'ENCUESTAPE2026' && passHash === '54b46e1820dae2966e9da6c6d0f83238cc287aa38579daab2e0ba1ba86f0bfd8') {
           const token = 'demo-token-' + Date.now();
           setAdminToken(token);
           return { exito: true, token };

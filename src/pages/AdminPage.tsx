@@ -126,7 +126,7 @@ export default function AdminPage() {
               {loginError && <div className="alert alert-error">{loginError}</div>}
               <button type="submit" className="btn btn-primary btn-block">Ingresar</button>
             </form>
-            <p style={{ textAlign: 'center', marginTop: 'var(--space-md)', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Demo: admin / admin</p>
+
           </div>
         </div>
       </div>
