@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import type { Encuesta, ResultadoOpcion } from '../../types';
 import { findCandidateData, getInitials } from '../../utils/helpers';
@@ -45,9 +45,16 @@ function formatCandName(name: string): string {
 }
 
 /**
- * Fetch a URL as base64 data URL.
+ * CORS proxy URLs to bypass cross-origin restrictions for image fetching.
+ * Tries multiple proxies as fallback in case one is down.
  */
-async function fetchAsBase64(fetchUrl: string): Promise<string> {
+const CORS_PROXIES = [
+  (url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+  (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  (url: string) => `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=400&output=jpg&q=85`,
+];
+
+async function fetchAsBlob(fetchUrl: string): Promise<string> {
   const resp = await fetch(fetchUrl);
   if (!resp.ok) throw new Error('fetch failed');
   const blob = await resp.blob();
@@ -60,26 +67,26 @@ async function fetchAsBase64(fetchUrl: string): Promise<string> {
 }
 
 /**
- * Convert an image URL to base64.
- * 1) Direct fetch (works on localhost)
- * 2) weserv.nl proxy (works on production)
+ * Convert an image URL to base64 data URL.
+ * Tries direct fetch first, then CORS proxies as fallback.
  */
 async function toBase64(url: string): Promise<string> {
   if (!url) return '';
   if (url.startsWith('data:')) return url;
 
-  // Try direct fetch first (works on localhost, same-origin, CORS-friendly servers)
+  // Method 1: Direct fetch (works for Wikipedia, some others)
   try {
-    const b64 = await fetchAsBase64(url);
+    const b64 = await fetchAsBlob(url);
     if (b64) return b64;
-  } catch { /* CORS blocked, try proxy */ }
+  } catch { /* CORS blocked */ }
 
-  // Fallback: weserv.nl image proxy
-  try {
-    const proxyUrl = `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=400&output=jpg&q=85`;
-    const b64 = await fetchAsBase64(proxyUrl);
-    if (b64) return b64;
-  } catch { /* proxy also failed */ }
+  // Method 2: Try CORS proxies
+  for (const proxyFn of CORS_PROXIES) {
+    try {
+      const b64 = await fetchAsBlob(proxyFn(url));
+      if (b64) return b64;
+    } catch { /* proxy failed, try next */ }
+  }
 
   return '';
 }
@@ -124,48 +131,47 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
   const otrosVotos = resultados.slice(10).reduce((s, r) => s + r.cantidad, 0);
   const otrosPct = totalVotos > 0 ? ((otrosVotos / totalVotos) * 100).toFixed(1) : '0';
 
-  // Load images on demand (only when user clicks export)
-  const loadImages = useCallback(async (): Promise<Record<string, ImageData>> => {
-    if (!encuesta || top10.length === 0) return {};
+  // Preload all images as base64 when data changes
+  useEffect(() => {
+    if (!encuesta || top10.length === 0) return;
+    let cancelled = false;
+    setPreloading(true);
 
-    // Return cached if already loaded
-    if (Object.keys(imageCache).length >= top10.length) return imageCache;
+    const load = async () => {
+      const cache: Record<string, ImageData> = {};
+      const promises = top10.map(async (r) => {
+        const candidate = findCandidateData(encuesta, r.opcion);
+        if (!candidate) {
+          cache[r.opcion] = { fotoB64: '', logoB64: '' };
+          return;
+        }
+        const party = findPartyLogo(candidate.partido);
+        const partyName = candidate.partido || '';
+        const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
 
-    const cache: Record<string, ImageData> = {};
-    const promises = top10.map(async (r) => {
-      const candidate = findCandidateData(encuesta, r.opcion);
-      if (!candidate) {
-        cache[r.opcion] = { fotoB64: '', logoB64: '' };
-        return;
+        const [fotoB64, logoB64] = await Promise.all([
+          getBase64Cached(candidate.foto_url),
+          getBase64Cached(logoUrl),
+        ]);
+        cache[r.opcion] = { fotoB64, logoB64 };
+      });
+
+      await Promise.all(promises);
+      if (!cancelled) {
+        setImageCache(cache);
+        setPreloading(false);
       }
-      const party = findPartyLogo(candidate.partido);
-      const partyName = candidate.partido || '';
-      const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
-
-      const [fotoB64, logoB64] = await Promise.all([
-        getBase64Cached(candidate.foto_url),
-        getBase64Cached(logoUrl),
-      ]);
-      cache[r.opcion] = { fotoB64, logoB64 };
-    });
-
-    await Promise.all(promises);
-    setImageCache(cache);
-    return cache;
-  }, [encuesta, allEncuestas, imageCache, top10]);
+    };
+    load();
+    return () => { cancelled = true; };
+  }, [encuesta, allEncuestas, top10.map(r => r.opcion).join(',')]);
 
   const doExport = useCallback(async (mode: 'image' | 'facebook') => {
     if (!cardRef.current) return;
-    setPreloading(true);
     setExporting(true);
 
-    // Load images first (on demand)
-    const cache = await loadImages();
-    setImageCache(cache);
-    setPreloading(false);
-
     // Small delay so React renders with base64 images
-    await new Promise(r => setTimeout(r, 300));
+    await new Promise(r => setTimeout(r, 200));
 
     try {
       const canvas = await html2canvas(cardRef.current, {
@@ -332,7 +338,8 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
     marginBottom: 10,
   };
 
-  const btnDisabled = exporting || preloading;
+  const imagesReady = Object.keys(imageCache).length >= top10.length;
+  const btnDisabled = exporting || preloading || !imagesReady;
 
   return (
     <>
