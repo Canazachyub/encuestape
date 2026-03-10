@@ -124,7 +124,14 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
       }
       const party = findPartyLogo(candidate.partido);
       const partyName = candidate.partido || '';
-      const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
+      // Priority: 1) party-logos.ts dictionary (Wikipedia URLs), 2) Presidente encuesta, 3) candidate's own
+      // Skip sroppublico.jne.gob.pe URLs as they don't work through image proxies
+      const isProxyFriendly = (url: string) => url && !url.includes('sroppublico.jne.gob.pe');
+      const presLogo = findLogoFromPresidente(partyName, allEncuestas);
+      const logoUrl = (party?.logo && isProxyFriendly(party.logo) ? party.logo : '') ||
+        (isProxyFriendly(presLogo) ? presLogo : '') ||
+        (isProxyFriendly(candidate.logo_partido_url) ? candidate.logo_partido_url : '') ||
+        '';
 
       const [fotoB64, logoB64] = await Promise.all([
         getBase64Cached(candidate.foto_url),
