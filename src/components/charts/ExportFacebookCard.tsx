@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import html2canvas from 'html2canvas';
 import type { Encuesta, ResultadoOpcion } from '../../types';
 import { findCandidateData, getInitials } from '../../utils/helpers';
@@ -49,9 +49,9 @@ function formatCandName(name: string): string {
  * Tries multiple proxies as fallback in case one is down.
  */
 const CORS_PROXIES = [
+  (url: string) => `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=400&output=jpg&q=85`,
   (url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
   (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url: string) => `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=400&output=jpg&q=85`,
 ];
 
 async function fetchAsBlob(fetchUrl: string): Promise<string> {
@@ -74,13 +74,17 @@ async function toBase64(url: string): Promise<string> {
   if (!url) return '';
   if (url.startsWith('data:')) return url;
 
-  // Method 1: Direct fetch (works for Wikipedia, some others)
-  try {
-    const b64 = await fetchAsBlob(url);
-    if (b64) return b64;
-  } catch { /* CORS blocked */ }
+  // Skip direct fetch for known CORS-blocked domains (avoids console errors)
+  const needsProxy = url.includes('jne.gob.pe') || url.includes('peruvotoinformado.com');
 
-  // Method 2: Try CORS proxies
+  if (!needsProxy) {
+    try {
+      const b64 = await fetchAsBlob(url);
+      if (b64) return b64;
+    } catch { /* CORS blocked, try proxies */ }
+  }
+
+  // Try CORS proxies (weserv.nl first for images, then others)
   for (const proxyFn of CORS_PROXIES) {
     try {
       const b64 = await fetchAsBlob(proxyFn(url));
@@ -131,47 +135,44 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
   const otrosVotos = resultados.slice(10).reduce((s, r) => s + r.cantidad, 0);
   const otrosPct = totalVotos > 0 ? ((otrosVotos / totalVotos) * 100).toFixed(1) : '0';
 
-  // Preload all images as base64 when data changes
-  useEffect(() => {
+  // Load images on demand (only when user clicks export)
+  const loadImages = useCallback(async () => {
     if (!encuesta || top10.length === 0) return;
-    let cancelled = false;
-    setPreloading(true);
+    if (Object.keys(imageCache).length >= top10.length) return; // already loaded
 
-    const load = async () => {
-      const cache: Record<string, ImageData> = {};
-      const promises = top10.map(async (r) => {
-        const candidate = findCandidateData(encuesta, r.opcion);
-        if (!candidate) {
-          cache[r.opcion] = { fotoB64: '', logoB64: '' };
-          return;
-        }
-        const party = findPartyLogo(candidate.partido);
-        const partyName = candidate.partido || '';
-        const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
-
-        const [fotoB64, logoB64] = await Promise.all([
-          getBase64Cached(candidate.foto_url),
-          getBase64Cached(logoUrl),
-        ]);
-        cache[r.opcion] = { fotoB64, logoB64 };
-      });
-
-      await Promise.all(promises);
-      if (!cancelled) {
-        setImageCache(cache);
-        setPreloading(false);
+    const cache: Record<string, ImageData> = {};
+    const promises = top10.map(async (r) => {
+      const candidate = findCandidateData(encuesta, r.opcion);
+      if (!candidate) {
+        cache[r.opcion] = { fotoB64: '', logoB64: '' };
+        return;
       }
-    };
-    load();
-    return () => { cancelled = true; };
-  }, [encuesta, allEncuestas, top10.map(r => r.opcion).join(',')]);
+      const party = findPartyLogo(candidate.partido);
+      const partyName = candidate.partido || '';
+      const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
+
+      const [fotoB64, logoB64] = await Promise.all([
+        getBase64Cached(candidate.foto_url),
+        getBase64Cached(logoUrl),
+      ]);
+      cache[r.opcion] = { fotoB64, logoB64 };
+    });
+
+    await Promise.all(promises);
+    setImageCache(cache);
+  }, [encuesta, allEncuestas, imageCache, top10]);
 
   const doExport = useCallback(async (mode: 'image' | 'facebook') => {
     if (!cardRef.current) return;
+    setPreloading(true);
     setExporting(true);
 
+    // Load images on demand
+    await loadImages();
+    setPreloading(false);
+
     // Small delay so React renders with base64 images
-    await new Promise(r => setTimeout(r, 200));
+    await new Promise(r => setTimeout(r, 300));
 
     try {
       const canvas = await html2canvas(cardRef.current, {
@@ -338,8 +339,7 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
     marginBottom: 10,
   };
 
-  const imagesReady = Object.keys(imageCache).length >= top10.length;
-  const btnDisabled = exporting || preloading || !imagesReady;
+  const btnDisabled = exporting || preloading;
 
   return (
     <>
