@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import html2canvas from 'html2canvas';
 import type { Encuesta, ResultadoOpcion } from '../../types';
 import { findCandidateData, getInitials } from '../../utils/helpers';
@@ -130,47 +130,48 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
   const otrosVotos = resultados.slice(10).reduce((s, r) => s + r.cantidad, 0);
   const otrosPct = totalVotos > 0 ? ((otrosVotos / totalVotos) * 100).toFixed(1) : '0';
 
-  // Preload all images as base64 when data changes
-  useEffect(() => {
-    if (!encuesta || top10.length === 0) return;
-    let cancelled = false;
-    setPreloading(true);
+  // Load images on demand (only when user clicks export)
+  const loadImages = useCallback(async (): Promise<Record<string, ImageData>> => {
+    if (!encuesta || top10.length === 0) return {};
 
-    const load = async () => {
-      const cache: Record<string, ImageData> = {};
-      const promises = top10.map(async (r) => {
-        const candidate = findCandidateData(encuesta, r.opcion);
-        if (!candidate) {
-          cache[r.opcion] = { fotoB64: '', logoB64: '' };
-          return;
-        }
-        const party = findPartyLogo(candidate.partido);
-        const partyName = candidate.partido || '';
-        const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
+    // Return cached if already loaded
+    if (Object.keys(imageCache).length >= top10.length) return imageCache;
 
-        const [fotoB64, logoB64] = await Promise.all([
-          getBase64Cached(candidate.foto_url),
-          getBase64Cached(logoUrl),
-        ]);
-        cache[r.opcion] = { fotoB64, logoB64 };
-      });
-
-      await Promise.all(promises);
-      if (!cancelled) {
-        setImageCache(cache);
-        setPreloading(false);
+    const cache: Record<string, ImageData> = {};
+    const promises = top10.map(async (r) => {
+      const candidate = findCandidateData(encuesta, r.opcion);
+      if (!candidate) {
+        cache[r.opcion] = { fotoB64: '', logoB64: '' };
+        return;
       }
-    };
-    load();
-    return () => { cancelled = true; };
-  }, [encuesta, allEncuestas, top10.map(r => r.opcion).join(',')]);
+      const party = findPartyLogo(candidate.partido);
+      const partyName = candidate.partido || '';
+      const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
+
+      const [fotoB64, logoB64] = await Promise.all([
+        getBase64Cached(candidate.foto_url),
+        getBase64Cached(logoUrl),
+      ]);
+      cache[r.opcion] = { fotoB64, logoB64 };
+    });
+
+    await Promise.all(promises);
+    setImageCache(cache);
+    return cache;
+  }, [encuesta, allEncuestas, imageCache, top10]);
 
   const doExport = useCallback(async (mode: 'image' | 'facebook') => {
     if (!cardRef.current) return;
+    setPreloading(true);
     setExporting(true);
 
+    // Load images first (on demand)
+    const cache = await loadImages();
+    setImageCache(cache);
+    setPreloading(false);
+
     // Small delay so React renders with base64 images
-    await new Promise(r => setTimeout(r, 200));
+    await new Promise(r => setTimeout(r, 300));
 
     try {
       const canvas = await html2canvas(cardRef.current, {
@@ -337,8 +338,7 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
     marginBottom: 10,
   };
 
-  const imagesReady = Object.keys(imageCache).length >= top10.length;
-  const btnDisabled = exporting || preloading || !imagesReady;
+  const btnDisabled = exporting || preloading;
 
   return (
     <>
