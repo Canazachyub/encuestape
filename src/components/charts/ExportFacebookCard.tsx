@@ -45,27 +45,43 @@ function formatCandName(name: string): string {
 }
 
 /**
- * Convert an image URL to base64 via weserv.nl image proxy (reliable CORS support).
+ * Fetch a URL as base64 data URL.
+ */
+async function fetchAsBase64(fetchUrl: string): Promise<string> {
+  const resp = await fetch(fetchUrl);
+  if (!resp.ok) throw new Error('fetch failed');
+  const blob = await resp.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = () => reject(new Error('read failed'));
+    reader.readAsDataURL(blob);
+  });
+}
+
+/**
+ * Convert an image URL to base64.
+ * 1) Direct fetch (works on localhost)
+ * 2) weserv.nl proxy (works on production)
  */
 async function toBase64(url: string): Promise<string> {
   if (!url) return '';
   if (url.startsWith('data:')) return url;
 
-  const proxyUrl = `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=400&output=jpg&q=85`;
-
+  // Try direct fetch first (works on localhost, same-origin, CORS-friendly servers)
   try {
-    const resp = await fetch(proxyUrl);
-    if (!resp.ok) throw new Error('fetch failed');
-    const blob = await resp.blob();
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = () => reject(new Error('read failed'));
-      reader.readAsDataURL(blob);
-    });
-  } catch {
-    return '';
-  }
+    const b64 = await fetchAsBase64(url);
+    if (b64) return b64;
+  } catch { /* CORS blocked, try proxy */ }
+
+  // Fallback: weserv.nl image proxy
+  try {
+    const proxyUrl = `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=400&output=jpg&q=85`;
+    const b64 = await fetchAsBase64(proxyUrl);
+    if (b64) return b64;
+  } catch { /* proxy also failed */ }
+
+  return '';
 }
 
 // Cache to avoid re-fetching
@@ -124,8 +140,7 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
       }
       const party = findPartyLogo(candidate.partido);
       const partyName = candidate.partido || '';
-      // For export: prefer dictionary (Wikipedia URLs that work via proxy) over JNE URLs
-      const logoUrl = party?.logo || findLogoFromPresidente(partyName, allEncuestas) || candidate.logo_partido_url || '';
+      const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
 
       const [fotoB64, logoB64] = await Promise.all([
         getBase64Cached(candidate.foto_url),
