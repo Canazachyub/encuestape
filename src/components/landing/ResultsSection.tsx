@@ -4,6 +4,8 @@ import type { Encuesta, ResultadosData } from '../../types';
 import { useDemoData } from '../../context/DemoDataContext';
 import { TIPOS_ELECCION, REGIONES_PERU } from '../../config/constants';
 import ResultBars from '../charts/ResultBars';
+import ResultCards from '../charts/ResultCards';
+import ExportFacebookCard from '../charts/ExportFacebookCard';
 import BarChart from '../charts/BarChart';
 import DoughnutChart from '../charts/DoughnutChart';
 import { formatNumber, formatDate, timeAgo } from '../../utils/format';
@@ -11,7 +13,7 @@ import { findCandidateData, getInitials, getChartColors } from '../../utils/help
 import { CONFIG } from '../../config/constants';
 import { useAutoRefresh } from '../../hooks/useAutoRefresh';
 
-type ViewMode = 'bars' | 'dashboard';
+type ViewMode = 'cards' | 'bars' | 'dashboard';
 
 const CATEGORY_ICONS: Record<string, string> = {
   PRESIDENTE: '🏛️',
@@ -30,7 +32,7 @@ export default function ResultsSection({ selectedRegion }: ResultsSectionProps) 
   const { api, data } = useDemoData();
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [resultadosMap, setResultadosMap] = useState<Record<string, ResultadosData>>({});
-  const [view, setView] = useState<ViewMode>('bars');
+  const [view, setView] = useState<ViewMode>('cards');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   // Filter by selected region: show Nacional + selected region
@@ -171,6 +173,13 @@ export default function ResultsSection({ selectedRegion }: ResultsSectionProps) 
         {/* View toggle */}
         <div style={{ display: 'flex', gap: 'var(--space-sm)', marginBottom: 'var(--space-xl)' }}>
           <button
+            className={`btn btn-sm ${view === 'cards' ? 'btn-primary' : 'btn-outline'}`}
+            onClick={() => setView('cards')}
+            style={view !== 'cards' ? { color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' } : {}}
+          >
+            Tarjetas
+          </button>
+          <button
             className={`btn btn-sm ${view === 'bars' ? 'btn-primary' : 'btn-outline'}`}
             onClick={() => setView('bars')}
             style={view !== 'bars' ? { color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' } : {}}
@@ -185,6 +194,18 @@ export default function ResultsSection({ selectedRegion }: ResultsSectionProps) 
             Dashboard
           </button>
         </div>
+
+        {/* === CARDS VIEW === */}
+        {view === 'cards' && (
+          <>
+            <ResultCards resultados={resultados.resultados} encuesta={encuesta} allEncuestas={data.encuestas} />
+            <div className="results-meta">
+              <span>Total: <span className="total">{formatNumber(resultados.total_votos)}</span> participantes</span>
+              <span>Última actualización: <span>{timeAgo(resultados.ultima_actualizacion)}</span></span>
+            </div>
+            <ExportFacebookCard resultados={resultados.resultados} encuesta={encuesta} allEncuestas={data.encuestas} />
+          </>
+        )}
 
         {/* === BARS VIEW === */}
         {view === 'bars' && (

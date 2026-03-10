@@ -11,6 +11,8 @@ import MobileMenu from '../components/layout/MobileMenu';
 import Footer from '../components/layout/Footer';
 import BarChart from '../components/charts/BarChart';
 import DoughnutChart from '../components/charts/DoughnutChart';
+import ResultCards from '../components/charts/ResultCards';
+import ExportFacebookCard from '../components/charts/ExportFacebookCard';
 import type { RegionCode, TipoEleccionCode } from '../types';
 
 export default function ResultadosPage() {
@@ -22,7 +24,9 @@ export default function ResultadosPage() {
   const [tipoFilter, setTipoFilter] = useState('TODOS');
   const [encuestasList, setEncuestasList] = useState<Encuesta[]>([]);
   const [selectedId, setSelectedId] = useState<string>('');
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
   const [encuesta, setEncuesta] = useState<Encuesta | null>(null);
+  const [allEncuestas, setAllEncuestas] = useState<Encuesta[]>([]);
   const [resultados, setResultados] = useState<ResultadosData | null>(null);
 
   // Load encuestas list
@@ -42,6 +46,7 @@ export default function ResultadosPage() {
   const loadResults = useCallback(async () => {
     if (!selectedId) return;
     const allEnc = await api.getEncuestas();
+    setAllEncuestas(allEnc.encuestas);
     const enc = allEnc.encuestas.find(e => e.id === selectedId);
     setEncuesta(enc || null);
     const res = await api.getResultados(selectedId);
@@ -157,52 +162,82 @@ export default function ResultadosPage() {
               </div>
             </div>
 
-            {/* Table */}
-            <div style={{ background: 'var(--bg-white)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)' }}>
-              <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, marginBottom: 'var(--space-md)' }}>Tabla detallada</h3>
-              <div className="table-wrapper">
-                <table>
-                  <thead>
-                    <tr><th>#</th><th>Opción</th><th>Votos</th><th>Porcentaje</th><th>Barra</th></tr>
-                  </thead>
-                  <tbody>
-                    {resultados.resultados.map((r, i) => {
-                      const candidate = encuesta ? findCandidateData(encuesta, r.opcion) : null;
-                      return (
-                        <tr key={r.opcion}>
-                          <td className="mono" style={{ fontWeight: 700 }}>{i + 1}</td>
-                          <td>
-                            {candidate && <TableAvatar candidate={candidate} name={r.opcion} />}
-                            {candidate?.numero != null && (
-                              <span style={{ display: 'inline-block', background: 'var(--color-primary)', color: 'var(--color-accent)', fontSize: '0.65rem', fontWeight: 700, padding: '1px 5px', borderRadius: 4, marginRight: 6, verticalAlign: 'middle' }}>N.° {candidate.numero}</span>
-                            )}
-                            {r.opcion}
-                            {candidate?.url_hoja_vida && (
-                              <a href={candidate.url_hoja_vida} target="_blank" rel="noopener noreferrer"
-                                style={{ display: 'inline-flex', alignItems: 'center', gap: 3, marginLeft: 6, fontSize: '0.7rem', color: 'var(--color-secondary)', textDecoration: 'none', opacity: 0.7 }}
-                                title="Hoja de vida">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                              </a>
-                            )}
-                          </td>
-                          <td className="mono" style={{ fontWeight: 700 }}>{formatNumber(r.cantidad)}</td>
-                          <td className="mono">{r.porcentaje}%</td>
-                          <td style={{ width: 150 }}>
-                            <div className="progress-bar" style={{ height: 12 }}>
-                              <div className="progress-bar-fill" style={{ width: `${r.porcentaje}%`, background: colors[i] }}></div>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+            {/* View Toggle */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-md)' }}>
+              <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, margin: 0 }}>Resultados detallados</h3>
+              <div className="result-view-toggle">
+                <button className={viewMode === 'cards' ? 'active' : ''} onClick={() => setViewMode('cards')}>Tarjetas</button>
+                <button className={viewMode === 'table' ? 'active' : ''} onClick={() => setViewMode('table')}>Tabla</button>
               </div>
             </div>
+
+            {/* Cards View */}
+            {viewMode === 'cards' && (
+              <ResultCards resultados={resultados.resultados} encuesta={encuesta} allEncuestas={allEncuestas} />
+            )}
+
+            {/* Table View */}
+            {viewMode === 'table' && (
+              <div style={{ background: 'var(--bg-white)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)' }}>
+                <div className="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr><th>#</th><th>Opción</th><th>Votos</th><th>Porcentaje</th><th>Barra</th></tr>
+                    </thead>
+                    <tbody>
+                      {resultados.resultados.map((r, i) => {
+                        const candidate = encuesta ? findCandidateData(encuesta, r.opcion) : null;
+                        return (
+                          <tr key={r.opcion}>
+                            <td className="mono" style={{ fontWeight: 700 }}>{i + 1}</td>
+                            <td>
+                              {candidate && <TableAvatar candidate={candidate} name={r.opcion} />}
+                              {candidate?.numero != null && (
+                                <span style={{ display: 'inline-block', background: 'var(--color-primary)', color: 'var(--color-accent)', fontSize: '0.65rem', fontWeight: 700, padding: '1px 5px', borderRadius: 4, marginRight: 6, verticalAlign: 'middle' }}>N.° {candidate.numero}</span>
+                              )}
+                              {r.opcion}
+                              {candidate?.url_hoja_vida && (
+                                <a href={candidate.url_hoja_vida} target="_blank" rel="noopener noreferrer"
+                                  style={{ display: 'inline-flex', alignItems: 'center', gap: 3, marginLeft: 6, fontSize: '0.7rem', color: 'var(--color-secondary)', textDecoration: 'none', opacity: 0.7 }}
+                                  title="Hoja de vida">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                </a>
+                              )}
+                            </td>
+                            <td className="mono" style={{ fontWeight: 700 }}>{formatNumber(r.cantidad)}</td>
+                            <td className="mono">{r.porcentaje}%</td>
+                            <td style={{ width: 150 }}>
+                              <div className="progress-bar" style={{ height: 12 }}>
+                                <div className="progress-bar-fill" style={{ width: `${r.porcentaje}%`, background: colors[i] }}></div>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
 
             <div style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap', marginTop: 'var(--space-xl)' }}>
               <button className="btn btn-primary btn-sm" onClick={handleShare}>Compartir</button>
               <button className="btn btn-outline btn-sm" onClick={downloadCSV} style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' }}>Descargar CSV</button>
+            </div>
+
+            {/* Export Facebook Card */}
+            <div style={{ marginTop: 'var(--space-2xl)' }}>
+              <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, marginBottom: 'var(--space-sm)', textAlign: 'center' }}>
+                Exportar imagen para redes sociales
+              </h3>
+              <p style={{ textAlign: 'center', color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: 'var(--space-md)' }}>
+                Genera una imagen con los Top 10 candidatos lista para publicar en Facebook
+              </p>
+              <ExportFacebookCard
+                resultados={resultados.resultados}
+                encuesta={encuesta}
+                allEncuestas={allEncuestas}
+              />
             </div>
           </>
         )}

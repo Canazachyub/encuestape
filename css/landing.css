@@ -934,6 +934,243 @@ a.how-to-vote-step {
   font-weight: 700;
 }
 
+/* ── Result Cards Grid ── */
+.result-cards-wrapper {
+  margin-top: var(--space-lg);
+}
+
+.result-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.rc-card {
+  background: var(--bg-card, #f0f2f8);
+  border-radius: 11px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.15);
+  border: 2px solid transparent;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.rc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+}
+
+.rc-card.gold {
+  border-color: #D4AF37;
+  box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+}
+
+.rc-card.silver {
+  border-color: #7a9bbf;
+}
+
+.rc-card.bronze {
+  border-color: #a0896a;
+}
+
+.rc-name {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: var(--color-primary, #0b1f4a);
+  text-align: center;
+  padding: 6px 5px 4px;
+  line-height: 1.3;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+.rc-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #c8d0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.rc-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #c8d0e0;
+}
+
+.rc-placeholder {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #8a9ab5;
+  user-select: none;
+}
+
+.rc-rank {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--color-accent, #D4AF37);
+  margin-right: 4px;
+}
+
+.rc-num-badge {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 0.5rem;
+  font-weight: 900;
+  color: #fff;
+  background: rgba(0,0,0,0.6);
+  border-radius: 4px;
+  padding: 2px 5px;
+  letter-spacing: 0.3px;
+}
+
+.rc-party-logo-wrap {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 54px;
+  height: 54px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.rc-party-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.rc-party-abbr {
+  font-size: 0.5rem;
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.1;
+  padding: 2px;
+}
+
+.rc-mini-bar {
+  height: 3px;
+  width: 100%;
+  background: rgba(0,0,0,0.08);
+}
+
+.rc-mini-bar-fill {
+  height: 100%;
+  transition: width 0.6s ease;
+}
+
+.rc-partido-name {
+  font-size: 0.45rem;
+  font-weight: 600;
+  color: #5a6a8a;
+  text-align: center;
+  padding: 3px 5px;
+  line-height: 1.2;
+  min-height: 16px;
+  background: rgba(0,0,0,0.03);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  text-transform: uppercase;
+}
+
+.rc-footer {
+  width: 100%;
+  padding: 5px 6px 6px;
+  text-align: center;
+  background: var(--color-primary, #0b1f4a);
+}
+
+.rc-footer.gold {
+  background: linear-gradient(135deg, #b8951e, #D4AF37);
+}
+
+.rc-footer.silver {
+  background: #2a4a7a;
+}
+
+.rc-footer.bronze {
+  background: #5a3c28;
+}
+
+.rc-pct {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.rc-votes {
+  font-size: 0.5rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  margin-top: 1px;
+}
+
+/* View toggle button */
+.result-view-toggle {
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.result-view-toggle button {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.result-view-toggle button.active {
+  background: var(--color-accent, #D4AF37);
+  color: var(--color-primary, #0b1f4a);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .result-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .rc-name { font-size: 0.5rem; min-height: 28px; }
+  .rc-party-logo-wrap { width: 38px; height: 38px; }
+  .rc-pct { font-size: 0.95rem; }
+}
+
+@media (max-width: 480px) {
+  .result-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .rc-name { font-size: 0.55rem; }
+  .rc-party-logo-wrap { width: 34px; height: 34px; }
+  .rc-pct { font-size: 1rem; }
+}
+
 /* Cómo funciona */
 .howto-section {
   background: var(--bg-white);

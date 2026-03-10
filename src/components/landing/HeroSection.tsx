@@ -37,10 +37,10 @@ export default function HeroSection({ activeEncuesta }: HeroSectionProps) {
             Participa en las encuestas que definen el futuro del país. Tu opinión importa.
           </p>
           <div className={`hero-buttons animate-on-scroll${isVisible ? ' visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
-            <Link to="/votar/E01" className="btn btn-primary btn-lg">Participar ahora</Link>
+            <Link to="/participar" className="btn btn-primary btn-lg">Participar ahora</Link>
             <a href="#resultados" className="btn btn-secondary btn-lg">Ver resultados</a>
           </div>
-          <Link to="/votar/E01" className={`hero-highlight animate-on-scroll${isVisible ? ' visible' : ''}`} style={{ transitionDelay: '0.45s', textDecoration: 'none' }}>
+          <Link to="/participar" className={`hero-highlight animate-on-scroll${isVisible ? ' visible' : ''}`} style={{ transitionDelay: '0.45s', textDecoration: 'none' }}>
             <span className="hero-highlight-badge">EN VIVO</span>
             <span className="hero-highlight-count">{activeEncuesta ? formatNumber(activeEncuesta.total_votos) : '0'}</span>
             <span>votos en Elección Presidencial 2026 — Elige a tu candidato</span>

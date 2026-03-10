@@ -3,6 +3,7 @@ import { DemoDataProvider } from './context/DemoDataContext';
 import { AuthProvider } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
 import VotarPage from './pages/VotarPage';
+import ParticiparPage from './pages/ParticiparPage';
 import ResultadosPage from './pages/ResultadosPage';
 import NoticiasPage from './pages/NoticiasPage';
 import ArticuloPage from './pages/ArticuloPage';
@@ -16,6 +17,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/participar" element={<ParticiparPage />} />
             <Route path="/votar/:id" element={<VotarPage />} />
             <Route path="/resultados" element={<ResultadosPage />} />
             <Route path="/resultados/:id" element={<ResultadosPage />} />

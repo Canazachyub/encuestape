@@ -24,6 +24,7 @@ export default defineConfig({
     },
   },
   publicDir: '../public',
+  base: '/encuestape/',
   build: {
     outDir: '../dist',
     emptyOutDir: true,

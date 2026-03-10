@@ -715,3 +715,294 @@
   border-radius: 4px;
   margin-bottom: 12px;
 }
+
+/* ============================================
+   Participar Page — Election Selector
+   ============================================ */
+
+.participar-page {
+  min-height: 100vh;
+  background: var(--bg-light);
+}
+
+.participar-hero {
+  background: var(--color-primary);
+  padding: var(--space-2xl) 0 var(--space-xl);
+  text-align: center;
+}
+
+.participar-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--text-white);
+  margin-bottom: var(--space-xs);
+}
+
+.participar-subtitle {
+  color: rgba(255,255,255,0.7);
+  font-size: 1rem;
+}
+
+.participar-content {
+  padding: var(--space-xl) var(--space-md) var(--space-4xl);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.participar-step {
+  margin-bottom: var(--space-xl);
+}
+
+.participar-step-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.participar-step-num {
+  width: 32px;
+  height: 32px;
+  background: var(--color-secondary);
+  color: white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Election Type Grid */
+.election-type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.election-type-card {
+  background: var(--bg-white);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.election-type-card:hover:not(.disabled) {
+  border-color: var(--color-secondary);
+  background: #f0f4fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.election-type-card.selected {
+  border-color: var(--color-secondary);
+  background: #EBF2FA;
+  box-shadow: 0 0 0 3px rgba(26,75,140,0.15);
+}
+
+.election-type-card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.election-type-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.election-type-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.election-type-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.election-type-votes {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  background: rgba(26,75,140,0.08);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  margin-top: 4px;
+}
+
+/* Region Grid */
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.region-btn {
+  padding: 12px 8px;
+  background: var(--bg-white);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.region-btn:hover {
+  border-color: var(--color-secondary);
+  background: #f0f4fa;
+}
+
+.region-btn.selected {
+  border-color: var(--color-secondary);
+  background: var(--color-secondary);
+  color: white;
+}
+
+/* CTA */
+.participar-cta {
+  background: var(--bg-white);
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  animation: fadeSlideUp 0.3s ease;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.participar-cta-info {
+  flex: 1;
+}
+
+.participar-cta-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.participar-cta-info p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.participar-cta-stats {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.participar-cta-btn {
+  white-space: nowrap;
+  padding: 16px 32px;
+  font-size: 1.05rem;
+}
+
+/* ── Participar Mobile ─────────────────── */
+
+@media (max-width: 600px) {
+  .participar-title {
+    font-size: 1.5rem;
+  }
+
+  .participar-hero {
+    padding: var(--space-xl) 0 var(--space-lg);
+  }
+
+  .election-type-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .election-type-card {
+    padding: var(--space-md);
+  }
+
+  .election-type-icon {
+    font-size: 1.8rem;
+  }
+
+  .election-type-name {
+    font-size: 0.92rem;
+  }
+
+  .election-type-desc {
+    font-size: 0.7rem;
+  }
+
+  .region-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .region-btn {
+    padding: 10px 6px;
+    font-size: 0.78rem;
+  }
+
+  .participar-cta {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-lg);
+  }
+
+  .participar-cta-btn {
+    width: 100%;
+    padding: 14px 24px;
+  }
+}
+
+@media (max-width: 380px) {
+  .election-type-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .election-type-card {
+    padding: 12px 8px;
+  }
+
+  .election-type-icon {
+    font-size: 1.5rem;
+  }
+
+  .election-type-name {
+    font-size: 0.82rem;
+  }
+
+  .election-type-desc {
+    display: none;
+  }
+
+  .region-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

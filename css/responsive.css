@@ -225,12 +225,18 @@
     padding: var(--space-lg);
   }
 
+  .votar-card-title {
+    font-size: 1.3rem;
+  }
+
   .votar-buttons {
     flex-direction: column;
   }
 
   .votar-buttons .btn {
     width: 100%;
+    padding: 14px 20px;
+    font-size: 0.95rem;
   }
 
   .progress-steps {
@@ -243,6 +249,30 @@
 
   .share-buttons {
     flex-direction: column;
+  }
+
+  .share-btn {
+    justify-content: center;
+    padding: 12px 16px;
+  }
+
+  /* Vote options — bigger touch targets on mobile */
+  .vote-option {
+    padding: 14px 16px;
+    min-height: 56px;
+  }
+
+  .vote-option.candidate-option {
+    padding: 12px 14px;
+  }
+
+  .confirm-box {
+    padding: var(--space-md);
+  }
+
+  .confirm-row {
+    flex-direction: column;
+    gap: 4px;
   }
 
   /* Admin */
