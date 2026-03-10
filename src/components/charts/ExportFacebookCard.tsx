@@ -124,7 +124,8 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
       }
       const party = findPartyLogo(candidate.partido);
       const partyName = candidate.partido || '';
-      const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
+      // For export: prefer dictionary (Wikipedia URLs that work via proxy) over JNE URLs
+      const logoUrl = party?.logo || findLogoFromPresidente(partyName, allEncuestas) || candidate.logo_partido_url || '';
 
       const [fotoB64, logoB64] = await Promise.all([
         getBase64Cached(candidate.foto_url),
