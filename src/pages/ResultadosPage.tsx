@@ -12,6 +12,7 @@ import Footer from '../components/layout/Footer';
 import BarChart from '../components/charts/BarChart';
 import DoughnutChart from '../components/charts/DoughnutChart';
 import ResultCards from '../components/charts/ResultCards';
+import PollsterCards from '../components/charts/PollsterCards';
 import ExportFacebookCard from '../components/charts/ExportFacebookCard';
 import type { RegionCode, TipoEleccionCode } from '../types';
 
@@ -24,7 +25,7 @@ export default function ResultadosPage() {
   const [tipoFilter, setTipoFilter] = useState('TODOS');
   const [encuestasList, setEncuestasList] = useState<Encuesta[]>([]);
   const [selectedId, setSelectedId] = useState<string>('');
-  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
+  const [viewMode, setViewMode] = useState<'cards' | 'pollster' | 'table'>('cards');
   const [encuesta, setEncuesta] = useState<Encuesta | null>(null);
   const [allEncuestas, setAllEncuestas] = useState<Encuesta[]>([]);
   const [resultados, setResultados] = useState<ResultadosData | null>(null);
@@ -167,13 +168,19 @@ export default function ResultadosPage() {
               <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, margin: 0 }}>Resultados detallados</h3>
               <div className="result-view-toggle">
                 <button className={viewMode === 'cards' ? 'active' : ''} onClick={() => setViewMode('cards')}>Tarjetas</button>
+                <button className={viewMode === 'pollster' ? 'active' : ''} onClick={() => setViewMode('pollster')}>Encuestadora</button>
                 <button className={viewMode === 'table' ? 'active' : ''} onClick={() => setViewMode('table')}>Tabla</button>
               </div>
             </div>
 
             {/* Cards View */}
             {viewMode === 'cards' && (
-              <ResultCards resultados={resultados.resultados} encuesta={encuesta} allEncuestas={allEncuestas} />
+              <ResultCards resultados={resultados.resultados} encuesta={encuesta} allEncuestas={allEncuestas} logosPartidos={data.logosPartidos} />
+            )}
+
+            {/* Pollster View */}
+            {viewMode === 'pollster' && (
+              <PollsterCards resultados={resultados.resultados} encuesta={encuesta} allEncuestas={allEncuestas} logosPartidos={data.logosPartidos} />
             )}
 
             {/* Table View */}
@@ -237,6 +244,7 @@ export default function ResultadosPage() {
                 resultados={resultados.resultados}
                 encuesta={encuesta}
                 allEncuestas={allEncuestas}
+                logosPartidos={data.logosPartidos}
               />
             </div>
           </>

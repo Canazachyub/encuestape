@@ -2,7 +2,7 @@ import { useRef, useState, useCallback } from 'react';
 import html2canvas from 'html2canvas';
 import type { Encuesta, ResultadoOpcion } from '../../types';
 import { findCandidateData, getInitials } from '../../utils/helpers';
-import { findPartyLogo } from '../../config/party-logos';
+import { findPartyLogo, findSheetLogo } from '../../config/party-logos';
 import { formatNumber } from '../../utils/format';
 import { REGIONES_PERU, TIPOS_ELECCION } from '../../config/constants';
 import type { RegionCode, TipoEleccionCode } from '../../types';
@@ -11,6 +11,7 @@ interface ExportFacebookCardProps {
   resultados: ResultadoOpcion[];
   encuesta: Encuesta | null;
   allEncuestas: Encuesta[];
+  logosPartidos?: Record<string, string>;
 }
 
 function findLogoFromPresidente(partyName: string, allEncuestas: Encuesta[]): string {
@@ -74,12 +75,18 @@ async function toBase64(url: string): Promise<string> {
   if (!url) return '';
   if (url.startsWith('data:')) return url;
 
-  // Skip direct fetch for known CORS-blocked domains (avoids console errors)
-  const needsProxy = url.includes('jne.gob.pe') || url.includes('peruvotoinformado.com');
+  // Resolve relative URLs to absolute (needed for fetch + CORS proxies)
+  let absoluteUrl = url;
+  if (url.startsWith('/')) {
+    absoluteUrl = `${window.location.origin}${url}`;
+  }
+
+  // Skip direct fetch for known CORS-blocked domains (go straight to proxies)
+  const needsProxy = absoluteUrl.includes('jne.gob.pe') || absoluteUrl.includes('peruvotoinformado.com');
 
   if (!needsProxy) {
     try {
-      const b64 = await fetchAsBlob(url);
+      const b64 = await fetchAsBlob(absoluteUrl);
       if (b64) return b64;
     } catch { /* CORS blocked, try proxies */ }
   }
@@ -87,7 +94,7 @@ async function toBase64(url: string): Promise<string> {
   // Try CORS proxies (weserv.nl first for images, then others)
   for (const proxyFn of CORS_PROXIES) {
     try {
-      const b64 = await fetchAsBlob(proxyFn(url));
+      const b64 = await fetchAsBlob(proxyFn(absoluteUrl));
       if (b64) return b64;
     } catch { /* proxy failed, try next */ }
   }
@@ -95,14 +102,14 @@ async function toBase64(url: string): Promise<string> {
   return '';
 }
 
-// Cache to avoid re-fetching
+// Cache to avoid re-fetching (stores both successes and failures)
 const b64Cache = new Map<string, string>();
 
 async function getBase64Cached(url: string): Promise<string> {
   if (!url) return '';
   if (b64Cache.has(url)) return b64Cache.get(url)!;
   const b64 = await toBase64(url);
-  if (b64) b64Cache.set(url, b64);
+  b64Cache.set(url, b64); // cache even empty results to avoid retrying failed URLs
   return b64;
 }
 
@@ -111,7 +118,7 @@ interface ImageData {
   logoB64: string;
 }
 
-export default function ExportFacebookCard({ resultados, encuesta, allEncuestas }: ExportFacebookCardProps) {
+export default function ExportFacebookCard({ resultados, encuesta, allEncuestas, logosPartidos = {} }: ExportFacebookCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [exporting, setExporting] = useState(false);
   const [imageCache, setImageCache] = useState<Record<string, ImageData>>({});
@@ -128,7 +135,7 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
     : 'Resultados';
 
   const regionTag = encuesta
-    ? `📍 ${regionName.toUpperCase()} · SONDEO EN TIEMPO REAL`
+    ? `${regionName.toUpperCase()} · SONDEO EN TIEMPO REAL`
     : 'SONDEO EN TIEMPO REAL';
 
   const totalVotos = resultados.reduce((s, r) => s + r.cantidad, 0);
@@ -138,7 +145,9 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
   // Load images on demand (only when user clicks export)
   const loadImages = useCallback(async () => {
     if (!encuesta || top10.length === 0) return;
-    if (Object.keys(imageCache).length >= top10.length) return; // already loaded
+    // Skip if already loaded and all candidates have entries
+    const cacheKeys = Object.keys(imageCache);
+    if (cacheKeys.length >= top10.length && top10.every(r => imageCache[r.opcion])) return;
 
     const cache: Record<string, ImageData> = {};
     const promises = top10.map(async (r) => {
@@ -149,12 +158,23 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
       }
       const party = findPartyLogo(candidate.partido);
       const partyName = candidate.partido || '';
-      const logoUrl = findLogoFromPresidente(partyName, allEncuestas) || party?.logo || candidate.logo_partido_url || '';
+      // Build prioritized list of logo URLs to try
+      const logoUrlCandidates = [
+        findSheetLogo(partyName, logosPartidos),
+        party?.abbr ? findSheetLogo(party.abbr, logosPartidos) : '',
+        party?.nombre ? findSheetLogo(party.nombre, logosPartidos) : '',
+        findLogoFromPresidente(partyName, allEncuestas),
+        party?.logo || '',
+        candidate.logo_partido_url || '',
+      ].filter(Boolean);
 
-      const [fotoB64, logoB64] = await Promise.all([
-        getBase64Cached(candidate.foto_url),
-        getBase64Cached(logoUrl),
-      ]);
+      // Try each logo URL until one succeeds (JNE URLs often fail CORS)
+      const fotoB64 = await getBase64Cached(candidate.foto_url);
+      let logoB64 = '';
+      for (const url of logoUrlCandidates) {
+        logoB64 = await getBase64Cached(url);
+        if (logoB64) break;
+      }
       cache[r.opcion] = { fotoB64, logoB64 };
     });
 
@@ -171,8 +191,8 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
     await loadImages();
     setPreloading(false);
 
-    // Small delay so React renders with base64 images
-    await new Promise(r => setTimeout(r, 300));
+    // Delay so React renders with base64 images
+    await new Promise(r => setTimeout(r, 500));
 
     try {
       const canvas = await html2canvas(cardRef.current, {
@@ -211,7 +231,7 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
       alert('Error al generar imagen. Intente nuevamente.');
     }
     setExporting(false);
-  }, [encuesta]);
+  }, [encuesta, loadImages]);
 
   const row1 = top10.slice(0, 4);
   const row2 = top10.slice(4, 8);
@@ -266,7 +286,7 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
           justifyContent: 'center', position: 'relative',
         }}>
           {fotoSrc ? (
-            <img src={fotoSrc} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+            <img src={fotoSrc} alt="" crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
           ) : (
             <span style={{
               fontSize: 36, fontWeight: 900, color: '#8a9ab5', display: 'flex',
@@ -291,7 +311,7 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
               overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
             }}>
               {logoSrc ? (
-                <img src={logoSrc} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src={logoSrc} alt="" crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               ) : (
                 <span style={{
                   fontSize: 9, fontWeight: 900, textAlign: 'center',
@@ -468,7 +488,12 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
                   width: '100%', aspectRatio: '1/1', overflow: 'hidden',
                   background: '#dde3ef', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  <span style={{ fontSize: 48 }}>🗳️</span>
+                  <svg viewBox="0 0 64 64" width="52" height="52" fill="none">
+                    <rect x="8" y="14" width="48" height="40" rx="4" fill="#8a9ab5" />
+                    <rect x="12" y="18" width="40" height="32" rx="2" fill="#b8c4d8" />
+                    <rect x="22" y="8" width="20" height="14" rx="2" fill="#8a9ab5" />
+                    <path d="M26 28 L30 34 L38 24" stroke="#4a6080" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                  </svg>
                 </div>
                 <div style={{ height: 4, width: '100%', background: 'rgba(255,255,255,0.25)' }}>
                   <div style={{ height: '100%', width: '10%', background: '#aaa' }} />
@@ -505,7 +530,12 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
                   width: '100%', aspectRatio: '1/1', overflow: 'hidden',
                   background: '#dde3ef', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  <span style={{ fontSize: 48 }}>👥</span>
+                  <svg viewBox="0 0 64 64" width="52" height="52" fill="none">
+                    <circle cx="24" cy="22" r="9" fill="#8a9ab5" />
+                    <ellipse cx="24" cy="48" rx="14" ry="10" fill="#8a9ab5" />
+                    <circle cx="42" cy="20" r="8" fill="#a0b0c8" />
+                    <ellipse cx="42" cy="46" rx="12" ry="9" fill="#a0b0c8" />
+                  </svg>
                 </div>
                 <div style={{ height: 4, width: '100%', background: 'rgba(255,255,255,0.25)' }}>
                   <div style={{ height: '100%', width: '20%', background: '#4a6080' }} />
@@ -545,7 +575,7 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' as const, gap: 4, width: '100%' }}>
               <div style={{ color: 'rgba(255,255,255,0.8)', fontStyle: 'normal', fontWeight: 700, fontSize: 11 }}>
-                📅 Inicio: <span style={{ color: '#f0d060' }}>{encuesta?.fecha_inicio ? new Date(encuesta.fecha_inicio).toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'}</span>
+                Inicio: <span style={{ color: '#f0d060' }}>{encuesta?.fecha_inicio ? new Date(encuesta.fecha_inicio).toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'}</span>
                 {' | '}
                 Última revisión: <span style={{ color: '#f0d060' }}>{new Date().toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
               </div>
@@ -561,7 +591,10 @@ export default function ExportFacebookCard({ resultados, encuesta, allEncuestas 
             padding: '10px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}>
             <div style={{ fontSize: 16, fontWeight: 900, color: '#0b1f4a', letterSpacing: 0.5 }}>
-              🗳 www.encuestape.com
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#0b1f4a"><rect x="3" y="6" width="18" height="14" rx="2" /><rect x="7" y="2" width="10" height="6" rx="1" fill="#0b1f4a" opacity="0.6" /><path d="M9 13l2 2 4-4" stroke="#D4AF37" strokeWidth="2" fill="none" strokeLinecap="round" /></svg>
+                www.encuestape.com
+              </span>
             </div>
             <div style={{ fontSize: 10, fontWeight: 700, color: 'rgba(11,31,74,0.65)', textAlign: 'right' as const, lineHeight: 1.5 }}>
               Vota y consulta resultados<br />en tiempo real · {regionName} 2026

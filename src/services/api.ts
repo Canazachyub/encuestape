@@ -389,6 +389,7 @@ export function createAPI(
           denuncias: resp.denuncias || prev.denuncias,
           foro: resp.foro || prev.foro,
           estadisticas: resp.estadisticas?.total_votos != null ? resp.estadisticas : prev.estadisticas,
+          logosPartidos: resp.logos_partidos || prev.logosPartidos,
         }));
         // Pre-seed cache with encuestas and results
         if (resp.encuestas) {

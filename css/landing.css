@@ -1171,6 +1171,231 @@ a.how-to-vote-step {
   .rc-pct { font-size: 1rem; }
 }
 
+/* ═══════════════════════════════════════════
+   Pollster Cards — Estilo Encuestadora (APOYO)
+   ═══════════════════════════════════════════ */
+
+.pollster-wrapper {
+  margin-top: var(--space-lg);
+  background: linear-gradient(180deg, #e8ecf2 0%, #d0d6e2 100%);
+  border-radius: 16px;
+  padding: 0 0 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.pollster-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #0d2550, #1a3a6e);
+}
+
+.pollster-header-label {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.pollster-header-brand {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent, #D4AF37);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.pollster-cards-row {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  padding: 16px 10px 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.pollster-cards-row::-webkit-scrollbar {
+  height: 4px;
+}
+.pollster-cards-row::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 2px;
+}
+
+.pollster-card {
+  flex: 0 0 auto;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.pollster-card:hover {
+  transform: translateY(-3px);
+}
+
+.pollster-card--first {
+  width: 135px;
+}
+
+/* Percentage badge — hexagonal-like shape */
+.pollster-pct-badge {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, #1a3a6e, #0d2550);
+  border: 3px solid #D4AF37;
+  border-radius: 8px 8px 2px 2px;
+  padding: 6px 12px 4px;
+  margin-bottom: -4px;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 70%, 85% 100%, 15% 100%, 0% 70%);
+  min-width: 58px;
+  text-align: center;
+}
+
+.pollster-pct-badge--first {
+  background: linear-gradient(135deg, #D4AF37, #b8951e);
+  border-color: #fff;
+  min-width: 68px;
+  padding: 8px 14px 6px;
+}
+
+.pollster-pct-value {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.pollster-pct-badge--first .pollster-pct-value {
+  font-size: 1.35rem;
+}
+
+/* Photo */
+.pollster-photo {
+  width: 96px;
+  height: 118px;
+  overflow: hidden;
+  border: 3px solid #1a3a6e;
+  border-radius: 6px;
+  background: #c8d0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  margin-top: 2px;
+}
+
+.pollster-card--first .pollster-photo {
+  width: 110px;
+  height: 136px;
+  border-color: #D4AF37;
+  border-width: 3px;
+  box-shadow: 0 4px 16px rgba(212,175,55,0.35);
+}
+
+.pollster-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.pollster-photo-placeholder {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #8a9ab5;
+  user-select: none;
+}
+
+/* Name */
+.pollster-name {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #0d2550;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 5px 2px 3px;
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+  min-height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pollster-card--first .pollster-name {
+  font-size: 0.7rem;
+}
+
+/* Party logo */
+.pollster-party {
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.pollster-card--first .pollster-party {
+  width: 56px;
+  height: 56px;
+}
+
+.pollster-party-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2px;
+}
+
+.pollster-party-text {
+  font-size: 0.55rem;
+  font-weight: 900;
+  color: #0d2550;
+  text-align: center;
+  line-height: 1.1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pollster-card { width: 100px; }
+  .pollster-card--first { width: 115px; }
+  .pollster-photo { width: 80px; height: 100px; }
+  .pollster-card--first .pollster-photo { width: 92px; height: 115px; }
+  .pollster-pct-value { font-size: 1rem; }
+  .pollster-pct-badge--first .pollster-pct-value { font-size: 1.15rem; }
+  .pollster-header-label { font-size: 1.1rem; }
+  .pollster-party { width: 40px; height: 40px; }
+  .pollster-card--first .pollster-party { width: 46px; height: 46px; }
+}
+
+@media (max-width: 480px) {
+  .pollster-card { width: 88px; }
+  .pollster-card--first { width: 100px; }
+  .pollster-photo { width: 70px; height: 88px; }
+  .pollster-card--first .pollster-photo { width: 82px; height: 102px; }
+  .pollster-pct-badge { min-width: 48px; padding: 5px 8px 3px; }
+  .pollster-pct-badge--first { min-width: 56px; }
+  .pollster-pct-value { font-size: 0.9rem; }
+  .pollster-pct-badge--first .pollster-pct-value { font-size: 1rem; }
+  .pollster-name { font-size: 0.5rem; }
+  .pollster-party { width: 36px; height: 36px; }
+  .pollster-card--first .pollster-party { width: 42px; height: 42px; }
+  .pollster-header-label { font-size: 0.95rem; letter-spacing: 1px; }
+  .pollster-header { padding: 10px 14px; }
+}
+
 /* Cómo funciona */
 .howto-section {
   background: var(--bg-white);

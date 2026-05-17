@@ -18,9 +18,9 @@ const PARTY_LOGOS: PartyInfo[] = [
   { nombre: 'Alianza Venceremos', abbr: 'AV', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Logo_de_Alianza_Venceremos.jpg/220px-Logo_de_Alianza_Venceremos.jpg', color: '#0d5c2a' },
   { nombre: 'Partido Patriotico del Peru', abbr: 'PPP', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Partido_Patri%C3%B3tico_del_Per%C3%BA_%28logo%29.svg/120px-Partido_Patri%C3%B3tico_del_Per%C3%BA_%28logo%29.svg.png', color: '#1a3a7a' },
   { nombre: 'Partido Civico Obras', abbr: 'PCO', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Logo_del_Partido_C%C3%ADvico_Obras.jpg/220px-Logo_del_Partido_C%C3%ADvico_Obras.jpg', color: '#e67e22' },
-  { nombre: 'FREPAP', abbr: 'FREPAP', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/FREPAP_logo.png/120px-FREPAP_logo.png', color: '#8B6914' },
-  { nombre: 'Frente Popular Agricola', abbr: 'FREPAP', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/FREPAP_logo.png/120px-FREPAP_logo.png', color: '#8B6914' },
-  { nombre: 'Frente Popular Agricola FIA del Peru', abbr: 'FREPAP', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/FREPAP_logo.png/120px-FREPAP_logo.png', color: '#8B6914' },
+  { nombre: 'FREPAP', abbr: 'FREPAP', logo: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2901', color: '#8B6914' },
+  { nombre: 'Frente Popular Agricola', abbr: 'FREPAP', logo: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2901', color: '#8B6914' },
+  { nombre: 'Frente Popular Agricola FIA del Peru', abbr: 'FREPAP', logo: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2901', color: '#8B6914' },
   { nombre: 'Partido Democrata Verde', abbr: 'PDV', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Dem%C3%B3crata_Verde_%28logo%29.svg/120px-Dem%C3%B3crata_Verde_%28logo%29.svg.png', color: '#27ae60' },
   { nombre: 'Partido del Buen Gobierno', abbr: 'PBG', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/PBG_Logo.jpg/220px-PBG_Logo.jpg', color: '#2c3e50' },
   { nombre: 'Peru Accion', abbr: 'PPA', logo: '', color: '#c0392b' },
@@ -101,6 +101,28 @@ export function findPartyLogo(partyName: string): PartyInfo | null {
     }
   }
   return best;
+}
+
+/**
+ * Busca el logo de un partido en el mapa de Google Sheets (LogosPartidos).
+ * Usa coincidencia normalizada flexible (sin tildes, case-insensitive).
+ */
+export function findSheetLogo(partyName: string, logosPartidos: Record<string, string>): string {
+  if (!partyName || !logosPartidos) return '';
+  const needle = normalize(partyName);
+
+  // Exact match first
+  for (const [key, url] of Object.entries(logosPartidos)) {
+    if (normalize(key) === needle) return url;
+  }
+
+  // Partial match
+  for (const [key, url] of Object.entries(logosPartidos)) {
+    const keyNorm = normalize(key);
+    if (needle.includes(keyNorm) || keyNorm.includes(needle)) return url;
+  }
+
+  return '';
 }
 
 export { PARTY_LOGOS };

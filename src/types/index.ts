@@ -86,6 +86,7 @@ export interface DemoData {
   denuncias: DenunciaCiudadana[];
   foro: ForoPregunta[];
   imagenes: ImageItem[];
+  logosPartidos: Record<string, string>;
 }
 
 export interface RegionInfo {

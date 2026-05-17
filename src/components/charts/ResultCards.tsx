@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { CandidateOption, Encuesta, ResultadoOpcion } from '../../types';
 import { findCandidateData, getInitials, getChartColors } from '../../utils/helpers';
 import { formatNumber } from '../../utils/format';
-import { findPartyLogo } from '../../config/party-logos';
+import { findPartyLogo, findSheetLogo } from '../../config/party-logos';
 
 const CARDS_LIMIT = 12;
 
@@ -10,6 +10,7 @@ interface ResultCardsProps {
   resultados: ResultadoOpcion[];
   encuesta?: Encuesta | null;
   allEncuestas?: Encuesta[];
+  logosPartidos?: Record<string, string>;
 }
 
 /**
@@ -55,7 +56,7 @@ function findLogoFromPresidente(partyName: string, allEncuestas: Encuesta[]): st
   return '';
 }
 
-export default function ResultCards({ resultados, encuesta, allEncuestas = [] }: ResultCardsProps) {
+export default function ResultCards({ resultados, encuesta, allEncuestas = [], logosPartidos = {} }: ResultCardsProps) {
   const [showAll, setShowAll] = useState(false);
   const colors = getChartColors(resultados.length);
   const maxPct = resultados.length > 0 ? parseFloat(resultados[0].porcentaje) : 1;
@@ -71,8 +72,11 @@ export default function ResultCards({ resultados, encuesta, allEncuestas = [] }:
           const party = candidate ? findPartyLogo(candidate.partido) : null;
           const partyName = candidate?.partido || '';
 
-          // Resolve logo: 1) from Presidente (correct), 2) dictionary, 3) candidate's own (may be wrong)
+          // Resolve logo: 1) Sheets (admin), 2) Sheets by abbr, 3) Presidente, 4) dictionary, 5) candidate's own
           const logoUrl =
+            findSheetLogo(partyName, logosPartidos) ||
+            (party?.abbr ? findSheetLogo(party.abbr, logosPartidos) : '') ||
+            (party?.nombre ? findSheetLogo(party.nombre, logosPartidos) : '') ||
             findLogoFromPresidente(partyName, allEncuestas) ||
             party?.logo ||
             candidate?.logo_partido_url ||
