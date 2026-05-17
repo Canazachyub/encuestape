@@ -1,9 +1,17 @@
 import type { DemoData } from '../types';
 
 const STORAGE_KEY = 'encuestape_data';
+const VERSION_KEY = 'encuestape_data_version';
+const DATA_VERSION = '2026-05-17-v3'; // bump this to force-clear localStorage
 
 export function loadDemoData(): DemoData | null {
   try {
+    const storedVersion = localStorage.getItem(VERSION_KEY);
+    if (storedVersion !== DATA_VERSION) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.setItem(VERSION_KEY, DATA_VERSION);
+      return null;
+    }
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) return JSON.parse(saved);
   } catch {

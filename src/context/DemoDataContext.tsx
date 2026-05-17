@@ -26,6 +26,7 @@ const EMPTY_DATA: DemoData = {
   denuncias: [],
   foro: [],
   imagenes: [],
+  logosPartidos: {},
 };
 
 function initializeData(): DemoData {
@@ -37,13 +38,17 @@ function initializeData(): DemoData {
     saved.votosRegistrados = saved.votosRegistrados || {};
     saved.estadisticas = saved.estadisticas || DEFAULT_DEMO_DATA.estadisticas;
     saved.noticias = saved.noticias || [];
-    // Merge any new default encuestas not in saved data
+    // Merge default encuestas: add new ones, update estado of existing ones
     DEFAULT_DEMO_DATA.encuestas.forEach(defEnc => {
-      if (!saved.encuestas.find(e => e.id === defEnc.id)) {
+      const existing = saved.encuestas.find(e => e.id === defEnc.id);
+      if (!existing) {
         saved.encuestas.push(JSON.parse(JSON.stringify(defEnc)));
         if (DEFAULT_DEMO_DATA.resultados[defEnc.id]) {
           saved.resultados[defEnc.id] = JSON.parse(JSON.stringify(DEFAULT_DEMO_DATA.resultados[defEnc.id]));
         }
+      } else {
+        // Always sync estado from the source of truth
+        existing.estado = defEnc.estado;
       }
     });
     // Merge any new default noticias not in saved data

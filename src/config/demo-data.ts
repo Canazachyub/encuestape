@@ -6,7 +6,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'E01',
       titulo: 'Intención de voto — Elecciones Generales 2026',
       descripcion: '¿Por quién votaría si las elecciones presidenciales fueran hoy?',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'Pablo Alfonso Lopez Chau Nava', partido: 'Ahora Nacion', foto_url: 'https://mpesije.jne.gob.pe/apidocs/ddfa74eb-cae3-401c-a34c-35543ae83c57.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/formula-presidencial/2980' },
         { nombre: 'Ronald Darwin Atencio Sotomayor', partido: 'Alianza Electoral Venceremos', foto_url: 'https://mpesije.jne.gob.pe/apidocs/bac0288d-3b21-45ac-8849-39f9177fb020.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/formula-presidencial/3025' },
@@ -59,7 +59,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'E02',
       titulo: 'Aprobación de gestión municipal — Puno 2026',
       descripcion: '¿Aprueba o desaprueba la gestión del alcalde actual de Puno?',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: ['Apruebo totalmente', 'Apruebo parcialmente', 'Desapruebo parcialmente', 'Desapruebo totalmente', 'No sabe / No opina'],
       meta_votos: 2000,
       fecha_inicio: '2026-02-10',
@@ -88,7 +88,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'E05',
       titulo: 'Senadores — Distrito Único Nacional 2026',
       descripcion: 'Encuesta de intención de voto para Senadores por Distrito Único — Elecciones Generales 2026. 1131 candidatos inscritos.',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'FUNG LOH, MARIA JESUS', partido: 'RENOVACION POPULAR', foto_url: 'https://mpesije.jne.gob.pe/apidocs/abbb758b-58b4-4f07-a925-22d06bf86f41.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/22/07559128', numero: 20 },
         { nombre: 'PORTALATINO AVALOS, KELLY ROXANA', partido: 'PARTIDO POLITICO NACIONAL PERU LIBRE', foto_url: 'https://mpesije.jne.gob.pe/apidocs/7fb7d3c5-8b1b-4793-86e7-0cd5d033d219.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2218/42699423', numero: 10 },
@@ -1236,7 +1236,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_AMAZONAS',
       titulo: 'Senadores Distrito Múltiple — Amazonas',
       descripcion: 'Candidatos al Senado por Amazonas — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'ETSAM NUGKUAG, AMELIA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/e85a814f-5a4d-452d-9745-ba7914c42aab.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/33767786', numero: 2 },
         { nombre: 'MELGAREJO MALPARTIDA, LUCILA', partido: 'PODEMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/3a0420ac-dbaa-49cf-b45d-341c475ef710.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2731/09109376', numero: 2 },
@@ -1313,7 +1313,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_ANCASH',
       titulo: 'Senadores Distrito Múltiple — Áncash',
       descripcion: 'Candidatos al Senado por Áncash — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'ESPINAL REYES, MARTIN TEOFILO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/39e7a662-af43-45e1-8542-78df2d9d52de.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/08661405', numero: 1 },
         { nombre: 'PALOMINO VENERO, SANDRA ANGELICA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/080faf00-daaa-430b-97e1-cd55527397a4.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/06783470', numero: 2 },
@@ -1402,7 +1402,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_APURIMAC',
       titulo: 'Senadores Distrito Múltiple — Apurímac',
       descripcion: 'Candidatos al Senado por Apurímac — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'CRUZ ARTEAGA, VERONICA MIRYAM', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/749f1b52-5091-47d0-b4cd-597805929ddc.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/29614222', numero: 2 },
         { nombre: 'QUISPE SULLCAHUAMAN, MARIA ESTHER', partido: 'RENOVACION POPULAR', foto_url: 'https://mpesije.jne.gob.pe/apidocs/62ba66d5-1879-4f23-9499-238538df7a92.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/22/10283981', numero: 2 },
@@ -1487,7 +1487,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_AREQUIPA',
       titulo: 'Senadores Distrito Múltiple — Arequipa',
       descripcion: 'Candidatos al Senado por Arequipa — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'BEDOYA MAQUE, LUISA GIOVANNA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/df8b9b3b-319f-4400-83af-f0fe0f53a04a.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/29424191', numero: 1 },
         { nombre: 'CARDENAS QUIROZ, FEDERICO JORGE', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/279adcd6-a96e-4cf6-b875-27759b178202.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/29327118', numero: 2 },
@@ -1574,7 +1574,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_AYACUCHO',
       titulo: 'Senadores Distrito Múltiple — Ayacucho',
       descripcion: 'Candidatos al Senado por Ayacucho — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'SULCA LEON, GLADYS', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/a392ddb3-9478-4b65-b22b-5a7b819f1866.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/28315971', numero: 2 },
         { nombre: 'PACHECO ESPICHAN, CARLOS ALBERTO', partido: 'PARTIDO POLITICO PRIN', foto_url: 'https://mpesije.jne.gob.pe/apidocs/940e0dd6-8b7f-4929-8bcb-f3964394d63e.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2921/09549742', numero: 2 },
@@ -1651,7 +1651,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_CAJAMARCA',
       titulo: 'Senadores Distrito Múltiple — Cajamarca',
       descripcion: 'Candidatos al Senado por Cajamarca — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'DIAZ CARRERA, GLORIA ANGELMIRA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/c1447b71-8779-43a6-a193-b17cd0824649.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/26681948', numero: 2 },
         { nombre: 'ZAMBRANO LINARES, EDMUNDO', partido: 'UNIDAD NACIONAL', foto_url: 'https://mpesije.jne.gob.pe/apidocs/5b4916fd-6f56-4371-998c-f435dabaaacf.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3023/26604069', numero: 1 },
@@ -1730,7 +1730,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_CALLAO',
       titulo: 'Senadores Distrito Múltiple — Callao',
       descripcion: 'Candidatos al Senado por Callao — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'COX PALOMINO, CARLOS ALFREDO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/cbb64f50-9038-4dc9-b0aa-5bfea37a11c6.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/25648600', numero: 1 },
         { nombre: 'SANTISTEBAN SIAPO, LUZ MARGARITA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/6ced18b8-a1d9-41fc-a0c2-6b0216d7ce29.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/40735754', numero: 2 },
@@ -1815,7 +1815,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_CUSCO',
       titulo: 'Senadores Distrito Múltiple — Cusco',
       descripcion: 'Candidatos al Senado por Cusco — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'SERRANO ALVAREZ, ROSA ALICIA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/1a2f868e-bb02-4f74-af51-8312e806f8b1.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/23964916', numero: 2 },
         { nombre: 'CORNEJO PAREDES, JAVIER FRANCISCO', partido: 'RENOVACION POPULAR', foto_url: 'https://mpesije.jne.gob.pe/apidocs/52ae5600-d78c-4182-94a1-d76a9060f91d.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/22/10145589', numero: 1 },
@@ -1902,7 +1902,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_HUANCAVELICA',
       titulo: 'Senadores Distrito Múltiple — Huancavelica',
       descripcion: 'Candidatos al Senado por Huancavelica — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'HUAMANI CANDIOTTE, ELVA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/c120977c-a5f5-4063-8071-e7ab8802ec2f.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/41997711', numero: 2 },
         { nombre: 'SOTO RODRIGUEZ, ANGELA ROCIO', partido: 'PROGRESEMOS', foto_url: 'https://mpesije.jne.gob.pe/apidocs/62a52da3-0c43-47b6-82d9-e0b032617a22.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2967/44968741', numero: 2 },
@@ -1979,7 +1979,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_HUANUCO',
       titulo: 'Senadores Distrito Múltiple — Huánuco',
       descripcion: 'Candidatos al Senado por Huánuco — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'JARAMILLO FALCON, ENNIS SEGUNDO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/b894f64e-32d2-447b-85dc-7851cddf192d.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/22480882', numero: 1 },
         { nombre: 'REQUELME PAUCAR DE CAPCHA, PAULA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/e4ffde72-73b6-431c-86a0-20f2453774a3.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/22514448', numero: 2 },
@@ -2064,7 +2064,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_ICA',
       titulo: 'Senadores Distrito Múltiple — Ica',
       descripcion: 'Candidatos al Senado por Ica — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'PALOMINO HUAROTO, MARIA DEL CARMEN', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/6a69351c-0350-4d3c-b1b2-01cd7a71cefc.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/22288478', numero: 2 },
         { nombre: 'ANYOSA ORMEÑO, CECILIA TERESA', partido: 'RENOVACION POPULAR', foto_url: 'https://mpesije.jne.gob.pe/apidocs/35109efc-8622-4600-84bd-29015dc95387.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/22/21461978', numero: 1 },
@@ -2149,7 +2149,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_JUNIN',
       titulo: 'Senadores Distrito Múltiple — Junín',
       descripcion: 'Candidatos al Senado por Junín — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'ACUÑA RODRIGUEZ, YOLANDA IGNACIA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/a37c90fd-a6c8-4840-a32a-ef2b549c734f.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/20983848', numero: 2 },
         { nombre: 'MIGUEL SINCHEZ, JANNET EVA', partido: 'FUERZA Y LIBERTAD', foto_url: 'https://mpesije.jne.gob.pe/apidocs/5e5435c8-8d2a-4e96-a0c9-1be3e8fdeda5.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3024/42532917', numero: 2 },
@@ -2230,7 +2230,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_LA_LIBERTAD',
       titulo: 'Senadores Distrito Múltiple — La Libertad',
       descripcion: 'Candidatos al Senado por La Libertad — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'BALAREZO SALCEDO, JULIA ELENA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/9f4a98ec-edd6-4915-b3ea-c740fdc783ff.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/19242224', numero: 2 },
         { nombre: 'LEON ALVAREZ, VICTOR JULIO', partido: 'RENOVACION POPULAR', foto_url: 'https://mpesije.jne.gob.pe/apidocs/e1e3805f-985c-4317-901e-e92f637bf439.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/22/17829695', numero: 1 },
@@ -2317,7 +2317,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_LAMBAYEQUE',
       titulo: 'Senadores Distrito Múltiple — Lambayeque',
       descripcion: 'Candidatos al Senado por Lambayeque — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'SANTOYO DELGADO, GICELLA JACQUELINE', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/d74899f6-f831-4af9-8b65-fdc6b1cbacfc.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/17536614', numero: 2 },
         { nombre: 'SANCHEZ FLORES, JOSE ANTONIO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/7a7e6ed3-f481-4d1c-b602-6285f57a505d.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/07643126', numero: 1 },
@@ -2406,7 +2406,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_LIMA_MET',
       titulo: 'Senadores Distrito Múltiple — Lima Metropolitana',
       descripcion: 'Candidatos al Senado por Lima Metropolitana — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'PACHECO UGARTE, ELIZABETH ROSARIO', partido: 'PARTIDO DE LOS TRABAJADORES Y EMPRENDEDORES PTE - PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/971d01b9-d9f5-4a88-9d15-eb732144d290.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2939/04647238', numero: 2 },
         { nombre: 'BERTRÁN CONTRERAS, JEANNETT DEL PILAR', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/585fa2e9-3912-4954-9deb-126b3abf3462.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/07286931', numero: 4 },
@@ -2567,7 +2567,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_LIMA_PROV',
       titulo: 'Senadores Distrito Múltiple — Lima Provincias',
       descripcion: 'Candidatos al Senado por Lima Provincias — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'FLORES ALBORNOZ, ROSAMERY ELEANA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/6153ff1e-8110-4e33-b234-8a834103683e.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/09313148', numero: 1 },
         { nombre: 'ROSALES MANUEL, OBED AMINADAB', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/4f7daaef-0281-4cd2-a9c5-520ef0db3f03.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/16281794', numero: 2 },
@@ -2656,7 +2656,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_LORETO',
       titulo: 'Senadores Distrito Múltiple — Loreto',
       descripcion: 'Candidatos al Senado por Loreto — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'MORANTE FIGARI, JORGE ALBERTO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/45223337-9416-43bf-9b07-13ebc370837b.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/07874562', numero: 1 },
         { nombre: 'MENDOZA LOPEZ, DORA ELIZABETH', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/304ff619-7dc1-4cdc-9ede-977da5495c03.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/05411916', numero: 2 },
@@ -2741,7 +2741,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_MADRE_DE_DIOS',
       titulo: 'Senadores Distrito Múltiple — Madre de Dios',
       descripcion: 'Candidatos al Senado por Madre de Dios — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'COLMENARES VDA DE SAAVEDRA, LESLIE MARIA', partido: 'PARTIDO PAIS PARA TODOS', foto_url: 'https://mpesije.jne.gob.pe/apidocs/c0fbe540-8a7e-4d26-b6a9-7916ff93be48.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2956/16758154', numero: 2 },
         { nombre: 'ZAVALA CANCHO, AURELIO EDUARDO', partido: 'AHORA NACION - AN', foto_url: 'https://mpesije.jne.gob.pe/apidocs/a92dabb9-a4f4-46ad-9082-81985f0571a2.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2980/04813936', numero: 1 },
@@ -2812,7 +2812,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_MOQUEGUA',
       titulo: 'Senadores Distrito Múltiple — Moquegua',
       descripcion: 'Candidatos al Senado por Moquegua — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'BERRIOS SUAREZ, JANET MONICA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/c62e422a-fba8-4864-849c-1f1ce8546416.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/10244829', numero: 2 },
         { nombre: 'CHIRE PORRAS, MARIA CLEOTILDE', partido: 'ALIANZA ELECTORAL VENCEREMOS', foto_url: 'https://mpesije.jne.gob.pe/apidocs/582fb012-551a-4f7d-a100-52178453c852.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3025/04721831', numero: 2 },
@@ -2893,7 +2893,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_PASCO',
       titulo: 'Senadores Distrito Múltiple — Pasco',
       descripcion: 'Candidatos al Senado por Pasco — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'CACERES BUSTAMANTE, LUIS MANUEL', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/52c16218-05f5-4d13-8fcf-940d57fbb025.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/04322202', numero: 2 },
         { nombre: 'LOZADA SILVA, JULIA FRANCISCA', partido: 'PARTIDO DEL BUEN GOBIERNO', foto_url: 'https://mpesije.jne.gob.pe/apidocs/c75cedc9-e9c8-4e66-9c1b-c97eb968ecb4.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2961/40227923', numero: 2 },
@@ -2968,7 +2968,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_EXTRANJERO',
       titulo: 'Senadores Distrito Múltiple — Peruanos en el Extranjero',
       descripcion: 'Candidatos al Senado por Peruanos en el Extranjero — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'MALCA ALVARIÑO, RICARDO LEONARDO ENRIQUE', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/50e58844-4502-4174-bef7-723f485fbe22.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/10810183', numero: 1 },
         { nombre: 'COLONA GUEVARA DE ZAMUDIO, VICENTA ISABEL', partido: 'UNIDAD NACIONAL', foto_url: 'https://mpesije.jne.gob.pe/apidocs/cb845368-71db-4868-b85c-010b47d5584a.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3023/06366721', numero: 2 },
@@ -3049,7 +3049,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_PIURA',
       titulo: 'Senadores Distrito Múltiple — Piura',
       descripcion: 'Candidatos al Senado por Piura — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'SÁNCHEZ UBILLÚS, ELARD JOHNY', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/5c16e515-15b9-455b-8653-15a512ee4deb.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/02854442', numero: 2 },
         { nombre: 'ZAMUDIO ZELADA, GISSELLA JANETT', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/f1c335ef-7b34-4735-bd7b-48d0b327bee7.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/02803867', numero: 1 },
@@ -3134,7 +3134,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_PUNO',
       titulo: 'Senadores Distrito Múltiple — Puno',
       descripcion: 'Candidatos al Senado por Puno — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'BEDOYA VERA, ILDA NANCY', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/cc572abd-5c83-4537-b867-63c8f7e75b8a.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/00428460', numero: 2 },
         { nombre: 'CASTILLO ORTEGA, TANIA LIBERTAD', partido: 'UNIDAD NACIONAL', foto_url: 'https://mpesije.jne.gob.pe/apidocs/f559f7ac-7e0b-440d-9f3d-b5da73408f52.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3023/01326044', numero: 2 },
@@ -3213,7 +3213,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_SAN_MARTIN',
       titulo: 'Senadores Distrito Múltiple — San Martín',
       descripcion: 'Candidatos al Senado por San Martín — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'RIOS RUIZ, GIDITH', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/76711d1b-ff1d-4e1a-aa1d-08458d3a1640.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/01067626', numero: 2 },
         { nombre: 'ATAUCUSI OSPINA, JUAN NOE', partido: 'PROGRESEMOS', foto_url: 'https://mpesije.jne.gob.pe/apidocs/f55fc3a9-14d9-40ed-aaa1-059844ecdbe0.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/2967/10408828', numero: 1 },
@@ -3291,7 +3291,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_TACNA',
       titulo: 'Senadores Distrito Múltiple — Tacna',
       descripcion: 'Candidatos al Senado por Tacna — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'PARI GONZALES, NESTOR ARMANDO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/7c6ecb7e-295e-41d7-be03-5484036779bf.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/00438458', numero: 1 },
         { nombre: 'ANCHAPURI CANAZA, MANUEL', partido: 'ALIANZA ELECTORAL VENCEREMOS', foto_url: '', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3025/01304621', numero: 1 },
@@ -3368,7 +3368,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_TUMBES',
       titulo: 'Senadores Distrito Múltiple — Tumbes',
       descripcion: 'Candidatos al Senado por Tumbes — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'PEREZ ALVAREZ, RONALD', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/f1d4ea06-8297-4126-b30c-e43ccc575559.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/80171533', numero: 1 },
         { nombre: 'FEIJOO VILELA, GLORIA YANETH', partido: 'UNIDAD NACIONAL', foto_url: 'https://mpesije.jne.gob.pe/apidocs/d2015adc-ade3-4ee7-8336-213496f33f08.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3023/00241757', numero: 2 },
@@ -3449,7 +3449,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'SEN_UCAYALI',
       titulo: 'Senadores Distrito Múltiple — Ucayali',
       descripcion: 'Candidatos al Senado por Ucayali — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'MACEDO SANCHEZ, JOSE', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/f65c75d4-13f5-45d5-a5a9-99d14ec7965e.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/00026752', numero: 1 },
         { nombre: 'ZAPATA BARBOZA, ROBERTO CARLOS', partido: 'UNIDAD NACIONAL', foto_url: 'https://mpesije.jne.gob.pe/apidocs/7f0456d2-c9c0-48a6-826c-ccb1a588bc61.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3023/09586197', numero: 1 },
@@ -3526,7 +3526,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'E06',
       titulo: 'Parlamento Andino — Elecciones 2026',
       descripcion: 'Candidatos al Parlamento Andino — Elecciones Generales 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'FLORES ROMAINA, KIMBERLY LLOLENI', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/bd81666f-8fe5-4a9a-a31e-5d650fe1842c.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/75050392', numero: 3 },
         { nombre: 'CACERES ARONES, VANIA FLOR', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/cbbaaf66-2c89-4b5a-bab4-522a701541dd.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42869876', numero: 1 },
@@ -4071,7 +4071,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_AMAZONAS',
       titulo: 'Diputados — Amazonas',
       descripcion: 'Candidatos a Diputados por Amazonas — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'CHANCHARI PEREZ, EUDES ABELINO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/34d9e37a-678f-41da-ac23-27c2ed01219c.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/33767405', numero: 1 },
         { nombre: 'ROQUE MEGO, MARILU', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/e0bf35c7-be61-4526-9bf1-b3ce3c89c1fa.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/45230084', numero: 2 },
@@ -4216,7 +4216,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_ANCASH',
       titulo: 'Diputados — Áncash',
       descripcion: 'Candidatos a Diputados por Áncash — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'PONCE VELASQUEZ, ASCARIO WILMAN', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/a4d03ad5-ccc5-4e44-a08c-54b9165134c0.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/41273742', numero: 1 },
         { nombre: 'PORTOCARRERO MENDEZ, MARCELA CAROLINA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/ad17ca32-8795-4191-af9b-f10654cc6e3c.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/31666804', numero: 2 },
@@ -4443,7 +4443,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_APURIMAC',
       titulo: 'Diputados — Apurímac',
       descripcion: 'Candidatos a Diputados por Apurímac — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'VASQUEZ ANAMARIA, NOEL ARTHUR', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/1d4e5e8e-9601-4c75-85ac-ee0fb0fbc3e9.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/31024449', numero: 4 },
         { nombre: 'RAMIREZ AYBAR, LIBIO ROMELL', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/ff7544cf-f8ae-40e9-8918-f9d7a5ad6525.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/28265446', numero: 2 },
@@ -4591,7 +4591,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_AREQUIPA',
       titulo: 'Diputados — Arequipa',
       descripcion: 'Candidatos a Diputados por Arequipa — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'DEL CARPIO RODRIGUEZ, GUIDO MOISES', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/5e9cc963-9966-4d27-80bb-116fc3f74bcd.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/29637880', numero: 1 },
         { nombre: 'AREVALO RODRIGUEZ, KATIA GRICEL', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/2fbdb383-7d4a-4204-b032-991fe3a457b5.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/46716689', numero: 4 },
@@ -4830,7 +4830,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_AYACUCHO',
       titulo: 'Diputados — Ayacucho',
       descripcion: 'Candidatos a Diputados por Ayacucho — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'PRADO HUAMANI, LILIAM SORAYDA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/20d80fb3-c7ec-46c2-b8f9-bdfed8acfed0.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42466580', numero: 3 },
         { nombre: 'VILLAVICENCIO FLORES, NILDA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/38d816b4-391f-4721-8f2c-270570db3775.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/28298328', numero: 1 },
@@ -4971,7 +4971,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_CAJAMARCA',
       titulo: 'Diputados — Cajamarca',
       descripcion: 'Candidatos a Diputados por Cajamarca — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'SALAZAR CERQUIN, RUTH', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/a1c89711-f543-434f-8f84-bdec326b5658.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42568806', numero: 1 },
         { nombre: 'ORTIZ BARBOZA, DORIS', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/5b9a0f86-51ad-41e3-8bd9-eef098d0d424.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42812411', numero: 5 },
@@ -5197,7 +5197,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_CALLAO',
       titulo: 'Diputados — Callao',
       descripcion: 'Candidatos a Diputados por Callao — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'ESPINOZA CAPILLO, JUANA PAULA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/52b702c0-e2f5-476c-acb5-447eaaedf5df.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/25574808', numero: 2 },
         { nombre: 'COBIAN REATEGUI, CESAR EDUARDO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/e2afe248-d056-4199-b632-031b88928ca7.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/45098240', numero: 1 },
@@ -5358,7 +5358,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_CUSCO',
       titulo: 'Diputados — Cusco',
       descripcion: 'Candidatos a Diputados por Cusco — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'HUAMAN VELASCO, ANTERO RUFINO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/032a4837-545b-44ed-9fc0-00469716b09a.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/23839476', numero: 1 },
         { nombre: 'PEZO DELGADO, LUDER', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/f0efdfa7-003a-4477-9b8b-9ae618dc5dd7.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/41383355', numero: 5 },
@@ -5585,7 +5585,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_HUANCAVELICA',
       titulo: 'Diputados — Huancavelica',
       descripcion: 'Candidatos a Diputados por Huancavelica — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'CARDENAS ORDOÑEZ, CARLOS ALBERTO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/97beca4c-ca15-4045-8059-25c0b129e542.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/23262054', numero: 3 },
         { nombre: 'FLORES MENDOZA, LIZ MERY', partido: 'RENOVACION POPULAR', foto_url: 'https://mpesije.jne.gob.pe/apidocs/f1e42aba-87cb-415e-9b70-ca8b73838168.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/22/43689729', numero: 3 },
@@ -5726,7 +5726,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_HUANUCO',
       titulo: 'Diputados — Huánuco',
       descripcion: 'Candidatos a Diputados por Huánuco — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'JARAMILLO BRAVO, NEIL ALEX', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/7db31e87-4cab-4eff-8d12-a9b103888a36.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/72879262', numero: 1 },
         { nombre: 'BERROSPI CASTILLO, JUAN JOSE', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/898e1ed8-42c9-4bcb-aeb3-acc737eff910.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/22502267', numero: 3 },
@@ -5871,7 +5871,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_ICA',
       titulo: 'Diputados — Ica',
       descripcion: 'Candidatos a Diputados por Ica — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'HUARANCCA CONTRERAS, PATRICIA PAULINA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/3e310713-49ab-47ba-9e6a-21e59a15584e.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/06601401', numero: 2 },
         { nombre: 'TATAJE GALLEGOS, ROMINA LUISA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/703ce727-d934-4951-b72f-6e7783901028.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/47122312', numero: 4 },
@@ -6036,7 +6036,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_JUNIN',
       titulo: 'Diputados — Junín',
       descripcion: 'Candidatos a Diputados por Junín — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'MEZA HUERE, OSCAR RAUL', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/28545bf8-d645-43ba-845f-cc1405f7a6fa.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/40081197', numero: 5 },
         { nombre: 'IZARRA CCORAHUA, DANILO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/712962cb-e6c5-4223-bb8a-0cf6237fae86.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42816821', numero: 1 },
@@ -6257,7 +6257,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_LA_LIBERTAD',
       titulo: 'Diputados — La Libertad',
       descripcion: 'Candidatos a Diputados por La Libertad — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'ANTICONA GARCIA, NAYDA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/0882dd46-2b62-4b56-9f64-f188980f253e.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/18222996', numero: 3 },
         { nombre: 'ROSAS PAREDES, IVAN', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/19e0fa1e-6e36-413e-9dc0-6d41a99cbafc.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42371692', numero: 4 },
@@ -6552,7 +6552,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_LAMBAYEQUE',
       titulo: 'Diputados — Lambayeque',
       descripcion: 'Candidatos a Diputados por Lambayeque — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'ESPINOZA SOTO, GUSTAVO DACIO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/07065a8d-02bc-4e1d-8f2c-2cdf032f1043.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/07891732', numero: 1 },
         { nombre: 'SANTISTEBAN SANTAMARIA, FRANKLIN', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/b9a97165-0f32-4a3f-8d30-affd298755e5.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42395482', numero: 3 },
@@ -6785,7 +6785,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_LIMA',
       titulo: 'Diputados — Lima',
       descripcion: 'Candidatos a Diputados por Lima — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'CHAVEZ SIERRA, DALILA UBI', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/a9259954-f3bf-4655-83ce-929003aabf99.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/07597557', numero: 3 },
         { nombre: 'GUTIERREZ GOMEZ, JOSE SAUL', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/96ed30c6-96c0-4d3b-98cf-65841271a924.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42712431', numero: 4 },
@@ -7740,7 +7740,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_LIMA_MET',
       titulo: 'Diputados — Lima Metropolitana',
       descripcion: 'Candidatos a Diputados por Lima Metropolitana — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'ROCHA GALLEGOS, ROXANA MARIA', partido: 'RENOVACION POPULAR', foto_url: 'https://mpesije.jne.gob.pe/apidocs/86b38aa1-2f58-4a5f-b0f9-4a7d8368659b.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/22/10275564', numero: 3 },
         { nombre: 'CERNA GARCIA DE ORSOS, MARIA EUGENIA DEL CARMEN', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/91626471-a276-44a4-92df-17aefd4565ef.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/22', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/46312201', numero: 20 },
@@ -8140,7 +8140,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_LIMA_PROV',
       titulo: 'Diputados — Lima Provincias',
       descripcion: 'Candidatos a Diputados por Lima Provincias — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'MEJIA SANTILLAN, YURI FRANZ', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/c03ce615-4b63-4c3f-b1d0-c4224fce621b.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/41281691', numero: 2 },
         { nombre: 'MELENDEZ VICENTE, KAREN LISBETH', partido: 'RENOVACION POPULAR', foto_url: 'https://mpesije.jne.gob.pe/apidocs/689d512f-a307-49af-a715-dd7f8c524ee7.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/22/44033922', numero: 1 },
@@ -8192,7 +8192,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_LORETO',
       titulo: 'Diputados — Loreto',
       descripcion: 'Candidatos a Diputados por Loreto — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'MARIN GARCIA, JAIME', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/ba41cf4d-5b09-4af2-b5a1-6816d73edeca.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/05401015', numero: 2 },
         { nombre: 'YARAME MONTOYA, ALMENDRA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/684e1db5-6c37-4ec1-975a-04d30fd4ff11.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/72646658', numero: 3 },
@@ -8344,7 +8344,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_MADRE_DE_DIOS',
       titulo: 'Diputados — Madre de Dios',
       descripcion: 'Candidatos a Diputados por Madre de Dios — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'PINEDO AYLLON, PRISCILA SUYLAN', partido: 'FUERZA Y LIBERTAD', foto_url: 'https://mpesije.jne.gob.pe/apidocs/fe2f6d5f-18b0-457e-8e49-6d7be8a9d5c9.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/3024/72681248', numero: 3 },
         { nombre: 'SANCHEZ CAMPOS, JUDIHT JEANINA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/39e0d9d8-f7a9-4e09-81b5-e6b589d838a0.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/3024', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/47752927', numero: 1 },
@@ -8490,7 +8490,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_MOQUEGUA',
       titulo: 'Diputados — Moquegua',
       descripcion: 'Candidatos a Diputados por Moquegua — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'SOLIS POEMAPE, GIOVANNA SUSANA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/3f48e94c-0bcf-41d3-af4c-ce602197f0af.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/40522782', numero: 2 },
         { nombre: 'PILLCO AYMA, JOHN DAVID', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/5ff54be0-f0f2-4180-886e-c3c821e09d60.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/44517412', numero: 3 },
@@ -8635,7 +8635,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_PASCO',
       titulo: 'Diputados — Pasco',
       descripcion: 'Candidatos a Diputados por Pasco — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'CARRANZA HUAMAN, VICTORIA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/27bf5388-e002-45b4-ad8a-ae2f01093840.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/04060968', numero: 3 },
         { nombre: 'ANDIA ALARCON, EDUARD GERTY', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/fcd1278a-8177-4365-a5c2-2d673a1a7945.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/45811902', numero: 4 },
@@ -8768,7 +8768,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_PIURA',
       titulo: 'Diputados — Piura',
       descripcion: 'Candidatos a Diputados por Piura — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'CARMEN CARMEN, ESTRELLITA LIZETH', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/220154a5-9468-4767-ab55-b426685c577d.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/71052270', numero: 8 },
         { nombre: 'DIOSES GUZMAN, JOHNNY DARWIN', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/0eba0313-32c0-4621-9df3-ee5d1e08fd9d.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/03507109', numero: 5 },
@@ -9057,7 +9057,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_PUNO',
       titulo: 'Diputados — Puno',
       descripcion: 'Candidatos a Diputados por Puno — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'DELMAZO CALDERON, ANGELICA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/29dfd8e6-99e2-404e-a071-45b047e5b961.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/00401945', numero: 6 },
         { nombre: 'JIMENEZ JALIRE, JHOMIRA NOHELI', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/287c28f2-dc92-4ac6-b66f-4b8caa8d6b54.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/70309105', numero: 4 },
@@ -9283,7 +9283,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_SAN_MARTIN',
       titulo: 'Diputados — San Martín',
       descripcion: 'Candidatos a Diputados por San Martín — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'HILDEBRANDT PAUCAR, JESSICA PAOLA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/aea06329-c769-40cf-8c48-05f65e8b7da3.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/44578760', numero: 1 },
         { nombre: 'PASHANASE CHUQUIPOMA, SEGUNDO GENARO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/4ce51c00-8851-4754-ab0f-a4dcbd5b64c3.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/74408983', numero: 4 },
@@ -9432,7 +9432,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_TACNA',
       titulo: 'Diputados — Tacna',
       descripcion: 'Candidatos a Diputados por Tacna — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'HUARIZA CAUNA, ROSVELT HUGO', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/b1349657-79f7-48ae-9086-24061bde75c7.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/71567627', numero: 3 },
         { nombre: 'GORDILLO BEDOYA, NINOSCHKA KATERINE', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/2fad1d5b-56d1-4525-8470-038958007814.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/00520803', numero: 4 },
@@ -9573,7 +9573,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_TUMBES',
       titulo: 'Diputados — Tumbes',
       descripcion: 'Candidatos a Diputados por Tumbes — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'SERNAQUE CIEZA, JENNER', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/36ba6011-c549-4d09-a8e7-8c623167d6d4.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/16664350', numero: 1 },
         { nombre: 'CHIROQUE MORAN, BRENDY CAROLA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/6ff4f89d-eee8-4d0f-ab4b-265216f50ad9.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/71821492', numero: 4 },
@@ -9714,7 +9714,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       id: 'DIP_UCAYALI',
       titulo: 'Diputados — Ucayali',
       descripcion: 'Candidatos a Diputados por Ucayali — Elecciones 2026',
-      estado: 'activa',
+      estado: 'cerrada',
       opciones: [
         { nombre: 'GARCIA SANDOVAL, LUPER', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/a8acf9fe-0eac-450f-ae0d-a03d9b7d8ef6.jpg', logo_partido_url: '', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/42658538', numero: 1 },
         { nombre: 'DIAZ MURRIETA, MARIEZA', partido: 'PARTIDO DEMOCRATICO SOMOS PERU', foto_url: 'https://mpesije.jne.gob.pe/apidocs/f8bfbbbc-9d51-4da2-8466-6ee757cdf94b.jpg', logo_partido_url: 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14', url_hoja_vida: 'https://votoinformado.jne.gob.pe/hoja-vida/14/40021799', numero: 2 },
@@ -9854,6 +9854,42 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       region: 'UCAYALI',
       tipo_eleccion: 'DIPUTADOS',
       total_votos: 146,
+    },
+    {
+      id: 'E07',
+      titulo: '¿Para usted, quién debería ser el próximo Rector de la UNA Puno?',
+      descripcion: 'Encuesta de preferencia para la elección del próximo Rector de la Universidad Nacional del Altiplano - Puno.',
+      estado: 'activa',
+      opciones: [
+        { nombre: 'Dr. Walter Tudela Mamani', partido: '', foto_url: '/assets/rectores/tudela.jpg', logo_partido_url: '', url_hoja_vida: '' },
+        { nombre: 'Dr. Charles Mendoza Mollocondo', partido: '', foto_url: '/assets/rectores/charles-mendoza.jpg', logo_partido_url: '', url_hoja_vida: '' },
+        { nombre: 'Dr. Dante Salas Ávila', partido: '', foto_url: '/assets/rectores/dante-salas.jpg', logo_partido_url: '', url_hoja_vida: '' },
+      ],
+      meta_votos: 1000,
+      fecha_inicio: '2026-05-17',
+      fecha_fin: '2026-06-30',
+      categoria: 'ELECCIONES',
+      region: 'PUNO',
+      tipo_eleccion: 'GENERAL',
+      total_votos: 384,
+    },
+    {
+      id: 'E08',
+      titulo: '¿Por quién votaría usted en la Segunda Vuelta Presidencial?',
+      descripcion: 'Encuesta de intención de voto para la Segunda Vuelta de las Elecciones Presidenciales 2026.',
+      estado: 'activa',
+      opciones: [
+        { nombre: 'Keiko Fujimori', partido: 'Fuerza Popular', foto_url: '/assets/rectores/keiko.jpg', logo_partido_url: '', url_hoja_vida: '' },
+        { nombre: 'Roberto Sánchez', partido: 'Juntos por el Perú', foto_url: '/assets/rectores/roberto-sanchez.jpg', logo_partido_url: '', url_hoja_vida: '' },
+        { nombre: 'Rafael López Aliaga', partido: 'Renovación Popular', foto_url: '/assets/rectores/rafael-lopez-aliaga.jpg', logo_partido_url: '', url_hoja_vida: '' },
+      ],
+      meta_votos: 5000,
+      fecha_inicio: '2026-05-17',
+      fecha_fin: '2026-06-10',
+      categoria: 'ELECCIONES',
+      region: 'NACIONAL',
+      tipo_eleccion: 'PRESIDENTE',
+      total_votos: 0,
     },
   ],
 
@@ -22969,11 +23005,31 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       ],
       ultima_actualizacion: new Date().toISOString(),
     },
+    E07: {
+      encuesta_id: 'E07',
+      total_votos: 384,
+      resultados: [
+        { opcion: 'Dr. Walter Tudela Mamani', cantidad: 154, porcentaje: '40.1' },
+        { opcion: 'Dr. Charles Mendoza Mollocondo', cantidad: 130, porcentaje: '33.9' },
+        { opcion: 'Dr. Dante Salas Ávila', cantidad: 100, porcentaje: '26.0' },
+      ],
+      ultima_actualizacion: new Date().toISOString(),
+    },
+    E08: {
+      encuesta_id: 'E08',
+      total_votos: 0,
+      resultados: [
+        { opcion: 'Keiko Fujimori', cantidad: 0, porcentaje: '0.0' },
+        { opcion: 'Roberto Sánchez', cantidad: 0, porcentaje: '0.0' },
+        { opcion: 'Rafael López Aliaga', cantidad: 0, porcentaje: '0.0' },
+      ],
+      ultima_actualizacion: new Date().toISOString(),
+    },
   },
 
   estadisticas: {
     total_votos: 13093,
-    total_encuestas: 59,
+    total_encuestas: 61,
     regiones: 24,
     precision: 95.5,
   },
@@ -23228,4 +23284,5 @@ export const DEFAULT_DEMO_DATA: DemoData = {
     },
   ],
   imagenes: [],
+  logosPartidos: {},
 };

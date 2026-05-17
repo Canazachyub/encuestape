@@ -1,62 +1,67 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import type { Encuesta } from '../types';
-import { REGIONES_PERU } from '../config/constants';
+import type { Encuesta, CandidateOption } from '../types';
 import { useDemoData } from '../context/DemoDataContext';
 import { formatNumber } from '../utils/format';
-import type { RegionCode } from '../types';
 
-type ElectionType = 'PRESIDENTE' | 'SENADORES' | 'DIPUTADOS' | 'PARLAMENTO_ANDINO';
+function isCandidateOption(o: unknown): o is CandidateOption {
+  return typeof o === 'object' && o !== null && 'nombre' in o;
+}
 
-const ELECTION_TYPES: { key: ElectionType; label: string; icon: string; desc: string }[] = [
-  { key: 'PRESIDENTE', label: 'Presidente', icon: '🏛️', desc: 'Elige al próximo presidente del Perú' },
-  { key: 'SENADORES', label: 'Senadores', icon: '🏢', desc: 'Vota por tu senador regional' },
-  { key: 'DIPUTADOS', label: 'Diputados', icon: '📋', desc: 'Elige a tu diputado por región' },
-  { key: 'PARLAMENTO_ANDINO', label: 'Parlamento Andino', icon: '🌎', desc: 'Representantes ante el Parlamento Andino' },
-];
+function PollCard({ encuesta, onVotar }: { encuesta: Encuesta; onVotar: () => void }) {
+  const candidates = encuesta.opciones.filter(isCandidateOption);
+
+  return (
+    <div className="poll-card">
+      <div className="poll-card-header">
+        <span className="poll-card-num">📊</span>
+        <h2 className="poll-card-title">{encuesta.titulo}</h2>
+        <p className="poll-card-desc">{encuesta.descripcion}</p>
+        {encuesta.total_votos > 0 && (
+          <span className="poll-card-votes">{formatNumber(encuesta.total_votos)} participantes</span>
+        )}
+      </div>
+
+      {candidates.length > 0 && (
+        <div className="poll-candidates">
+          {candidates.map((c, i) => (
+            <div key={i} className="poll-candidate">
+              <div className="poll-candidate-photo">
+                {c.foto_url ? (
+                  <img src={c.foto_url} alt={c.nombre} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                ) : (
+                  <div className="poll-candidate-avatar">{c.nombre.charAt(0)}</div>
+                )}
+              </div>
+              <span className="poll-candidate-name">{c.nombre}</span>
+              {c.partido && <span className="poll-candidate-party">{c.partido}</span>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="poll-card-actions">
+        <button className="btn btn-primary btn-lg poll-vote-btn" onClick={onVotar}>
+          Votar ahora →
+        </button>
+        <Link to={`/resultados/${encuesta.id}`} className="poll-results-link">
+          Ver resultados
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 export default function ParticiparPage() {
   const { api } = useDemoData();
   const navigate = useNavigate();
   const [allEncuestas, setAllEncuestas] = useState<Encuesta[]>([]);
-  const [selectedType, setSelectedType] = useState<ElectionType | null>(null);
-  const [selectedRegion, setSelectedRegion] = useState<string>('');
 
   useEffect(() => {
     api.getEncuestas().then(d => setAllEncuestas(d.encuestas));
   }, [api]);
 
   const activeEncuestas = allEncuestas.filter(e => e.estado === 'activa');
-
-  // Get available regions for selected type
-  const regionsForType = selectedType
-    ? [...new Set(activeEncuestas.filter(e => e.tipo_eleccion === selectedType).map(e => e.region))]
-    : [];
-
-  const needsRegion = selectedType && selectedType !== 'PRESIDENTE' && selectedType !== 'PARLAMENTO_ANDINO' && regionsForType.length > 1;
-
-  // Find target encuesta
-  const targetEncuesta = selectedType
-    ? activeEncuestas.find(e => {
-        if (e.tipo_eleccion !== selectedType) return false;
-        if (needsRegion && selectedRegion) return e.region === selectedRegion;
-        if (!needsRegion) return true;
-        return false;
-      })
-    : null;
-
-  const handleVotar = () => {
-    if (targetEncuesta) {
-      navigate(`/votar/${targetEncuesta.id}`);
-    }
-  };
-
-  // Count votes per type
-  const getTypeVotes = (type: ElectionType) => {
-    return activeEncuestas
-      .filter(e => e.tipo_eleccion === type)
-      .reduce((sum, e) => sum + (e.total_votos || 0), 0);
-  };
 
   return (
     <div className="participar-page">
@@ -77,85 +82,25 @@ export default function ParticiparPage() {
 
       <div className="participar-hero">
         <div className="container">
-          <h1 className="participar-title">Elige tu encuesta</h1>
-          <p className="participar-subtitle">Selecciona el tipo de elección y emite tu voto</p>
+          <h1 className="participar-title">Encuestas activas</h1>
+          <p className="participar-subtitle">Selecciona una encuesta y emite tu voto</p>
         </div>
       </div>
 
       <div className="container participar-content">
-        {/* Step 1: Election Type */}
-        <div className="participar-step">
-          <div className="participar-step-label">
-            <span className="participar-step-num">1</span>
-            Tipo de elección
+        {activeEncuestas.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '4rem 1rem', color: 'var(--color-text-muted)' }}>
+            <p style={{ fontSize: '1.25rem' }}>No hay encuestas activas en este momento.</p>
           </div>
-          <div className="election-type-grid">
-            {ELECTION_TYPES.map(t => {
-              const votes = getTypeVotes(t.key);
-              const isActive = activeEncuestas.some(e => e.tipo_eleccion === t.key);
-              return (
-                <button
-                  key={t.key}
-                  className={`election-type-card${selectedType === t.key ? ' selected' : ''}${!isActive ? ' disabled' : ''}`}
-                  onClick={() => { if (isActive) { setSelectedType(t.key); setSelectedRegion(''); } }}
-                  disabled={!isActive}
-                >
-                  <span className="election-type-icon">{t.icon}</span>
-                  <span className="election-type-name">{t.label}</span>
-                  <span className="election-type-desc">{t.desc}</span>
-                  {votes > 0 && (
-                    <span className="election-type-votes">{formatNumber(votes)} votos</span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Step 2: Region (if needed) */}
-        {needsRegion && (
-          <div className="participar-step">
-            <div className="participar-step-label">
-              <span className="participar-step-num">2</span>
-              Selecciona tu región
-            </div>
-            <div className="region-grid">
-              {regionsForType
-                .filter(r => r !== 'NACIONAL')
-                .sort((a, b) => {
-                  const nameA = REGIONES_PERU[a as RegionCode]?.nombre || a;
-                  const nameB = REGIONES_PERU[b as RegionCode]?.nombre || b;
-                  return nameA.localeCompare(nameB);
-                })
-                .map(r => (
-                  <button
-                    key={r}
-                    className={`region-btn${selectedRegion === r ? ' selected' : ''}`}
-                    onClick={() => setSelectedRegion(r)}
-                  >
-                    {REGIONES_PERU[r as RegionCode]?.nombre || r}
-                  </button>
-                ))}
-            </div>
-          </div>
-        )}
-
-        {/* CTA */}
-        {targetEncuesta && (
-          <div className="participar-cta">
-            <div className="participar-cta-info">
-              <h3>{targetEncuesta.titulo}</h3>
-              <p>{targetEncuesta.descripcion}</p>
-              <span className="participar-cta-stats">
-                {formatNumber(targetEncuesta.total_votos)} participantes
-                {targetEncuesta.meta_votos > 0 && (
-                  <> &middot; Meta: {formatNumber(targetEncuesta.meta_votos)}</>
-                )}
-              </span>
-            </div>
-            <button className="btn btn-primary btn-lg participar-cta-btn" onClick={handleVotar}>
-              Votar ahora
-            </button>
+        ) : (
+          <div className="polls-grid">
+            {activeEncuestas.map(enc => (
+              <PollCard
+                key={enc.id}
+                encuesta={enc}
+                onVotar={() => navigate(`/votar/${enc.id}`)}
+              />
+            ))}
           </div>
         )}
       </div>

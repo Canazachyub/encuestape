@@ -15,13 +15,13 @@ export const FORO_CATEGORIES = [
 ];
 
 export const CONFIG: AppConfig = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbzy35ty3fcpSCNhYKsM-QaTFtl8lWTqLFTNunoLZ6TUfjZfHUtWrQCjFbb-QA076wix5w/exec',
+  API_URL: 'https://script.google.com/macros/s/AKfycbw3XoTSmExIcApLZYwJy9aLDFSgoXmaar8AGKQm-jjofAMGQBIbSQ81KGNWkvl_zt2Tmw/exec',
   SITE_NAME: 'EncuestaPe',
   SITE_SLOGAN: 'La voz del Perú en datos',
   REFRESH_INTERVAL: 30000,
   DNI_LENGTH: 8,
   WHATSAPP_NUMBER: '51921647291',
-  DEMO_MODE: false,
+  DEMO_MODE: true,
   RECAPTCHA_SITE_KEY: '6LeanH4sAAAAAAt2t6Qb8BoTII3eAchnu4FdJjhH',
 };
 
