@@ -2,7 +2,7 @@ import type { DemoData } from '../types';
 
 const STORAGE_KEY = 'encuestape_data';
 const VERSION_KEY = 'encuestape_data_version';
-const DATA_VERSION = '2026-05-17-v3'; // bump this to force-clear localStorage
+const DATA_VERSION = '2026-05-17-v4'; // bump this to force-clear localStorage
 
 export function loadDemoData(): DemoData | null {
   try {
