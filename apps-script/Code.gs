@@ -56,6 +56,8 @@ function doGet(e) {
     case 'getForo': result = getForo(); break;
     // Imagenes
     case 'getImagenes': result = getImagenes(); break;
+    // Logos de partidos
+    case 'getLogosPartidos': result = getLogosPartidos(); break;
     // Bulk — single call for all public data
     case 'getAllPublicData': result = getAllPublicData(); break;
     default: result = { error: 'Accion no valida' };
@@ -915,6 +917,28 @@ function eliminarImagen(data) {
   return { exito: false, mensaje: 'Imagen no encontrada.' };
 }
 
+// ── Logos de Partidos ──────────────────────────────
+
+/**
+ * Hoja LogosPartidos: partido | logo_url
+ * Permite al admin pegar URLs de logos oficiales (Google Drive, etc.)
+ * que se usan como prioridad #1 en la web y en exportacion de imagenes.
+ */
+function getLogosPartidos() {
+  const sheet = ss.getSheetByName('LogosPartidos');
+  if (!sheet) return { logos: {} };
+  const data = sheet.getDataRange().getValues();
+  const logos = {};
+  for (let i = 1; i < data.length; i++) {
+    const partido = data[i][0];
+    const url = data[i][1];
+    if (partido && url) {
+      logos[partido] = url;
+    }
+  }
+  return { logos };
+}
+
 // ── Bulk Public Data (single call) ─────────────────
 
 /**
@@ -959,6 +983,7 @@ function getAllPublicData() {
     denuncias: getDenuncias().denuncias,
     foro: getForo().foro,
     estadisticas: getEstadisticas(),
+    logos_partidos: getLogosPartidos().logos,
   };
 }
 
@@ -1041,7 +1066,7 @@ function setupSheets() {
     sheet.appendRow(['clave', 'valor']);
     sheet.getRange(1, 1, 1, 2).setFontWeight('bold').setBackground(HEADER_BG).setFontColor(HEADER_FG);
     sheet.appendRow(['admin_user', 'ENCUESTAPE2026']);
-    sheet.appendRow(['admin_pass_hash', '54b46e1820dae2966e9da6c6d0f83238cc287aa38579daab2e0ba1ba86f0bfd8']);
+    sheet.appendRow(['admin_pass_hash', '5b4085debc0de129a1bf9ac77aef9ae68502cfcde2742a749c610fcd80c64fd9']);
     sheet.appendRow(['site_title', 'EncuestaPe']);
     sheet.appendRow(['site_slogan', 'La voz del Peru en datos']);
     sheet.appendRow(['whatsapp', '+51921647291']);
@@ -1104,6 +1129,57 @@ function setupSheets() {
     sheet.appendRow(['encuesta_id', 'opcion', 'cantidad']);
     sheet.getRange(1, 1, 1, 3).setFontWeight('bold').setBackground(HEADER_BG).setFontColor(HEADER_FG);
     sheet.setColumnWidth(1, 100); sheet.setColumnWidth(2, 400); sheet.setColumnWidth(3, 100);
+  }
+
+  // ── LogosPartidos (logos oficiales mantenidos por admin) ──
+  sheet = getOrCreateSheet('LogosPartidos');
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['partido', 'logo_url']);
+    sheet.getRange(1, 1, 1, 2).setFontWeight('bold').setBackground(HEADER_BG).setFontColor(HEADER_FG);
+    sheet.setColumnWidth(1, 300); sheet.setColumnWidth(2, 500);
+    // Pre-poblar con los 36 logos de partidos presidenciales (JNE)
+    var logosData = [
+      ['Ahora Nacion', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2980'],
+      ['Alianza Electoral Venceremos', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/3025'],
+      ['Alianza para el Progreso', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/1257'],
+      ['Avanza Pais', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2173'],
+      ['Civico Obras', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2941'],
+      ['Cooperacion Popular', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2995'],
+      ['Democrata Unido Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2867'],
+      ['Democrata Verde', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2895'],
+      ['Democratico Federal', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2986'],
+      ['Fe en el Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2898'],
+      ['Frente de la Esperanza', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2857'],
+      ['FREPAP', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2901'],
+      ['Frente Popular Agricola FIA del Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2901'],
+      ['Fuerza Popular', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/1366'],
+      ['Fuerza y Libertad', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/3024'],
+      ['Integridad Democratica', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2985'],
+      ['Juntos por el Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/1264'],
+      ['Libertad Popular', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2933'],
+      ['Pais para Todos', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2956'],
+      ['Partido Aprista Peruano', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2930'],
+      ['Partido del Buen Gobierno', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2961'],
+      ['Partido Morado', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2840'],
+      ['Patriotico del Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2869'],
+      ['Peru Accion', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2932'],
+      ['Peru Libre', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2218'],
+      ['Peru Moderno', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2924'],
+      ['Peru Primero', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2925'],
+      ['Podemos Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2731'],
+      ['PRIN', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2921'],
+      ['Primero la Gente', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2931'],
+      ['Progresemos', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2967'],
+      ['PTE Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2939'],
+      ['Renovacion Popular', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/22'],
+      ['Salvemos al Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2927'],
+      ['Sicreo', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2935'],
+      ['Somos Peru', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/14'],
+      ['Un Camino Diferente', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/2998'],
+      ['Unidad Nacional', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/3023'],
+      ['Accion Popular', 'https://sroppublico.jne.gob.pe/Consulta/Simbolo/GetSimbolo/8']
+    ];
+    sheet.getRange(2, 1, logosData.length, 2).setValues(logosData);
   }
 
   // ── Candidatos (opciones de encuestas grandes) ──
@@ -1633,4 +1709,127 @@ function poblarTodo() {
   poblarTodoPortalNoticias();
   Logger.log('Todo poblado! La web ahora mostrara todos los datos desde Google Sheets.');
   Logger.log('NOTA: Si ya tenias votos en la hoja Votos, ejecuta migrarVotosAConteos() para generar los conteos.');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SEGUNDA VUELTA 2026 — Ejecutar UNA SOLA VEZ desde Apps Script
+// Cierra encuestas antiguas y agrega E07 y E08 con candidatos
+// ══════════════════════════════════════════════════════════════
+function setupSegundaVuelta() {
+  var BASE_URL = 'https://encuestape.com/assets/rectores/';
+
+  // ── 1. Cerrar todas las encuestas activas existentes ──
+  var encSheet = ss.getSheetByName('Encuestas');
+  if (encSheet && encSheet.getLastRow() > 1) {
+    var encData = encSheet.getDataRange().getValues();
+    for (var i = 1; i < encData.length; i++) {
+      if (encData[i][3] === 'activa') {
+        encSheet.getRange(i + 1, 4).setValue('cerrada');
+      }
+    }
+    Logger.log('Encuestas antiguas cerradas.');
+  }
+
+  // ── 2. Insertar E07 — Rector UNA Puno ──
+  var e07 = [
+    'E07',
+    '¿Para usted, quién debería ser el próximo Rector de la UNA Puno?',
+    'Encuesta de preferencia para la elección del próximo Rector de la Universidad Nacional del Altiplano - Puno.',
+    'activa',
+    '@CANDIDATOS',
+    1000,
+    '2026-05-17',
+    '2026-05-28',
+    'ELECCIONES',
+    true,
+    'PUNO',
+    'GENERAL'
+  ];
+
+  // ── 3. Insertar E08 — Segunda Vuelta Presidencial ──
+  var e08 = [
+    'E08',
+    '¿Por quién votaría usted en la Segunda Vuelta Presidencial?',
+    'Encuesta de intención de voto para la Segunda Vuelta de las Elecciones Presidenciales 2026.',
+    'activa',
+    '@CANDIDATOS',
+    5000,
+    '2026-05-17',
+    '2026-06-10',
+    'ELECCIONES',
+    true,
+    'NACIONAL',
+    'PRESIDENTE'
+  ];
+
+  // Verificar si ya existen y eliminarlas para evitar duplicados
+  var existingData = encSheet.getDataRange().getValues();
+  var toDelete = [];
+  for (var r = existingData.length - 1; r >= 1; r--) {
+    if (existingData[r][0] === 'E07' || existingData[r][0] === 'E08') {
+      toDelete.push(r + 1);
+    }
+  }
+  toDelete.forEach(function(row) { encSheet.deleteRow(row); });
+
+  encSheet.appendRow(e07);
+  encSheet.appendRow(e08);
+  Logger.log('E07 y E08 agregadas a la hoja Encuestas.');
+
+  // ── 4. Candidatos ──
+  var candSheet = getOrCreateSheet('Candidatos');
+  if (candSheet.getLastRow() === 0) {
+    candSheet.appendRow(['encuesta_id', 'nombre', 'partido', 'foto_url', 'url_hoja_vida', 'numero']);
+  }
+
+  // Eliminar candidatos anteriores de E07 y E08
+  var candData = candSheet.getDataRange().getValues();
+  var candToDelete = [];
+  for (var c = candData.length - 1; c >= 1; c--) {
+    if (candData[c][0] === 'E07' || candData[c][0] === 'E08') {
+      candToDelete.push(c + 1);
+    }
+  }
+  candToDelete.forEach(function(row) { candSheet.deleteRow(row); });
+
+  // Candidatos E07 — Rector
+  candSheet.appendRow(['E07', 'Dr. Walter Tudela Mamani',       '', BASE_URL + 'tudela.jpg',              '', 1]);
+  candSheet.appendRow(['E07', 'Dr. Charles Mendoza Mollocondo', '', BASE_URL + 'charles-mendoza.jpg',     '', 2]);
+  candSheet.appendRow(['E07', 'Dr. Dante Salas Ávila',          '', BASE_URL + 'dante-salas.jpg',         '', 3]);
+
+  // Candidatos E08 — Segunda Vuelta
+  candSheet.appendRow(['E08', 'Keiko Fujimori',       'Fuerza Popular',      BASE_URL + 'keiko.jpg',              '', 1]);
+  candSheet.appendRow(['E08', 'Roberto Sánchez',      'Juntos por el Perú',  BASE_URL + 'roberto-sanchez.jpg',    '', 2]);
+  candSheet.appendRow(['E08', 'Rafael López Aliaga',  'Renovación Popular',  BASE_URL + 'rafael-lopez-aliaga.jpg','', 3]);
+
+  Logger.log('Candidatos de E07 y E08 agregados.');
+
+  // ── 5. Conteos iniciales (votos de prueba) ──
+  var conteosSheet = getOrCreateSheet('Conteos');
+  if (conteosSheet.getLastRow() === 0) {
+    conteosSheet.appendRow(['encuesta_id', 'opcion', 'cantidad']);
+  }
+
+  // Eliminar conteos anteriores de E07 y E08
+  var ctData = conteosSheet.getDataRange().getValues();
+  var ctToDelete = [];
+  for (var t = ctData.length - 1; t >= 1; t--) {
+    if (ctData[t][0] === 'E07' || ctData[t][0] === 'E08') {
+      ctToDelete.push(t + 1);
+    }
+  }
+  ctToDelete.forEach(function(row) { conteosSheet.deleteRow(row); });
+
+  // Votos de prueba E07
+  conteosSheet.appendRow(['E07', 'Dr. Walter Tudela Mamani',       154]);
+  conteosSheet.appendRow(['E07', 'Dr. Charles Mendoza Mollocondo', 130]);
+  conteosSheet.appendRow(['E07', 'Dr. Dante Salas Ávila',          100]);
+
+  // Votos de prueba E08 (equilibrados)
+  conteosSheet.appendRow(['E08', 'Keiko Fujimori',      0]);
+  conteosSheet.appendRow(['E08', 'Roberto Sánchez',     0]);
+  conteosSheet.appendRow(['E08', 'Rafael López Aliaga', 0]);
+
+  Logger.log('Conteos iniciales listos.');
+  Logger.log('✅ setupSegundaVuelta() completado. Encuestape.com mostrara E07 y E08 en produccion.');
 }
