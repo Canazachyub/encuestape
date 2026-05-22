@@ -160,10 +160,11 @@ function getEncuestas() {
             if (candidatosData[c][0] === row[0]) {
               const nombre = candidatosData[c][1];
               const partido = candidatosData[c][2];
-              if (partido) {
+              const foto_url = candidatosData[c][3] || '';
+              if (partido || foto_url) {
                 opciones.push({
-                  nombre: nombre, partido: partido,
-                  foto_url: candidatosData[c][3] || '',
+                  nombre: nombre, partido: partido || '',
+                  foto_url: foto_url,
                   url_hoja_vida: candidatosData[c][4] || '',
                   numero: candidatosData[c][5] || 0
                 });
@@ -1832,4 +1833,34 @@ function setupSegundaVuelta() {
 
   Logger.log('Conteos iniciales listos.');
   Logger.log('✅ setupSegundaVuelta() completado. Encuestape.com mostrara E07 y E08 en produccion.');
+}
+
+/**
+ * Actualiza los candidatos de E07 en la hoja Candidatos para que tengan
+ * partido = 'UNA - Puno' y las URLs de fotos correctas.
+ * Ejecutar UNA VEZ desde el editor de Apps Script si las imagenes no cargan.
+ */
+function actualizarCandidatosRector() {
+  const candidatosSheet = ss.getSheetByName('Candidatos');
+  const data = candidatosSheet.getDataRange().getValues();
+
+  const fotoMap = {
+    'Dr. Walter Tudela Mamani':       'https://canazachyub.github.io/encuestape/assets/rectores/tudela.jpg',
+    'Dr. Charles Mendoza Mollocondo': 'https://canazachyub.github.io/encuestape/assets/rectores/charles-mendoza.jpg',
+    'Dr. Dante Salas Ávila':          'https://canazachyub.github.io/encuestape/assets/rectores/dante-salas.jpg',
+  };
+
+  let updated = 0;
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0] === 'E07') {
+      const nombre = data[i][1];
+      const rowNum = i + 1;
+      candidatosSheet.getRange(rowNum, 3).setValue('UNA - Puno');
+      if (fotoMap[nombre]) {
+        candidatosSheet.getRange(rowNum, 4).setValue(fotoMap[nombre]);
+      }
+      updated++;
+    }
+  }
+  Logger.log('✅ actualizarCandidatosRector: ' + updated + ' candidatos actualizados con partido y foto_url.');
 }
