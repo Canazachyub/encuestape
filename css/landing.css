@@ -1367,6 +1367,14 @@ a.how-to-vote-step {
   line-height: 1.1;
 }
 
+.pollster-party-numero {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #0d2550;
+  line-height: 1;
+  font-family: var(--font-display, sans-serif);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .pollster-card { width: 100px; }

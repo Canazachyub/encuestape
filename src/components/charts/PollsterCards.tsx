@@ -98,10 +98,12 @@ export default function PollsterCards({ resultados, encuesta, allEncuestas = [],
                 {formatShortName(r.opcion)}
               </div>
 
-              {/* Party logo */}
+              {/* Party logo / Candidate number */}
               <div className="pollster-party">
                 {logoUrl ? (
                   <PollsterLogo url={logoUrl} partido={partyName} abbr={party?.abbr} />
+                ) : candidate?.numero ? (
+                  <span className="pollster-party-numero">{candidate.numero}</span>
                 ) : (
                   <span className="pollster-party-text">
                     {party?.abbr || partyName.substring(0, 6).toUpperCase() || '?'}

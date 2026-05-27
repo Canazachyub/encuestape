@@ -1865,6 +1865,24 @@ function actualizarCandidatosRector() {
   Logger.log('✅ actualizarCandidatosRector: ' + updated + ' candidatos actualizados con partido y foto_url.');
 }
 
+function actualizarNumerosE07() {
+  var numeroMap = {
+    'Dr. Walter Tudela Mamani':       2,
+    'Dr. Charles Mendoza Mollocondo': 1,
+    'Dr. Dante Salas Ávila':          3,
+  };
+  var sheet = ss.getSheetByName('Candidatos');
+  var data = sheet.getDataRange().getValues();
+  var updated = 0;
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] === 'E07' && numeroMap[data[i][1]] !== undefined) {
+      sheet.getRange(i + 1, 6).setValue(numeroMap[data[i][1]]);
+      updated++;
+    }
+  }
+  Logger.log('✅ actualizarNumerosE07: ' + updated + ' candidatos actualizados.');
+}
+
 function actualizarFechaCierreE07() {
   var encSheet = ss.getSheetByName('Encuestas');
   var data = encSheet.getDataRange().getValues();

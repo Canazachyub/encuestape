@@ -9861,9 +9861,9 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       descripcion: 'Encuesta de preferencia para la elección del próximo Rector de la Universidad Nacional del Altiplano - Puno.',
       estado: 'activa',
       opciones: [
-        { nombre: 'Dr. Walter Tudela Mamani', partido: '', foto_url: '/assets/rectores/tudela.jpg', logo_partido_url: '', url_hoja_vida: '' },
-        { nombre: 'Dr. Charles Mendoza Mollocondo', partido: '', foto_url: '/assets/rectores/charles-mendoza.jpg', logo_partido_url: '', url_hoja_vida: '' },
-        { nombre: 'Dr. Dante Salas Ávila', partido: '', foto_url: '/assets/rectores/dante-salas.jpg', logo_partido_url: '', url_hoja_vida: '' },
+        { nombre: 'Dr. Walter Tudela Mamani', partido: '', foto_url: '/assets/rectores/tudela.jpg', logo_partido_url: '', url_hoja_vida: '', numero: 2 },
+        { nombre: 'Dr. Charles Mendoza Mollocondo', partido: '', foto_url: '/assets/rectores/charles-mendoza.jpg', logo_partido_url: '', url_hoja_vida: '', numero: 1 },
+        { nombre: 'Dr. Dante Salas Ávila', partido: '', foto_url: '/assets/rectores/dante-salas.jpg', logo_partido_url: '', url_hoja_vida: '', numero: 3 },
       ],
       meta_votos: 1000,
       fecha_inicio: '2026-05-17',
