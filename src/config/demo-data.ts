@@ -9867,7 +9867,7 @@ export const DEFAULT_DEMO_DATA: DemoData = {
       ],
       meta_votos: 1000,
       fecha_inicio: '2026-05-17',
-      fecha_fin: '2026-05-28',
+      fecha_fin: '2026-05-26',
       categoria: 'ELECCIONES',
       region: 'PUNO',
       tipo_eleccion: 'GENERAL',

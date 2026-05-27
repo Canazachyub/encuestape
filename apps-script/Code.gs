@@ -1740,7 +1740,7 @@ function setupSegundaVuelta() {
     '@CANDIDATOS',
     1000,
     '2026-05-17',
-    '2026-05-28',
+    '2026-05-26',
     'ELECCIONES',
     true,
     'PUNO',
@@ -1863,4 +1863,17 @@ function actualizarCandidatosRector() {
     }
   }
   Logger.log('✅ actualizarCandidatosRector: ' + updated + ' candidatos actualizados con partido y foto_url.');
+}
+
+function actualizarFechaCierreE07() {
+  var encSheet = ss.getSheetByName('Encuestas');
+  var data = encSheet.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] === 'E07') {
+      encSheet.getRange(i + 1, 8).setValue('2026-05-26');
+      Logger.log('✅ E07 fecha_fin actualizada a 2026-05-26');
+      return;
+    }
+  }
+  Logger.log('❌ E07 no encontrada.');
 }
